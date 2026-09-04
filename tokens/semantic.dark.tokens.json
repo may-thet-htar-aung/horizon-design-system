@@ -1,0 +1,455 @@
+{
+  "color": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        1,
+        1
+      ]
+    }
+  },
+  "color-bg-base": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-surfaceprimary": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-overlay": {
+    "$type": "color",
+    "$value": "{color-neutral-400a}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-400a}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-primary-light": {
+    "$type": "color",
+    "$value": "{color-blue-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-primary-idle": {
+    "$type": "color",
+    "$value": "{color-blue-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-primary-hovered": {
+    "$type": "color",
+    "$value": "{color-blue-700}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-primary-focused": {
+    "$type": "color",
+    "$value": "{color-blue-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-negative-light": {
+    "$type": "color",
+    "$value": "{color-red-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-negative-idle": {
+    "$type": "color",
+    "$value": "{color-red-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-negative-hovered": {
+    "$type": "color",
+    "$value": "{color-red-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-negative-focused": {
+    "$type": "color",
+    "$value": "{color-red-700}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-primary-neutral-idle": {
+    "$type": "color",
+    "$value": "{color-neutral-0}"
+  },
+  "color-bg-primary-neutral-hovered": {
+    "$type": "color",
+    "$value": "{color-neutral-50}"
+  },
+  "color-bg-primary-neutral-focused": {
+    "$type": "color",
+    "$value": "{color-neutral-100}"
+  },
+  "color-bg-positive-light": {
+    "$type": "color",
+    "$value": "{color-green-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-positive-idle": {
+    "$type": "color",
+    "$value": "{color-green-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-positive-hovered": {
+    "$type": "color",
+    "$value": "{color-green-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-positive-focused": {
+    "$type": "color",
+    "$value": "{color-green-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-warning-light": {
+    "$type": "color",
+    "$value": "{color-amber-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-warning-idle": {
+    "$type": "color",
+    "$value": "{color-amber-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-warning-hovered": {
+    "$type": "color",
+    "$value": "{color-amber-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-warning-focused": {
+    "$type": "color",
+    "$value": "{color-amber-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-info-light": {
+    "$type": "color",
+    "$value": "{color-sky-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-info-idle": {
+    "$type": "color",
+    "$value": "{color-sky-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-info-hovered": {
+    "$type": "color",
+    "$value": "{color-sky-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-info-focused": {
+    "$type": "color",
+    "$value": "{color-sky-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-update-light": {
+    "$type": "color",
+    "$value": "{color-violet-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-update-idle": {
+    "$type": "color",
+    "$value": "{color-violet-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-update-hovered": {
+    "$type": "color",
+    "$value": "{color-violet-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-update-focused": {
+    "$type": "color",
+    "$value": "{color-violet-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-blue": {
+    "$type": "color",
+    "$value": "{color-blue-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-indigo": {
+    "$type": "color",
+    "$value": "{color-violet-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-cyan": {
+    "$type": "color",
+    "$value": "{color-cyan-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-green": {
+    "$type": "color",
+    "$value": "{color-green-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-amber": {
+    "$type": "color",
+    "$value": "{color-amber-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-red": {
+    "$type": "color",
+    "$value": "{color-red-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-sky": {
+    "$type": "color",
+    "$value": "{color-sky-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-bg-accent-violet": {
+    "$type": "color",
+    "$value": "{color-violet-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-primary": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-secondary": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-bold": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-inverse-secondary": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-disabled-on-dark": {
+    "$type": "color",
+    "$value": "{color-neutral-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-brand": {
+    "$type": "color",
+    "$value": "{color-blue-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-negative": {
+    "$type": "color",
+    "$value": "{color-red-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-positive": {
+    "$type": "color",
+    "$value": "{color-green-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-warning": {
+    "$type": "color",
+    "$value": "{color-amber-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-info": {
+    "$type": "color",
+    "$value": "{color-sky-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-update": {
+    "$type": "color",
+    "$value": "{color-violet-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-primary": {
+    "$type": "color",
+    "$value": "{color-neutral-800}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-secondary": {
+    "$type": "color",
+    "$value": "{color-neutral-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-bold": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-0}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-inverse-secondary": {
+    "$type": "color",
+    "$value": "{color-neutral-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-disabled-on-dark": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-brand": {
+    "$type": "color",
+    "$value": "{color-blue-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-negative": {
+    "$type": "color",
+    "$value": "{color-red-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-positive": {
+    "$type": "color",
+    "$value": "{color-green-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-warning": {
+    "$type": "color",
+    "$value": "{color-amber-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-info": {
+    "$type": "color",
+    "$value": "{color-sky-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-update": {
+    "$type": "color",
+    "$value": "{color-violet-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-base": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-inverse": {
+    "$type": "color",
+    "$value": "{color-neutral-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-surfaceprimary": {
+    "$type": "color",
+    "$value": "{color-neutral-900}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-overlay": {
+    "$type": "color",
+    "$value": "{color-neutral-400a}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-400a}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-brand-light": {
+    "$type": "color",
+    "$value": "{color-blue-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-brand-default": {
+    "$type": "color",
+    "$value": "{color-blue-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-brand-bold": {
+    "$type": "color",
+    "$value": "{color-blue-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-negative-light": {
+    "$type": "color",
+    "$value": "{color-red-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-negative-default": {
+    "$type": "color",
+    "$value": "{color-red-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-negative-bold": {
+    "$type": "color",
+    "$value": "{color-red-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-positive-light": {
+    "$type": "color",
+    "$value": "{color-green-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-positive-default": {
+    "$type": "color",
+    "$value": "{color-green-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-positive-bold": {
+    "$type": "color",
+    "$value": "{color-green-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-warning-light": {
+    "$type": "color",
+    "$value": "{color-amber-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-warning-default": {
+    "$type": "color",
+    "$value": "{color-amber-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-warning-bold": {
+    "$type": "color",
+    "$value": "{color-amber-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-info-light": {
+    "$type": "color",
+    "$value": "{color-sky-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-info-default": {
+    "$type": "color",
+    "$value": "{color-sky-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-info-bold": {
+    "$type": "color",
+    "$value": "{color-sky-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-update-light": {
+    "$type": "color",
+    "$value": "{color-violet-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-update-default": {
+    "$type": "color",
+    "$value": "{color-violet-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-border-update-bold": {
+    "$type": "color",
+    "$value": "{color-violet-500}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  }
+}

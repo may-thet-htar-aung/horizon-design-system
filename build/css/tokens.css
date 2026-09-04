@@ -1,0 +1,215 @@
+:root {
+  --color-neutral-0: #ffffff; /** White. */
+  --color-neutral-50: #f7f9fb; /** Sunken ground. */
+  --color-neutral-100: #f1f4f7; /** Sunken surface. */
+  --color-neutral-200: #eaeff4; /** The border grey. 8 components use it. */
+  --color-neutral-300: #d7dee7; /** Strong border. */
+  --color-neutral-400: #b9c7d6; /** Disabled. */
+  --color-neutral-500: #8a94a6; /** Subtle text. 1,867 layers in production. */
+  --color-neutral-600: #7a8899; /** Between subtle and secondary. */
+  --color-neutral-700: #5a6b7e; /** Secondary text. 2,640 layers in production. */
+  --color-neutral-800: #3a4553; /** Strong secondary. */
+  --color-neutral-900: #1b2733; /** Primary text. 2,382 layers in production. */
+  --color-neutral-950: #12181f; /** Max contrast. Dark-mode ground. */
+  --color-blue-50: #eef4ff; /** Tag and icon tile. */
+  --color-blue-100: #c9d9f8; /** Production tint. */
+  --color-blue-200: #7fa8ee; /** Production tint. */
+  --color-blue-300: #5fa3db; /** Light blue. */
+  --color-blue-400: #3b82f6; /** Button2, SignInBtn. Action colour on dark. */
+  --color-blue-500: #2e7cc4; /** Orphan Button and the wordmark. */
+  --color-blue-600: #1d4ed8; /** btn primary, btn-cta, book now button, btn admin. */
+  --color-blue-700: #1840b1; /** DERIVED from 600 at 82% lightness. Hover. */
+  --color-blue-800: #13338f; /** DERIVED from 600 at 66% lightness. Pressed. */
+  --color-navy-700: #1f5c8f; /** Back-office accent, visited link. */
+  --color-navy-800: #0f2f6b; /** Sidebar v2, PrimaryButton2. */
+  --color-navy-900: #0a2450; /** Sidebar active item. */
+  --color-green-50: #e3f5ea; /** Subtle positive surface. */
+  --color-green-600: #1f8a4c; /** Positive. 203 layers, all three platforms. */
+  --color-green-800: #14532d; /** Positive on a subtle surface. */
+  --color-red-50: #fdecea; /** Subtle negative surface. */
+  --color-red-500: #e02b2b; /** Field error border. */
+  --color-red-600: #c1362f; /** Negative icon. 84 layers. */
+  --color-red-700: #a5261d; /** Negative text. 67 layers. */
+  --color-amber-50: #fff4e0; /** Subtle warning surface. */
+  --color-amber-700: #8a5a00; /** Warning. 108 layers. */
+  --color-orange-500: #f0932b; /** Accent. Review rating. */
+  --color-neutral-900a: rgba(27, 39, 51, 0.55); /** Scrim behind modals and drawers. 55% alpha. */
+  --spacing-1: 4px; /** 4px base unit. */
+  --spacing-2: 8px; /** 4px base unit. */
+  --spacing-3: 12px; /** 4px base unit. */
+  --spacing-4: 16px; /** 4px base unit. */
+  --spacing-5: 20px; /** 4px base unit. */
+  --spacing-6: 24px; /** 4px base unit. */
+  --spacing-7: 32px; /** 4px base unit. */
+  --spacing-8: 40px; /** 4px base unit. */
+  --spacing-9: 48px; /** 4px base unit. */
+  --spacing-10: 64px; /** 4px base unit. */
+  --border-size-1: 1px; /** Stroke weight step. */
+  --border-size-2: 2px; /** Stroke weight step. */
+  --border-size-3: 4px; /** Stroke weight step. */
+  --border-radius-1: 2px; /** Corner radius step. 7 is the pill. */
+  --border-radius-2: 4px; /** Corner radius step. 7 is the pill. */
+  --border-radius-3: 6px; /** Corner radius step. 7 is the pill. */
+  --border-radius-4: 8px; /** Corner radius step. 7 is the pill. */
+  --border-radius-5: 12px; /** Corner radius step. 7 is the pill. */
+  --border-radius-6: 16px; /** Corner radius step. 7 is the pill. */
+  --border-radius-7: 999px; /** Corner radius step. 7 is the pill. */
+  --size-1: 16px; /** Control and icon dimension step. */
+  --size-2: 20px; /** Control and icon dimension step. */
+  --size-3: 24px; /** Control and icon dimension step. */
+  --size-4: 28px; /** Control and icon dimension step. */
+  --size-5: 32px; /** Control and icon dimension step. */
+  --size-6: 34px; /** Control and icon dimension step. */
+  --size-7: 36px; /** Control and icon dimension step. */
+  --size-8: 40px; /** Control and icon dimension step. */
+  --size-9: 44px; /** Control and icon dimension step. */
+  --size-10: 48px; /** Control and icon dimension step. */
+  --color-bg-base: #ffffff; /** Page ground. */
+  --color-bg-base-subtle: #f7f9fb; /** Sunken ground. Footer, table stripe. */
+  --color-bg-base-inverse: #0f2f6b; /** Sidebar and dark panels. */
+  --color-bg-surface-primary: #ffffff; /** Card and panel surface. */
+  --color-bg-surface-secondary: #f7f9fb; /** Nested or sunken surface. */
+  --color-bg-primary: #1d4ed8; /** Primary action fill. */
+  --color-bg-primary-hovered: #1840b1; /** Primary action, pointer over. */
+  --color-bg-primary-pressed: #13338f; /** Primary action, held down. */
+  --color-bg-primary-subtle: #eef4ff; /** Quiet primary ground. Selected chip. */
+  --color-bg-primary-disabled: #d7dee7; /** Primary action, unavailable. */
+  --color-bg-secondary: #ffffff; /** Outlined action fill. */
+  --color-bg-secondary-hovered: #f1f4f7; /** Outlined action, pointer over. */
+  --color-bg-negative: #a5261d; /** Destructive action fill. */
+  --color-bg-negative-subtle: #fdecea; /** Error banner ground. */
+  --color-bg-positive-subtle: #e3f5ea; /** Success banner ground. */
+  --color-bg-warning-subtle: #fff4e0; /** Warning banner ground. */
+  --color-bg-info-subtle: #eef4ff; /** Info banner and tag ground. */
+  --color-bg-overlay: rgba(27, 39, 51, 0.55); /** Scrim behind modals and drawers. */
+  --color-text-primary: #1b2733; /** Body copy and titles. */
+  --color-text-secondary: #5a6b7e; /** Supporting copy, table cells. */
+  --color-text-subtle: #8a94a6; /** Placeholder, metadata, captions. */
+  --color-text-subtlest: #b9c7d6; /** Lowest-emphasis text. */
+  --color-text-disabled: #b9c7d6; /** Text inside a disabled control. */
+  --color-text-inverse: #ffffff; /** Text on a filled action or inverse surface. */
+  --color-text-link: #1d4ed8; /** Inline link. Follows the primary action rather than restating blue. */
+  --color-text-link-hovered: #1840b1; /** Link, pointer over. */
+  --color-text-link-visited: #1f5c8f; /** Link already followed. */
+  --color-text-positive: #1f8a4c; /** Confirmation copy. */
+  --color-text-negative: #a5261d; /** Error copy. */
+  --color-text-warning: #8a5a00; /** Caution copy. */
+  --color-text-accent: #f0932b; /** Rating and highlight. */
+  --color-border-default: #eaeff4; /** Card, input, divider. */
+  --color-border-bold: #d7dee7; /** Outlined control at rest. */
+  --color-border-subtle: #f1f4f7; /** Faint divider. */
+  --color-border-focused: #1d4ed8; /** Keyboard focus ring. Follows the primary action. */
+  --color-border-negative: #e02b2b; /** Field in error. */
+  --color-border-disabled: #eaeff4; /** Border of a disabled control. */
+  --color-border-inverse: #ffffff; /** Border on an inverse surface. */
+  --color-icon-primary: #1b2733; /** Default icon. */
+  --color-icon-subtle: #8a94a6; /** Low-emphasis icon. */
+  --color-icon-inverse: #ffffff; /** Icon on a filled action. */
+  --color-icon-accent: #f0932b; /** Rating star. */
+  --color-icon-positive: #1f8a4c; /** Confirmed. */
+  --color-icon-negative: #a5261d; /** Failed, cancelled. */
+  --color-icon-warning: #8a5a00; /** Pending, expiring. */
+  --spacing-padding-2xs: 4px; /** Tightest inset. */
+  --spacing-padding-xs: 8px; /** Chip and tag inset. */
+  --spacing-padding-sm: 12px; /** Dense control inset. */
+  --spacing-padding-md: 16px; /** Default control and card inset. */
+  --spacing-padding-lg: 24px; /** Panel and section inset. */
+  --spacing-padding-xl: 32px; /** Page gutter. */
+  --spacing-gap-2xs: 4px; /** Icon to label. */
+  --spacing-gap-xs: 8px; /** Between related lines. */
+  --spacing-gap-sm: 12px; /** Within a group. */
+  --spacing-gap-md: 16px; /** Between blocks. */
+  --spacing-gap-lg: 24px; /** Between sections. */
+  --spacing-gap-xl: 40px; /** Between major regions. */
+  --spacing-margin-sm: 12px; /** Small outer offset. */
+  --spacing-margin-md: 16px; /** Default outer offset. */
+  --spacing-margin-lg: 32px; /** Section outer offset. */
+  --spacing-margin-xl: 64px; /** Page-level outer offset. */
+  --size-control-sm: 28px; /** Dense button and chip height. */
+  --size-control-md: 40px; /** Default button and input height. 40 web, 48 mobile, 34 back office. */
+  --size-control-lg: 44px; /** Prominent action height. */
+  --size-icon-sm: 16px; /** Inline icon. */
+  --size-icon-md: 20px; /** Default icon. */
+  --size-icon-lg: 24px; /** Prominent icon. */
+  --border-width-default: 1px; /** Card, input, divider. */
+  --border-width-bold: 2px; /** Emphasised outline. */
+  --border-width-focused: 2px; /** Focus ring thickness. */
+  --border-radius-control: 12px; /** Button, input, chip. 12 web and mobile, 2 back office. */
+  --border-radius-surface: 12px; /** Card, panel, modal. */
+  --border-radius-full: 999px; /** Pill and avatar. */
+  --size-display-lg: 57px; /** Material 3 display large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-lg: 64px; /** Material 3 display large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-lg: -0.25px; /** Material 3 display large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-display-md: 45px; /** Material 3 display medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-md: 52px; /** Material 3 display medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-md: 0px; /** Material 3 display medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-display-sm: 36px; /** Material 3 display small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-sm: 44px; /** Material 3 display small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-sm: 0px; /** Material 3 display small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-lg: 32px; /** Material 3 headline large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-lg: 40px; /** Material 3 headline large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-lg: 0px; /** Material 3 headline large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-md: 28px; /** Material 3 headline medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-md: 36px; /** Material 3 headline medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-md: 0px; /** Material 3 headline medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-sm: 24px; /** Material 3 headline small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-sm: 32px; /** Material 3 headline small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-sm: 0px; /** Material 3 headline small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-lg: 22px; /** Material 3 title large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-lg: 28px; /** Material 3 title large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-lg: 0px; /** Material 3 title large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-md: 16px; /** Material 3 title medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-md: 24px; /** Material 3 title medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-md: 0.15000000596046448px; /** Material 3 title medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-sm: 14px; /** Material 3 title small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-sm: 20px; /** Material 3 title small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-sm: 0.10000000149011612px; /** Material 3 title small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-lg: 16px; /** Material 3 body large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-lg: 24px; /** Material 3 body large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-lg: 0.5px; /** Material 3 body large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-md: 14px; /** Material 3 body medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-md: 20px; /** Material 3 body medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-md: 0.25px; /** Material 3 body medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-sm: 12px; /** Material 3 body small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-sm: 16px; /** Material 3 body small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-sm: 0.4000000059604645px; /** Material 3 body small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-lg: 14px; /** Material 3 label large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-lg: 20px; /** Material 3 label large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-lg: 0.10000000149011612px; /** Material 3 label large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-md: 12px; /** Material 3 label medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-md: 16px; /** Material 3 label medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-md: 0.5px; /** Material 3 label medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-sm: 11px; /** Material 3 label small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-sm: 16px; /** Material 3 label small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-sm: 0.5px; /** Material 3 label small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --weight-regular: 400; /** Body and long-form copy. */
+  --weight-medium: 500; /** Titles and labels. Material 3 base emphasis. */
+  --weight-bold: 600; /** Emphasised titles, buttons and prices. Extension of the M3 base scale. */
+  --family-default: Inter; /** Inter. Already 100% consistent across all three platforms — the one thing that was. */
+  --display-lg: 400 57px/64px Inter; /** horizon.type.display.lg — web and mobile. */
+  --display-md: 400 45px/52px Inter; /** horizon.type.display.md — web and mobile. */
+  --display-sm: 400 36px/44px Inter; /** horizon.type.display.sm — web and mobile. */
+  --headline-lg: 400 32px/40px Inter; /** horizon.type.headline.lg — web and mobile. */
+  --headline-md: 400 28px/36px Inter; /** horizon.type.headline.md — web and mobile. */
+  --headline-sm: 400 24px/32px Inter; /** horizon.type.headline.sm — web and mobile. */
+  --headline-lg-bold: Semi Bold 32px/40px Inter; /** horizon.type.headline.lg.bold — Inter Semi Bold 600. */
+  --title-lg: 400 22px/28px Inter; /** horizon.type.title.lg — web and mobile. */
+  --title-md: 500 16px/24px Inter; /** horizon.type.title.md — web and mobile. */
+  --title-sm: 500 14px/20px Inter; /** horizon.type.title.sm — web and mobile. */
+  --title-lg-bold: Semi Bold 22px/28px Inter; /** horizon.type.title.lg.bold — Inter Semi Bold 600. */
+  --title-md-bold: Semi Bold 16px/24px Inter; /** horizon.type.title.md.bold — Inter Semi Bold 600. */
+  --title-sm-bold: Semi Bold 14px/20px Inter; /** horizon.type.title.sm.bold — Inter Semi Bold 600. */
+  --body-lg: 400 16px/24px Inter; /** horizon.type.body.lg — web and mobile. */
+  --body-md: 400 14px/20px Inter; /** horizon.type.body.md — web and mobile. */
+  --body-sm: 400 12px/16px Inter; /** horizon.type.body.sm — web and mobile. */
+  --body-lg-bold: Semi Bold 16px/24px Inter; /** horizon.type.body.lg.bold — Inter Semi Bold 600. */
+  --label-lg: 500 14px/20px Inter; /** horizon.type.label.lg — web and mobile. */
+  --label-md: 500 12px/16px Inter; /** horizon.type.label.md — web and mobile. */
+  --label-sm: 500 11px/16px Inter; /** horizon.type.label.sm — web and mobile. */
+  --label-lg-bold: Semi Bold 14px/20px Inter; /** horizon.type.label.lg.bold — Inter Semi Bold 600. */
+  --elevation-level1: 0px 1px 2px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 1px 3px 0px rgb(10.588% 15.294% 20% / 0.1); /** Card and raised surface. Use where a card sits on a busy ground; keep border-only on quiet grounds. New to the system — the audited products use zero shadows today. */
+  --elevation-level2: 0px 2px 4px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.1); /** Sticky header, raised panel. New to the system — the audited products use zero shadows today. */
+  --elevation-level3: 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.12); /** Dropdown, popover, tooltip. New to the system — the audited products use zero shadows today. */
+  --elevation-level4: 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.08), 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.14); /** Modal and dialog. New to the system — the audited products use zero shadows today. */
+  --elevation-level5: 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.1), 0px 24px 48px 0px rgb(10.588% 15.294% 20% / 0.18); /** Full-screen overlay, command palette. New to the system — the audited products use zero shadows today. */
+}

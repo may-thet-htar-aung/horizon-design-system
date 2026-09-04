@@ -1,0 +1,57 @@
+{
+  "margin-page": {
+    "$type": "dimension",
+    "$value": "{spacing-16}",
+    "$description": "Page edge margin. M3: 16dp compact, 24dp medium and up"
+  },
+  "gap-gutter": {
+    "$type": "dimension",
+    "$value": "{spacing-16}",
+    "$description": "Gutter between grid columns"
+  },
+  "gap-pane": {
+    "$type": "dimension",
+    "$value": "{spacing-24}",
+    "$description": "M3 pane spacing between layout panes"
+  },
+  "gap-section": {
+    "$type": "dimension",
+    "$value": "{spacing-32}",
+    "$description": "Vertical gap between page sections"
+  },
+  "gap-card": {
+    "$type": "dimension",
+    "$value": "{spacing-12}",
+    "$description": "Gap between cards in a list or grid"
+  },
+  "gap-component": {
+    "$type": "dimension",
+    "$value": "{spacing-8}",
+    "$description": "Gap between components inside a group"
+  },
+  "gap-element": {
+    "$type": "dimension",
+    "$value": "{spacing-4}",
+    "$description": "Gap between elements inside a component"
+  },
+  "padding-container": {
+    "$type": "dimension",
+    "$value": "{spacing-16}",
+    "$description": "Inner padding of a page-level container"
+  },
+  "padding-card": {
+    "$type": "dimension",
+    "$value": "{spacing-16}",
+    "$description": "Inner padding of a card or surface"
+  },
+  "padding-list-item": {
+    "$type": "dimension",
+    "$value": "{spacing-16}",
+    "$description": "Inner padding of a list item row"
+  },
+  "padding-button-inline": {
+    "$type": "dimension",
+    "$value": "{spacing-24}",
+    "$description": "M3 button horizontal padding"
+  }
+}

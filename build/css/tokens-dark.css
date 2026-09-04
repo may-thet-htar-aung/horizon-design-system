@@ -1,0 +1,47 @@
+[data-theme="dark"] {
+  --color-bg-base: #12181f; /** Page ground. */
+  --color-bg-base-subtle: #1b2733; /** Sunken ground. Footer, table stripe. */
+  --color-bg-base-inverse: #ffffff; /** Sidebar and dark panels. */
+  --color-bg-surface-primary: #1b2733; /** Card and panel surface. */
+  --color-bg-surface-secondary: #3a4553; /** Nested or sunken surface. */
+  --color-bg-primary: #3b82f6; /** Primary action fill. */
+  --color-bg-primary-hovered: #5fa3db; /** Primary action, pointer over. */
+  --color-bg-primary-pressed: #2e7cc4; /** Primary action, held down. */
+  --color-bg-primary-subtle: #0a2450; /** Quiet primary ground. Selected chip. */
+  --color-bg-primary-disabled: #3a4553; /** Primary action, unavailable. */
+  --color-bg-secondary: #1b2733; /** Outlined action fill. */
+  --color-bg-secondary-hovered: #3a4553; /** Outlined action, pointer over. */
+  --color-bg-negative: #c1362f; /** Destructive action fill. */
+  --color-bg-negative-subtle: #a5261d; /** Error banner ground. */
+  --color-bg-positive-subtle: #14532d; /** Success banner ground. */
+  --color-bg-warning-subtle: #8a5a00; /** Warning banner ground. */
+  --color-bg-info-subtle: #0f2f6b; /** Info banner and tag ground. */
+  --color-bg-overlay: rgba(27, 39, 51, 0.55); /** Scrim behind modals and drawers. */
+  --color-text-primary: #ffffff; /** Body copy and titles. */
+  --color-text-secondary: #d7dee7; /** Supporting copy, table cells. */
+  --color-text-subtle: #b9c7d6; /** Placeholder, metadata, captions. */
+  --color-text-subtlest: #7a8899; /** Lowest-emphasis text. */
+  --color-text-disabled: #5a6b7e; /** Text inside a disabled control. */
+  --color-text-inverse: #12181f; /** Text on a filled action or inverse surface. */
+  --color-text-link: #3b82f6; /** Inline link. Follows the primary action rather than restating blue. */
+  --color-text-link-hovered: #5fa3db; /** Link, pointer over. */
+  --color-text-link-visited: #7fa8ee; /** Link already followed. */
+  --color-text-positive: #1f8a4c; /** Confirmation copy. */
+  --color-text-negative: #e02b2b; /** Error copy. */
+  --color-text-warning: #8a5a00; /** Caution copy. */
+  --color-text-accent: #f0932b; /** Rating and highlight. */
+  --color-border-default: #3a4553; /** Card, input, divider. */
+  --color-border-bold: #5a6b7e; /** Outlined control at rest. */
+  --color-border-subtle: #1b2733; /** Faint divider. */
+  --color-border-focused: #3b82f6; /** Keyboard focus ring. Follows the primary action. */
+  --color-border-negative: #e02b2b; /** Field in error. */
+  --color-border-disabled: #3a4553; /** Border of a disabled control. */
+  --color-border-inverse: #12181f; /** Border on an inverse surface. */
+  --color-icon-primary: #ffffff; /** Default icon. */
+  --color-icon-subtle: #b9c7d6; /** Low-emphasis icon. */
+  --color-icon-inverse: #12181f; /** Icon on a filled action. */
+  --color-icon-accent: #f0932b; /** Rating star. */
+  --color-icon-positive: #1f8a4c; /** Confirmed. */
+  --color-icon-negative: #e02b2b; /** Failed, cancelled. */
+  --color-icon-warning: #8a5a00; /** Pending, expiring. */
+}
