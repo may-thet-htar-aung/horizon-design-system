@@ -37,8 +37,8 @@
     "$value": {
       "colorSpace": "srgb",
       "components": [
-        0.6088235378265381,
         0.48627451062202454,
+        0.6705882549285889,
         0.9764705896377563
       ]
     }
@@ -1232,17 +1232,17 @@
     },
     "$description": "Fully rounded / pill"
   },
+  "elevation-legacy-color": {
+    "$type": "color",
+    "$value": "{color-neutral-300a}",
+    "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
+  },
   "elevation-legacy-level1-blur": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     },
-    "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
-  },
-  "elevation-legacy-color": {
-    "$type": "color",
-    "$value": "{color-neutral-300a}",
     "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
   },
   "elevation-legacy-level1-y": {
