@@ -1,44 +1,14 @@
 import StyleDictionary from 'style-dictionary';
+import { TYPOGRAPHY_FIX } from './tokens-preprocessor.js';
 
 const T = 'tokens/';
 const CORE = T + 'core.value.tokens.json';
 const STYLES = [T + 'typography.styles.tokens.json', T + 'effects.styles.tokens.json'];
 
-// Figma writes font weight as a style NAME. CSS needs a number.
-const WEIGHTS = { Thin:100, ExtraLight:200, Light:300, Regular:400, Medium:500,
-                  SemiBold:600, Bold:700, ExtraBold:800, Black:900 };
-
-// Runs BEFORE any transform, so the shorthand sees the fixed values.
-StyleDictionary.registerPreprocessor({
-  name: 'typography/fix',
-  preprocessor: (dict) => {
-    const walk = (node) => {
-      for (const key of Object.keys(node)) {
-        const t = node[key];
-        if (!t || typeof t !== 'object') continue;
-        if (t.$type === 'typography' && t.$value) {
-          const v = t.$value;
-          t.$value = {
-            ...v,
-            fontWeight: WEIGHTS[v.fontWeight] ?? v.fontWeight,
-            lineHeight: typeof v.lineHeight === 'number'
-              ? { value: v.lineHeight, unit: 'px' }
-              : v.lineHeight,
-          };
-        } else {
-          walk(t);
-        }
-      }
-      return node;
-    };
-    return walk(dict);
-  },
-});
-
 const css = (name, sources, selector, filter) =>
   new StyleDictionary({
     source: sources,
-    preprocessors: ['typography/fix'],
+    preprocessors: [TYPOGRAPHY_FIX],
     platforms: {
       css: {
         transformGroup: 'css',
@@ -52,7 +22,7 @@ const css = (name, sources, selector, filter) =>
 const native = (sources) =>
   new StyleDictionary({
     source: sources,
-    preprocessors: ['typography/fix'],
+    preprocessors: [TYPOGRAPHY_FIX],
     platforms: {
       ios: { transformGroup: 'ios-swift', buildPath: 'build/ios/',
              files: [{ destination: 'Tokens.swift', format: 'ios-swift/class.swift',
