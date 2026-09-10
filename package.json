@@ -5,14 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-     "build:tokens": "node build-tokens.js"
+    "build:tokens": "node build-tokens.js",
+    "build:token-data": "node build-token-data.js",
+    "tokens": "npm run build:tokens && npm run build:token-data",
+    "prestorybook": "npm run tokens",
+    "storybook": "storybook dev -p 6006",
+    "prebuild:storybook": "npm run tokens",
+    "build:storybook": "storybook build -o storybook-static"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "style-dictionary": "^5.5.2"
+    "@storybook/html-vite": "^10.6.0",
+    "storybook": "^10.6.0",
+    "style-dictionary": "^5.5.2",
+    "vite": "^8.2.2"
   }
-  
 }
