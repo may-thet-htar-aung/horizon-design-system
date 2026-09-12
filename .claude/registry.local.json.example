@@ -1,0 +1,12 @@
+{
+  "$comment": "Copy to .claude/registry.local.json and fill in the real IDs. That file is gitignored; this one is committed. Get the IDs with the Airtable MCP tools: list_bases for the baseId, then list_tables_for_base for the table IDs. Column names are NOT stored here — they are stable and are written out in .claude/skills/registry/SKILL.md.",
+  "baseId": "appXXXXXXXXXXXXXX",
+  "baseName": "Horizon DS - <your name>",
+  "tables": {
+    "components": "tblXXXXXXXXXXXXXX",
+    "stagingTesting": "tblXXXXXXXXXXXXXX",
+    "dsFeedback": "tblXXXXXXXXXXXXXX",
+    "githubCommits": "tblXXXXXXXXXXXXXX",
+    "oneOffComponents": "tblXXXXXXXXXXXXXX"
+  }
+}
