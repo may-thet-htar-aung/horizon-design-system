@@ -32,6 +32,12 @@ the production Storybook, read the docs page before the source, and written the 
 > (registry D10). **Stop and say so rather than inventing them.** A verdict formed against gates you
 > made up is worse than no verdict, because it writes `Cleared` into a cell that other agents treat
 > as a fact. Do not run until the skill exists.
+>
+> **As of 2026-09-12 this is a deliberate parking, not an oversight.** The reviewer stage is
+> deferred and `Completed` is the working finish line — see "Gate 4 is currently unreachable" in
+> `.claude/skills/registry/SKILL.md`. You are not holding anything up by refusing: nothing
+> downstream is waiting on your verdict, and devops's second job is parked for the same reason.
+> Refusing is the correct behaviour, and it stays correct until someone writes the gates.
 
 When it does exist, follow it in order. The shape of the job:
 
