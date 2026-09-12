@@ -42,9 +42,14 @@ report it, do not quietly drop it.
 
 **Check:** the two lists are reconciled, and every difference is written down.
 
-### 3 · Load the component and measure — do not eyeball
-Start Storybook (`tools.md` has the command) and open each story at
-`/iframe.html?id=<story-id>&viewMode=story`.
+### 3 · Load the deployed staging build and measure — do not eyeball
+Read `Staging Storybook` on the component's registry row and open that URL. **If the
+cell is empty, stop and say you are waiting.** There is no local fallback and no
+story-file fallback — not even briefly, not to save a round trip. The deployed build
+is what is under test, not whatever is on your machine. Waiting is a correct outcome.
+
+With the staging URL in hand, open each story at
+`<staging URL>/iframe.html?id=<story-id>&viewMode=story`.
 
 Read the numbers out of the browser rather than judging them by eye. Computed
 style against the Figma dimension is a fact; "looks about right" is not. For each
@@ -60,7 +65,26 @@ the component is wrong.
 
 **Check:** every number in your report came from a measurement, not an impression.
 
-### 4 · Exercise the states, do not just look at them
+### 4 · Before calling a colour wrong, confirm both sides are answering for the same mode
+A colour mismatch is only real if the design side and the rendered side are describing the same
+theme. Two things can be true independently, and either one alone makes a mismatch meaningless:
+
+- **The design side.** `get_variable_defs` answers in whichever mode the Figma file happens to be
+  open in — not necessarily the default, and not necessarily the mode you think you're reading.
+  Check the value against the node's other modes before trusting a single answer from it.
+- **The rendered side.** Know which theme the story is actually running under — a `data-theme`
+  attribute, a class on the root, a `prefers-color-scheme` state — before you read its computed
+  colour. A story pinned to dark compared against a light-mode token binding will disagree on every
+  colour, and none of those disagreements are the component's fault.
+
+Name the mode on both sides in your notes before you compare. A finding that says a colour is wrong
+without saying which mode it was checked against isn't verified — it's a guess that happened to
+disagree.
+
+**Check:** every colour comparison names the mode on both the design side and the rendered side,
+and the two match.
+
+### 5 · Exercise the states, do not just look at them
 A state that only changes colour has not been tested. Confirm behaviour:
 
 - **Disabled** — the click handler does not fire, and the control is genuinely inert
@@ -71,11 +95,11 @@ A state that only changes colour has not been tested. Confirm behaviour:
 
 **Check:** each interactive state was driven, not just rendered.
 
-### 5 · Capture the visual states
+### 6 · Capture the visual states
 Screenshot each state, including hover, disabled, and loading. Save them to
 `reports/<Component>/`. Where a case fails, capture the Figma render beside it.
 
-### 6 · Check the tokens
+### 7 · Check the tokens
 Confirm no raw hex, px, or font value appears in the component or its CSS. The
 token names live in `build/tokens/css/tokens.css` — that file is generated, so
 read it, never edit it.
@@ -83,9 +107,9 @@ read it, never edit it.
 A value the design left unbound is a design gap, not an engineering defect.
 Report it as a gap and say so; do not log it against the engineer.
 
-### 7 · Write the report
+### 8 · Write the report
 One row per case. For each failure: what failed, where, and the specific token or
-prop that looks wrong.
+prop that looks wrong. Follow `.claude/skills/finding-format/SKILL.md` for the shape of each one.
 
 ## Judgement — what is and is not a defect
 Do not burn a finding on these:
@@ -94,9 +118,8 @@ Do not burn a finding on these:
   consistent ~1px difference across every row is the renderer, not the component.
   The same delta on *every* case points at something systemic; a delta on *one*
   case is a real finding.
-- **A colour that disagrees with `get_variable_defs`.** That tool answers in the
-  mode the Figma file is currently open in, which may not be the default. Check
-  the value against the other modes before calling it wrong.
+- **A colour mismatch where the two sides weren't checked in the same mode.** See step 4 — this
+  is the single most common false finding, and it's checked before comparing, not after.
 - **A border that does not change the box.** A Figma stroke set to inside does not
   add to the frame size; an inset ring in CSS is a faithful translation, not a bug.
 
@@ -109,6 +132,7 @@ Do not burn a finding on these:
 ## Self-check
 - [ ] The expected matrix came from the Figma node, not from the story file
 - [ ] Fonts were confirmed loaded before any width was reported
+- [ ] Every colour comparison names the mode on both the design side and the rendered side
 - [ ] Every variant and state was measured, not eyeballed
 - [ ] Disabled, loading, and focus were driven, not just rendered
 - [ ] Every failure has a screenshot and names a specific fix

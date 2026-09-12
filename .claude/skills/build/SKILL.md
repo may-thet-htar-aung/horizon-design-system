@@ -61,15 +61,21 @@ Then compare each story against the Figma node: spacing, colour, size, radius, s
 This stage is your **self-check**, and local Storybook is the right place for it.
 It is not the handoff, and it is not QA. Do not hand anything to QA from here.
 
-### 5 · Deploy — staging, then the registry, in that order
+### 5 · Publish a preview — the PR, then the registry, in that order
 Only once stage 4 is fully green. Never before, and never partly.
 
-1. Merge the component branch into `staging` by PR. Never into `main`.
-2. Deploy that staging build to Vercel.
-3. **Open the deployed URL yourself and see the component render.** A link to a
+1. Push the component branch and **open a PR into `staging`. Do not merge it.**
+   Never open one into `main`. The merge is a human's call, and it happens after
+   QA passes, not before — see "Who merges" below.
+2. Let Vercel build the **preview deploy for that PR**. That preview is the build
+   under test; you are not waiting on anyone's merge to produce it.
+3. **Open the preview URL yourself and see the component render.** A link to a
    build you have not looked at is a lie in a cell.
-4. Write that URL into the registry's `Staging Storybook` column, plus `Commit`
-   and a `GitHub Commits` row.
+4. Write that URL into the registry's `Staging Storybook` column, plus `Commit`.
+   Those two cells are the whole of your registry write. Do not add a
+   `GitHub Commits` row and do not fill `Composes` — both are owned by nobody as
+   of 2026-09-12 (registry D12), and a value you leave there is one the next audit
+   has to treat as stale.
 
 Writing `Staging Storybook` flips `Development` to `Ready for Testing`, which is
 what wakes QA. **That cell is the entire handoff** — QA starts from the link in
@@ -77,8 +83,28 @@ the registry, in Claude in Chrome, and tests that deployed build and nothing
 else. QA refuses when the cell is empty, so a component you did not deploy is a
 component nobody tests.
 
-**Check:** the staging URL is deployed, opened, seen to render, and written to
-`Staging Storybook`.
+### Who merges, and when
+
+**You open PRs. You never merge them.** Both gates in this pipeline are a human's:
+
+| Gate | PR | Merged by | When |
+|---|---|---|---|
+| 1 | component branch → `staging` | a human | after QA passes — `Development` reads `To be deployed` |
+| 2 | `staging` → `main` | a human | after devops opens it |
+
+Your PR stays open for the whole test cycle. That is normal, not a stall: the
+preview deploy attached to it is what QA is testing, and merging it early would
+put an untested component into `staging`.
+
+**On a repair pass, open a new PR.** Do not push fixes into the PR QA is already
+testing — a preview URL that changes underneath a tester invalidates every row
+they have written. Branch the fix, open a fresh PR into `staging`, close the
+superseded one, let the new preview build, and rewrite `Staging Storybook` with
+the new URL. One PR per repair pass, each with its own preview and its own
+recorded link.
+
+**Check:** the PR is open into `staging` and unmerged, its preview is deployed,
+opened, seen to render, and written to `Staging Storybook`.
 
 ## References
 - The token source: `build/tokens/css/tokens.css` (generated, read-only)
