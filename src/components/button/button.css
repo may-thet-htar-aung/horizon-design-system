@@ -1,0 +1,123 @@
+/* Horizon Button
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=65-22
+ *
+ * Every value below resolves to a semantic token from build/css/tokens.css.
+ * Where the Figma node is bound to a variable that has no Horizon equivalent,
+ * the nearest published semantic is used and the gap is marked GAP: — see
+ * reports/button-token-gaps.md.
+ */
+
+.hz-button {
+  /* Auto-layout: horizontal, centre/centre, hug width, fixed height. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-gap-xs);              /* Figma gap/component 8 */
+  height: var(--size-control-md);          /* Figma spacing/40 */
+  padding-inline: var(--spacing-padding-lg); /* Figma padding/button-inline 24 */
+  padding-block: 0;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: var(--border-radius-control); /* GAP: Figma borderradius/small = 8, Horizon control radius = 12 */
+  background: transparent;
+
+  /* Figma Label/Large — 500 14/20, tracking 0.1.
+     GAP: Figma family/plain = Roboto, Horizon family-default = Inter. */
+  font: var(--label-lg);
+  letter-spacing: var(--tracking-label-lg);
+  white-space: nowrap;
+
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hz-button:disabled {
+  cursor: not-allowed;
+}
+
+/* Keyboard focus.
+ * GAP: not present in the Figma set — the component doc calls it out as missing.
+ * Built here because Disabled-is-visual-only accessibility notes require it. */
+.hz-button:focus-visible {
+  outline: var(--border-width-focused) solid var(--color-border-focused);
+  outline-offset: var(--spacing-padding-2xs);
+}
+
+/* Icon slots — 20px.
+ * Figma leaves this unbound (icon/size-20 unpublished); Horizon publishes it. */
+.hz-button__icon {
+  display: inline-flex;
+  flex: none;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+}
+
+.hz-button__icon > svg {
+  display: block;
+  width: var(--size-icon-md);
+  height: var(--size-icon-md);
+}
+
+.hz-button__label {
+  display: inline-block;
+}
+
+/* ---------------------------------------------------------------- Primary */
+
+.hz-button--primary {
+  background: var(--color-bg-primary);
+  color: var(--color-text-inverse);
+}
+
+.hz-button--primary:hover:not(:disabled),
+.hz-button--primary[data-state='Hover']:not(:disabled) {
+  background: var(--color-bg-primary-hovered);
+}
+
+.hz-button--primary:disabled {
+  background: var(--color-bg-primary-disabled);
+  color: var(--color-text-disabled);
+}
+
+/* ---------------------------------------------------------------- Outline */
+
+.hz-button--outline {
+  background: transparent;
+  /* GAP: Figma binds color/border/brand/default (#629bf8); Horizon has no
+     brand border token. --color-border-bold is documented as
+     "Outlined control at rest", so it carries the meaning. */
+  border: var(--border-width-default) solid var(--color-border-bold);
+  color: var(--color-text-link);
+}
+
+.hz-button--outline:hover:not(:disabled),
+.hz-button--outline[data-state='Hover']:not(:disabled) {
+  background: var(--color-bg-secondary);
+  /* GAP: Figma binds color/border/brand/bold (#3b82f6); nearest published
+     brand-weight border semantic is --color-border-focused. */
+  border-color: var(--color-border-focused);
+}
+
+.hz-button--outline:disabled {
+  background: var(--color-bg-primary-disabled);
+  border-color: var(--color-border-disabled);
+  color: var(--color-text-disabled);
+}
+
+/* ------------------------------------------------------------------ Ghost */
+
+.hz-button--ghost {
+  background: transparent;
+  color: var(--color-text-link);
+}
+
+.hz-button--ghost:hover:not(:disabled),
+.hz-button--ghost[data-state='Hover']:not(:disabled) {
+  background: var(--color-bg-primary-subtle);
+}
+
+.hz-button--ghost:disabled {
+  background: transparent;
+  color: var(--color-text-disabled);
+}
