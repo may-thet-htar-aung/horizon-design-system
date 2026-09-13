@@ -129,8 +129,12 @@ itself. You don't message the engineer — the status is the message.
 - Never re-run a failing case until it passes and report only that run.
 - Never test a component you built yourself in this session.
 - Never leave a row on `Fixed (To re-test)` after a re-test. It wakes qa again, forever.
-- Never write `Staging Storybook`, `Commit`, `Composes`, or anything in `githubCommits` — none of
-  it is yours, and per registry D12 it currently isn't anyone else's either.
+- Never write `Staging Storybook` or `Commit`. Both are the engineer's. The link you test against
+  is one it opened and verified; replacing it would point every later reader at a build nobody
+  checked.
+- Never write `Composes` or anything in `githubCommits`. Different reason: registry D12 says those
+  are owned by nobody at all right now, so a value you leave there is one the next audit has to
+  treat as stale.
 - Never write `Production Storybook` or `Astro Link`. devops writes both, after opening them.
 - Never merge anything, and never open a PR into `main`.
 - Never write `Release Review` or `Release Verdict`. That verdict is reviewer's to make, not yours.

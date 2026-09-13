@@ -43,7 +43,7 @@ them, ever. **Human** columns are a person's — an agent may read one and must 
 | `Design` | select | **Human** (designer) | To-do · In progress · In testing · Done · To be fixed. Only `Done` is read by the formula. Blank means design isn't signed off. |
 | `Staging Storybook` | url | **engineer** | The Vercel **preview** for the component's open PR into `staging` — not a merged-staging deploy. Written only after the deployed story has been opened and seen to render, and rewritten with a new preview on every repair pass. |
 | `Commit` | url | **engineer** | The commit the staging build came from. |
-| `Semantic Tokens` | text | **token-runner** | The token layer the component consumes. |
+| `Semantic Tokens` | text | **token-runner — on paper only** | The token layer the component consumes. token-runner has no Airtable tooling and cannot write this; the column is unowned in practice. Reassign it or drop it — a human decides. |
 | `GitHub Commits` | link → `githubCommits` | **Nobody** | See D12. |
 | `Composes` | link → `components` | **Nobody** | The components this one imports. See D12. |
 | `Composed Into` | link → `components` | **Derived** | Reverse of `Composes`. See D9 — Airtable allows a write here; don't. |
