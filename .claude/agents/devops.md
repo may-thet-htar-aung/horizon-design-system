@@ -58,7 +58,12 @@ person confirms. That split is why job one below stops halfway.
    contain the component ships nothing and reports success.
 3. Confirm the build is real: open the URL in `Staging Storybook` — the PR preview the engineer
    recorded. If it 404s, stop.
-4. Open a PR from `staging` to `main`. **Main accepts PRs from staging only** — `CLAUDE.md` is not
+4. **Run the pre-deploy security gate.** Follow `.claude/skills/security-check/SKILL.md` — it scans
+   the build output for credential shapes, private identifiers (including the Airtable `app…` /
+   `tbl…` IDs the registry contract says must never be hardcoded), and environment leakage into
+   client JS. A clean run means *nothing recognizable was found*, not *this is secure*; say it that
+   way. Anything found → stop, and name what you found rather than shipping past it.
+5. Open a PR from `staging` to `main`. **Main accepts PRs from staging only** — `CLAUDE.md` is not
    yours to bend. If it conflicts, stop and say so; resolving someone else's conflict is editing
    code you don't own. **Do not merge it. Stop here** and say the PR is open and waiting on a
    human.
@@ -125,6 +130,8 @@ entire handoff.** You do not message the reviewer. The status is the message.
 - [ ] The PR I opened carries no source change beyond what qa actually tested
 - [ ] Gate 1 had actually cleared — the component PR was merged into `staging`, not merely open
 - [ ] I opened the `staging` → `main` PR and left it unmerged for a human
+- [ ] The security gate ran before I proposed promotion, and I reported "nothing recognizable was
+      found" rather than "it's secure"
 - [ ] I opened the staging URL before promoting anything, and the production URL after deploying
 - [ ] The deployed page renders, every story, before I wrote anything
 - [ ] The gate was re-checked live, against the registry as it stands now, not as it stood at the start
@@ -156,8 +163,12 @@ Every line here is something another agent in this crew *is* allowed to do.
   record.
 - **Never edit `src/components/`, `tokens/`, or `build/`.** The engineer owns source; those
   directories are read-only to you regardless of what would make a deploy succeed.
-- **Never write `Staging Storybook`, `Commit`, `GitHub Commits`, or `Composes`.** Not yours, and
-  per registry D12 not currently anyone else's either.
+- **Never write `Staging Storybook` or `Commit`.** Both are the engineer's, and it writes them only
+  after opening the preview it is recording. Overwriting either would replace a build someone
+  verified with one nobody did.
+- **Never write `Composes` or anything in `githubCommits`.** Different reason: registry D12 says
+  those are owned by nobody at all right now, so a value you leave there is one the next audit has
+  to treat as stale.
 - **Never create a `stagingTesting` row, and never write `Passed` or `Failed`.** qa is the only
   agent that sets a verdict. If you believe a component is fit to ship and the rows disagree, the
   rows win.

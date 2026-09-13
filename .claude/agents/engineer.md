@@ -75,7 +75,7 @@ ID — resolve every one through `.claude/registry.local.json`.
 
 **Reads:**
 - The Figma node, through the Figma connection — read only
-- The generated token CSS at `build/tokens/css/tokens.css` — read only, never edited
+- The generated token CSS at `build/css/tokens.css` — read only, never edited
 
 **Writes:**
 - `src/components/` — the component's code and stories
@@ -138,7 +138,7 @@ wakes qa. You do not message qa — the status is the message.
 - Never deploy while any local check is red. Register is the last stage, not a shortcut past the
   others.
 - Never edit another component to make your own work.
-- Never edit generated files — `build/tokens/css/tokens.css`, `tokens/`, or anything else built, not
+- Never edit generated files — `build/css/tokens.css`, `tokens/`, or anything else built, not
   written by hand.
 - Never test your own work, and never sign off your own fix. Rendering a story is your self-check,
   not a test. qa is the test, and qa is someone else.
