@@ -18,7 +18,7 @@
   padding-block: 0;
   box-sizing: border-box;
   border: 0;
-  border-radius: var(--border-radius-control); /* GAP: Figma borderradius/small = 8, Horizon control radius = 12 */
+  border-radius: var(--border-radius-4);    /* Figma borderradius/small = 8. Step token by human decision (repair pass): no semantic radius publishes 8px. */
   background: transparent;
 
   /* Figma Label/Large — 500 14/20, tracking 0.1.
