@@ -70,7 +70,7 @@ function grid() {
   const wrap = document.createElement('div');
   wrap.style.display = 'grid';
   wrap.style.gridTemplateColumns = 'repeat(3, max-content)';
-  wrap.style.gap = 'var(--spacing-gap-xl) var(--spacing-gap-lg)';
+  wrap.style.gap = 'var(--gap-section) var(--gap-gutter)';
   wrap.style.alignItems = 'center';
   // Width is automatic — don't let the grid stretch buttons to the column.
   wrap.style.justifyItems = 'start';
