@@ -1,353 +1,167 @@
 {
-  "display-lg": {
+  "display-large": {
     "$type": "typography",
-    "$description": "horizon.type.display.lg — web and mobile.",
+    "$description": "M3 Display Large — Roboto Regular 57/64, tracking -0.25px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 57,
-        "unit": "px"
-      },
-      "lineHeight": 64,
-      "letterSpacing": {
-        "value": -0.25,
-        "unit": "px"
-      }
+      "fontSize": "{size-display-large}",
+      "lineHeight": "{line-height-display-large}",
+      "letterSpacing": "{tracking-display-large}"
     }
   },
-  "display-md": {
+  "display-medium": {
     "$type": "typography",
-    "$description": "horizon.type.display.md — web and mobile.",
+    "$description": "M3 Display Medium — Roboto Regular 45/52, tracking 0px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 45,
-        "unit": "px"
-      },
-      "lineHeight": 52,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
+      "fontSize": "{size-display-medium}",
+      "lineHeight": "{line-height-display-medium}",
+      "letterSpacing": "{tracking-display-medium}"
     }
   },
-  "display-sm": {
+  "display-small": {
     "$type": "typography",
-    "$description": "horizon.type.display.sm — web and mobile.",
+    "$description": "M3 Display Small — Roboto Regular 36/44, tracking 0px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 36,
-        "unit": "px"
-      },
-      "lineHeight": 44,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
+      "fontSize": "{size-display-small}",
+      "lineHeight": "{line-height-display-small}",
+      "letterSpacing": "{tracking-display-small}"
     }
   },
-  "headline-lg": {
+  "headline-large": {
     "$type": "typography",
-    "$description": "horizon.type.headline.lg — web and mobile.",
+    "$description": "M3 Headline Large — Roboto Regular 32/40, tracking 0px",
     "$value": {
-      "fontFamily": "{family-default}",
-      "fontWeight": "{weight-regular}",
-      "fontSize": "{size-headline-lg}",
-      "lineHeight": 40,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
-    }
-  },
-  "headline-md": {
-    "$type": "typography",
-    "$description": "horizon.type.headline.md — web and mobile.",
-    "$value": {
-      "fontFamily": "{family-default}",
-      "fontWeight": "{weight-regular}",
-      "fontSize": "{size-headline-md}",
-      "lineHeight": 36,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
-    }
-  },
-  "headline-sm": {
-    "$type": "typography",
-    "$description": "horizon.type.headline.sm — web and mobile.",
-    "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 24,
-        "unit": "px"
-      },
-      "lineHeight": 32,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
+      "fontSize": "{size-headline-large}",
+      "lineHeight": "{line-height-headline-large}",
+      "letterSpacing": "{tracking-headline-large}"
     }
   },
-  "headline-lg-bold": {
+  "headline-medium": {
     "$type": "typography",
-    "$description": "horizon.type.headline.lg.bold — Inter Semi Bold 600.",
+    "$description": "M3 Headline Medium — Roboto Regular 28/36, tracking 0px",
     "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 32,
-        "unit": "px"
-      },
-      "lineHeight": 40,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
-    }
-  },
-  "title-lg": {
-    "$type": "typography",
-    "$description": "horizon.type.title.lg — web and mobile.",
-    "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 22,
-        "unit": "px"
-      },
-      "lineHeight": 28,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
+      "fontSize": "{size-headline-medium}",
+      "lineHeight": "{line-height-headline-medium}",
+      "letterSpacing": "{tracking-headline-medium}"
     }
   },
-  "title-md": {
+  "headline-small": {
     "$type": "typography",
-    "$description": "horizon.type.title.md — web and mobile.",
+    "$description": "M3 Headline Small — Roboto Regular 24/32, tracking 0px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
+      "fontWeight": "Regular",
+      "fontSize": "{size-headline-small}",
+      "lineHeight": "{line-height-headline-small}",
+      "letterSpacing": "{tracking-headline-small}"
+    }
+  },
+  "title-large": {
+    "$type": "typography",
+    "$description": "M3 Title Large — Roboto Regular 22/28, tracking 0px",
+    "$value": {
+      "fontFamily": "{family-brand}",
+      "fontWeight": "Regular",
+      "fontSize": "{size-title-large}",
+      "lineHeight": "{line-height-title-large}",
+      "letterSpacing": "{tracking-title-large}"
+    }
+  },
+  "title-medium": {
+    "$type": "typography",
+    "$description": "M3 Title Medium — Roboto Medium 16/24, tracking 0.15px",
+    "$value": {
+      "fontFamily": "{family-brand}",
       "fontWeight": "Medium",
-      "fontSize": {
-        "value": 16,
-        "unit": "px"
-      },
-      "lineHeight": 24,
-      "letterSpacing": {
-        "value": 0.15000000596046448,
-        "unit": "px"
-      }
+      "fontSize": "{size-title-medium}",
+      "lineHeight": "{line-height-title-medium}",
+      "letterSpacing": "{tracking-title-medium}"
     }
   },
-  "title-sm": {
+  "title-small": {
     "$type": "typography",
-    "$description": "horizon.type.title.sm — web and mobile.",
+    "$description": "M3 Title Small — Roboto Medium 14/20, tracking 0.1px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-brand}",
       "fontWeight": "Medium",
-      "fontSize": {
-        "value": 14,
-        "unit": "px"
-      },
-      "lineHeight": 20,
-      "letterSpacing": {
-        "value": 0.10000000149011612,
-        "unit": "px"
-      }
+      "fontSize": "{size-title-small}",
+      "lineHeight": "{line-height-title-small}",
+      "letterSpacing": "{tracking-title-small}"
     }
   },
-  "title-lg-bold": {
+  "body-large": {
     "$type": "typography",
-    "$description": "horizon.type.title.lg.bold — Inter Semi Bold 600.",
+    "$description": "M3 Body Large — Roboto Regular 16/24, tracking 0.5px",
     "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 22,
-        "unit": "px"
-      },
-      "lineHeight": 28,
-      "letterSpacing": {
-        "value": 0,
-        "unit": "px"
-      }
-    }
-  },
-  "title-md-bold": {
-    "$type": "typography",
-    "$description": "horizon.type.title.md.bold — Inter Semi Bold 600.",
-    "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 16,
-        "unit": "px"
-      },
-      "lineHeight": 24,
-      "letterSpacing": {
-        "value": 0.15000000596046448,
-        "unit": "px"
-      }
-    }
-  },
-  "title-sm-bold": {
-    "$type": "typography",
-    "$description": "horizon.type.title.sm.bold — Inter Semi Bold 600.",
-    "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 14,
-        "unit": "px"
-      },
-      "lineHeight": 20,
-      "letterSpacing": {
-        "value": 0.10000000149011612,
-        "unit": "px"
-      }
-    }
-  },
-  "body-lg": {
-    "$type": "typography",
-    "$description": "horizon.type.body.lg — web and mobile.",
-    "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 16,
-        "unit": "px"
-      },
-      "lineHeight": 24,
-      "letterSpacing": {
-        "value": 0.5,
-        "unit": "px"
-      }
+      "fontSize": "{size-body-large}",
+      "lineHeight": "{line-height-body-large}",
+      "letterSpacing": "{tracking-body-large}"
     }
   },
-  "body-md": {
+  "body-medium": {
     "$type": "typography",
-    "$description": "horizon.type.body.md — web and mobile.",
+    "$description": "M3 Body Medium — Roboto Regular 14/20, tracking 0.25px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 14,
-        "unit": "px"
-      },
-      "lineHeight": 20,
-      "letterSpacing": {
-        "value": 0.25,
-        "unit": "px"
-      }
+      "fontSize": "{size-body-medium}",
+      "lineHeight": "{line-height-body-medium}",
+      "letterSpacing": "{tracking-body-medium}"
     }
   },
-  "body-sm": {
+  "body-small": {
     "$type": "typography",
-    "$description": "horizon.type.body.sm — web and mobile.",
+    "$description": "M3 Body Small — Roboto Regular 12/16, tracking 0.4px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Regular",
-      "fontSize": {
-        "value": 12,
-        "unit": "px"
-      },
-      "lineHeight": 16,
-      "letterSpacing": {
-        "value": 0.4000000059604645,
-        "unit": "px"
-      }
+      "fontSize": "{size-body-small}",
+      "lineHeight": "{line-height-body-small}",
+      "letterSpacing": "{tracking-body-small}"
     }
   },
-  "body-lg-bold": {
+  "label-large": {
     "$type": "typography",
-    "$description": "horizon.type.body.lg.bold — Inter Semi Bold 600.",
+    "$description": "M3 Label Large — Roboto Medium 14/20, tracking 0.1px",
     "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 16,
-        "unit": "px"
-      },
-      "lineHeight": 24,
-      "letterSpacing": {
-        "value": 0.5,
-        "unit": "px"
-      }
-    }
-  },
-  "label-lg": {
-    "$type": "typography",
-    "$description": "horizon.type.label.lg — web and mobile.",
-    "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Medium",
-      "fontSize": {
-        "value": 14,
-        "unit": "px"
-      },
-      "lineHeight": 20,
-      "letterSpacing": {
-        "value": 0.10000000149011612,
-        "unit": "px"
-      }
+      "fontSize": "{size-label-large}",
+      "lineHeight": "{line-height-label-large}",
+      "letterSpacing": "{tracking-label-large}"
     }
   },
-  "label-md": {
+  "label-medium": {
     "$type": "typography",
-    "$description": "horizon.type.label.md — web and mobile.",
+    "$description": "M3 Label Medium — Roboto Medium 12/16, tracking 0.5px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Medium",
-      "fontSize": {
-        "value": 12,
-        "unit": "px"
-      },
-      "lineHeight": 16,
-      "letterSpacing": {
-        "value": 0.5,
-        "unit": "px"
-      }
+      "fontSize": "{size-label-medium}",
+      "lineHeight": "{line-height-label-medium}",
+      "letterSpacing": "{tracking-label-medium}"
     }
   },
-  "label-sm": {
+  "label-small": {
     "$type": "typography",
-    "$description": "horizon.type.label.sm — web and mobile.",
+    "$description": "M3 Label Small — Roboto Medium 11/16, tracking 0.5px",
     "$value": {
-      "fontFamily": "Inter",
+      "fontFamily": "{family-plain}",
       "fontWeight": "Medium",
-      "fontSize": {
-        "value": 11,
-        "unit": "px"
-      },
-      "lineHeight": 16,
-      "letterSpacing": {
-        "value": 0.5,
-        "unit": "px"
-      }
-    }
-  },
-  "label-lg-bold": {
-    "$type": "typography",
-    "$description": "horizon.type.label.lg.bold — Inter Semi Bold 600.",
-    "$value": {
-      "fontFamily": "Inter",
-      "fontWeight": "Semi Bold",
-      "fontSize": {
-        "value": 14,
-        "unit": "px"
-      },
-      "lineHeight": 20,
-      "letterSpacing": {
-        "value": 0.10000000149011612,
-        "unit": "px"
-      }
+      "fontSize": "{size-label-small}",
+      "lineHeight": "{line-height-label-small}",
+      "letterSpacing": "{tracking-label-small}"
     }
   }
 }

@@ -1,46 +1,40 @@
 {
   "name": "Design Tokens",
   "collections": {
-    "core": {
+    "typography": {
       "modes": {
         "value": [
-          "core.value.tokens.json"
+          "typography.value.tokens.json"
         ]
       }
     },
-    "semantic-color": {
+    "core": {
       "modes": {
         "light": [
-          "semantic-color.light.tokens.json"
+          "core.light.tokens.json"
+        ]
+      }
+    },
+    "layout": {
+      "modes": {
+        "compact": [
+          "layout.compact.tokens.json"
+        ],
+        "medium": [
+          "layout.medium.tokens.json"
+        ],
+        "expanded": [
+          "layout.expanded.tokens.json"
+        ]
+      }
+    },
+    "semantic": {
+      "modes": {
+        "light": [
+          "semantic.light.tokens.json"
         ],
         "dark": [
-          "semantic-color.dark.tokens.json"
-        ]
-      }
-    },
-    "semantic-space": {
-      "modes": {
-        "web": [
-          "semantic-space.web.tokens.json"
-        ],
-        "mobile": [
-          "semantic-space.mobile.tokens.json"
-        ],
-        "back-office": [
-          "semantic-space.back-office.tokens.json"
-        ]
-      }
-    },
-    "type": {
-      "modes": {
-        "web": [
-          "type.web.tokens.json"
-        ],
-        "mobile": [
-          "type.mobile.tokens.json"
-        ],
-        "back-office": [
-          "type.back-office.tokens.json"
+          "semantic.dark.tokens.json"
         ]
       }
     }

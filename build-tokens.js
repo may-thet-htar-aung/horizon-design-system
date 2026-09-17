@@ -39,12 +39,14 @@ const native = (sources) =>
     },
   });
 
-// :root — Figma core, light colours, medium layout, Figma type values, web weights + styles.
-// type.web stays in because it carries the weight-* values and the names typography.styles
-// composes from; it defines no core aliases and collides with nothing Figma exports.
+// :root — Figma core, light colours, medium layout, web type scale, Figma type values, styles.
+// type.web still ships the earlier type names (size-label-lg, tracking-label-lg, …). It shares
+// exactly two names with typography.value — weight-regular and weight-medium — so TYPE_FIGMA
+// loads after it and Figma's value wins. The preprocessor normalises both to numbers, so the
+// collision warning Style Dictionary prints for them is between equal values.
 await css('tokens.css',
   [CORE, T+'semantic.light.tokens.json', T+'layout.medium.tokens.json',
-   TYPE_FIGMA, T+'type.web.tokens.json', ...STYLES],
+   T+'type.web.tokens.json', TYPE_FIGMA, ...STYLES],
   ':root').buildAllPlatforms();
 
 // dark — only the colours that change
@@ -53,6 +55,6 @@ await css('tokens-dark.css',
   '[data-theme="dark"]',
   (t) => t.filePath.includes('semantic.dark')).buildAllPlatforms();
 
-// iOS + Android — compact layout (the mobile breakpoint), mobile weights
+// iOS + Android — compact layout (the mobile breakpoint), mobile type scale, Figma type values
 await native([CORE, T+'semantic.light.tokens.json', T+'layout.compact.tokens.json',
-  TYPE_FIGMA, T+'type.mobile.tokens.json', ...STYLES]).buildAllPlatforms();
+  T+'type.mobile.tokens.json', TYPE_FIGMA, ...STYLES]).buildAllPlatforms();
