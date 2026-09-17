@@ -83,11 +83,15 @@
 /* ---------------------------------------------------------------- Outline */
 
 .hz-button--outline {
-  background: transparent;
-  /* GAP: Figma binds color/border/brand/default (#629bf8); Horizon has no
-     brand border token. --color-border-bold is documented as
-     "Outlined control at rest", so it carries the meaning. */
-  border: var(--border-width-default) solid var(--color-border-bold);
+  background: var(--color-bg-base);        /* Figma color/bg/base */
+  /* GAP: Figma binds color/border/brand/default (#629bf8); Horizon publishes
+     no brand border token. Per the QA repair suggestion this binds
+     --color-border-focused (#1d4ed8), the only published blue border token
+     (documented as the focus ring). Consequence: Outline hover uses the same
+     border token, and --color-bg-secondary equals --color-bg-base (#ffffff),
+     so rest and hover render identically until the export publishes
+     color/border/brand/default and color/border/brand/bold. */
+  border: var(--border-width-default) solid var(--color-border-focused);
   color: var(--color-text-link);
 }
 
