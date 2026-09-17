@@ -1,142 +1,275 @@
 :root {
-  --color-neutral-0: #ffffff; /** White. */
-  --color-neutral-50: #f7f9fb; /** Sunken ground. */
-  --color-neutral-100: #f1f4f7; /** Sunken surface. */
-  --color-neutral-200: #eaeff4; /** The border grey. 8 components use it. */
-  --color-neutral-300: #d7dee7; /** Strong border. */
-  --color-neutral-400: #b9c7d6; /** Disabled. */
-  --color-neutral-500: #8a94a6; /** Subtle text. 1,867 layers in production. */
-  --color-neutral-600: #7a8899; /** Between subtle and secondary. */
-  --color-neutral-700: #5a6b7e; /** Secondary text. 2,640 layers in production. */
-  --color-neutral-800: #3a4553; /** Strong secondary. */
-  --color-neutral-900: #1b2733; /** Primary text. 2,382 layers in production. */
-  --color-neutral-950: #12181f; /** Max contrast. Dark-mode ground. */
-  --color-blue-50: #eef4ff; /** Tag and icon tile. */
-  --color-blue-100: #c9d9f8; /** Production tint. */
-  --color-blue-200: #7fa8ee; /** Production tint. */
-  --color-blue-300: #5fa3db; /** Light blue. */
-  --color-blue-400: #3b82f6; /** Button2, SignInBtn. Action colour on dark. */
-  --color-blue-500: #2e7cc4; /** Orphan Button and the wordmark. */
-  --color-blue-600: #1d4ed8; /** btn primary, btn-cta, book now button, btn admin. */
-  --color-blue-700: #1840b1; /** DERIVED from 600 at 82% lightness. Hover. */
-  --color-blue-800: #13338f; /** DERIVED from 600 at 66% lightness. Pressed. */
-  --color-navy-700: #1f5c8f; /** Back-office accent, visited link. */
-  --color-navy-800: #0f2f6b; /** Sidebar v2, PrimaryButton2. */
-  --color-navy-900: #0a2450; /** Sidebar active item. */
-  --color-green-50: #e3f5ea; /** Subtle positive surface. */
-  --color-green-600: #1f8a4c; /** Positive. 203 layers, all three platforms. */
-  --color-green-800: #14532d; /** Positive on a subtle surface. */
-  --color-red-50: #fdecea; /** Subtle negative surface. */
-  --color-red-500: #e02b2b; /** Field error border. */
-  --color-red-600: #c1362f; /** Negative icon. 84 layers. */
-  --color-red-700: #a5261d; /** Negative text. 67 layers. */
-  --color-amber-50: #fff4e0; /** Subtle warning surface. */
-  --color-amber-700: #8a5a00; /** Warning. 108 layers. */
-  --color-orange-500: #f0932b; /** Accent. Review rating. */
-  --color-neutral-900a: rgba(27, 39, 51, 0.55); /** Scrim behind modals and drawers. 55% alpha. */
-  --spacing-1: 4px; /** 4px base unit. */
-  --spacing-2: 8px; /** 4px base unit. */
-  --spacing-3: 12px; /** 4px base unit. */
-  --spacing-4: 16px; /** 4px base unit. */
-  --spacing-5: 20px; /** 4px base unit. */
-  --spacing-6: 24px; /** 4px base unit. */
-  --spacing-7: 32px; /** 4px base unit. */
-  --spacing-8: 40px; /** 4px base unit. */
-  --spacing-9: 48px; /** 4px base unit. */
-  --spacing-10: 64px; /** 4px base unit. */
-  --border-size-1: 1px; /** Stroke weight step. */
-  --border-size-2: 2px; /** Stroke weight step. */
-  --border-size-3: 4px; /** Stroke weight step. */
-  --border-radius-1: 2px; /** Corner radius step. 7 is the pill. */
-  --border-radius-2: 4px; /** Corner radius step. 7 is the pill. */
-  --border-radius-3: 6px; /** Corner radius step. 7 is the pill. */
-  --border-radius-4: 8px; /** Corner radius step. 7 is the pill. */
-  --border-radius-5: 12px; /** Corner radius step. 7 is the pill. */
-  --border-radius-6: 16px; /** Corner radius step. 7 is the pill. */
-  --border-radius-7: 999px; /** Corner radius step. 7 is the pill. */
-  --size-1: 16px; /** Control and icon dimension step. */
-  --size-2: 20px; /** Control and icon dimension step. */
-  --size-3: 24px; /** Control and icon dimension step. */
-  --size-4: 28px; /** Control and icon dimension step. */
-  --size-5: 32px; /** Control and icon dimension step. */
-  --size-6: 34px; /** Control and icon dimension step. */
-  --size-7: 36px; /** Control and icon dimension step. */
-  --size-8: 40px; /** Control and icon dimension step. */
-  --size-9: 44px; /** Control and icon dimension step. */
-  --size-10: 48px; /** Control and icon dimension step. */
-  --color-bg-base: #ffffff; /** Page ground. */
-  --color-bg-base-subtle: #f7f9fb; /** Sunken ground. Footer, table stripe. */
-  --color-bg-base-inverse: #0f2f6b; /** Sidebar and dark panels. */
-  --color-bg-surface-primary: #ffffff; /** Card and panel surface. */
-  --color-bg-surface-secondary: #f7f9fb; /** Nested or sunken surface. */
-  --color-bg-primary: #1d4ed8; /** Primary action fill. */
-  --color-bg-primary-hovered: #1840b1; /** Primary action, pointer over. */
-  --color-bg-primary-pressed: #13338f; /** Primary action, held down. */
-  --color-bg-primary-subtle: #eef4ff; /** Quiet primary ground. Selected chip. */
-  --color-bg-primary-disabled: #d7dee7; /** Primary action, unavailable. */
-  --color-bg-secondary: #ffffff; /** Outlined action fill. */
-  --color-bg-secondary-hovered: #f1f4f7; /** Outlined action, pointer over. */
-  --color-bg-negative: #a5261d; /** Destructive action fill. */
-  --color-bg-negative-subtle: #fdecea; /** Error banner ground. */
-  --color-bg-positive-subtle: #e3f5ea; /** Success banner ground. */
-  --color-bg-warning-subtle: #fff4e0; /** Warning banner ground. */
-  --color-bg-info-subtle: #eef4ff; /** Info banner and tag ground. */
-  --color-bg-overlay: rgba(27, 39, 51, 0.55); /** Scrim behind modals and drawers. */
-  --color-text-primary: #1b2733; /** Body copy and titles. */
-  --color-text-secondary: #5a6b7e; /** Supporting copy, table cells. */
-  --color-text-subtle: #8a94a6; /** Placeholder, metadata, captions. */
-  --color-text-subtlest: #b9c7d6; /** Lowest-emphasis text. */
-  --color-text-disabled: #b9c7d6; /** Text inside a disabled control. */
-  --color-text-inverse: #ffffff; /** Text on a filled action or inverse surface. */
-  --color-text-link: #1d4ed8; /** Inline link. Follows the primary action rather than restating blue. */
-  --color-text-link-hovered: #1840b1; /** Link, pointer over. */
-  --color-text-link-visited: #1f5c8f; /** Link already followed. */
-  --color-text-positive: #1f8a4c; /** Confirmation copy. */
-  --color-text-negative: #a5261d; /** Error copy. */
-  --color-text-warning: #8a5a00; /** Caution copy. */
-  --color-text-accent: #f0932b; /** Rating and highlight. */
-  --color-border-default: #eaeff4; /** Card, input, divider. */
-  --color-border-bold: #d7dee7; /** Outlined control at rest. */
-  --color-border-subtle: #f1f4f7; /** Faint divider. */
-  --color-border-focused: #1d4ed8; /** Keyboard focus ring. Follows the primary action. */
-  --color-border-negative: #e02b2b; /** Field in error. */
-  --color-border-disabled: #eaeff4; /** Border of a disabled control. */
-  --color-border-inverse: #ffffff; /** Border on an inverse surface. */
-  --color-icon-primary: #1b2733; /** Default icon. */
-  --color-icon-subtle: #8a94a6; /** Low-emphasis icon. */
-  --color-icon-inverse: #ffffff; /** Icon on a filled action. */
-  --color-icon-accent: #f0932b; /** Rating star. */
-  --color-icon-positive: #1f8a4c; /** Confirmed. */
-  --color-icon-negative: #a5261d; /** Failed, cancelled. */
-  --color-icon-warning: #8a5a00; /** Pending, expiring. */
-  --spacing-padding-2xs: 4px; /** Tightest inset. */
-  --spacing-padding-xs: 8px; /** Chip and tag inset. */
-  --spacing-padding-sm: 12px; /** Dense control inset. */
-  --spacing-padding-md: 16px; /** Default control and card inset. */
-  --spacing-padding-lg: 24px; /** Panel and section inset. */
-  --spacing-padding-xl: 32px; /** Page gutter. */
-  --spacing-gap-2xs: 4px; /** Icon to label. */
-  --spacing-gap-xs: 8px; /** Between related lines. */
-  --spacing-gap-sm: 12px; /** Within a group. */
-  --spacing-gap-md: 16px; /** Between blocks. */
-  --spacing-gap-lg: 24px; /** Between sections. */
-  --spacing-gap-xl: 40px; /** Between major regions. */
-  --spacing-margin-sm: 12px; /** Small outer offset. */
-  --spacing-margin-md: 16px; /** Default outer offset. */
-  --spacing-margin-lg: 32px; /** Section outer offset. */
-  --spacing-margin-xl: 64px; /** Page-level outer offset. */
-  --size-control-sm: 28px; /** Dense button and chip height. */
-  --size-control-md: 40px; /** Default button and input height. 40 web, 48 mobile, 34 back office. */
-  --size-control-lg: 44px; /** Prominent action height. */
-  --size-icon-sm: 16px; /** Inline icon. */
-  --size-icon-md: 20px; /** Default icon. */
-  --size-icon-lg: 24px; /** Prominent icon. */
-  --border-width-default: 1px; /** Card, input, divider. */
-  --border-width-bold: 2px; /** Emphasised outline. */
-  --border-width-focused: 2px; /** Focus ring thickness. */
-  --border-radius-control: 12px; /** Button, input, chip. 12 web and mobile, 2 back office. */
-  --border-radius-surface: 12px; /** Card, panel, modal. */
-  --border-radius-full: 999px; /** Pill and avatar. */
+  --color-blue-50: #ebf3fe;
+  --color-blue-100: #c2d8fc;
+  --color-blue-200: #a5c6fb;
+  --color-blue-300: #7cabf9;
+  --color-blue-400: #629bf8;
+  --color-blue-500: #3b82f6;
+  --color-blue-600: #3676e0;
+  --color-blue-700: #2a5caf;
+  --color-blue-800: #204887;
+  --color-blue-900: #193767;
+  --color-indigo-50: #eff0fe; /** Used by color/bg/accent — only steps 100-900 of this ramp are unreferenced */
+  --color-indigo-100: #cfd0fb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-200: #b7b9f9; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-300: #9698f6; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-400: #8285f4; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-500: #6366f1; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-600: #5a5ddb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-700: #4648ab; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-800: #363885; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-900: #2a2b65; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-50: #e6f8fb; /** Used by color/bg/accent — only steps 100-900 of this ramp are unreferenced */
+  --color-cyan-100: #b2e8f2; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-200: #8cddeb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-300: #58cee2; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-400: #38c5dd; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-500: #06b6d4; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-600: #05a6c1; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-700: #048197; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-800: #036475; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-900: #034c59; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-green-50: #e9f9ef;
+  --color-green-100: #baedcd;
+  --color-green-200: #99e4b5;
+  --color-green-300: #6bd893;
+  --color-green-400: #4ed17e;
+  --color-green-500: #22c55e;
+  --color-green-600: #1fb356;
+  --color-green-700: #188c43;
+  --color-green-800: #136c34;
+  --color-green-900: #0e5327;
+  --color-amber-50: #fef5e7;
+  --color-amber-100: #fce1b3;
+  --color-amber-200: #fad28f;
+  --color-amber-300: #f8be5c;
+  --color-amber-400: #f7b13c;
+  --color-amber-500: #f59e0b;
+  --color-amber-600: #df900a;
+  --color-amber-700: #ae7008;
+  --color-amber-800: #875706;
+  --color-amber-900: #674205;
+  --color-red-50: #fdecec;
+  --color-red-100: #fac5c5;
+  --color-red-200: #f8a9a9;
+  --color-red-300: #f48282;
+  --color-red-400: #f26969;
+  --color-red-500: #ef4444;
+  --color-red-600: #d93e3e;
+  --color-red-700: #aa3030;
+  --color-red-800: #832525;
+  --color-red-900: #641d1d;
+  --color-sky-50: #e7f6fd;
+  --color-sky-100: #b4e3f8;
+  --color-sky-200: #90d6f5;
+  --color-sky-300: #5ec3f0;
+  --color-sky-400: #3eb7ed;
+  --color-sky-500: #0ea5e9;
+  --color-sky-600: #0d96d4;
+  --color-sky-700: #0a75a5;
+  --color-sky-800: #085b80;
+  --color-sky-900: #064562;
+  --color-violet-50: #f3effe;
+  --color-violet-100: #dbccfc;
+  --color-violet-200: #cab4fb;
+  --color-violet-300: #b192f9;
+  --color-violet-400: #a27df8;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7e54e0;
+  --color-violet-700: #6341af;
+  --color-violet-800: #4c3387;
+  --color-violet-900: #3a2767;
+  --color-neutral-0: #ffffff;
+  --color-neutral-50: #ebecee;
+  --color-neutral-50a: rgba(51, 65, 85, 0.04);
+  --neutral-50-a-2: #334155;
+  --color-neutral-100: #c0c4ca;
+  --color-neutral-100a: rgba(51, 65, 85, 0.08);
+  --color-neutral-200: #a1a8b1;
+  --color-neutral-200a: rgba(51, 65, 85, 0.12);
+  --color-neutral-300: #76808d;
+  --color-neutral-300a: rgba(51, 65, 85, 0.16);
+  --color-neutral-400: #5c6777;
+  --color-neutral-400a: rgba(51, 65, 85, 0.2);
+  --color-neutral-500: #485466; /** Respaced — previously duplicated neutral-600 (#334155) */
+  --color-neutral-500a: rgba(51, 65, 85, 0.24);
+  --color-neutral-600: #334155;
+  --color-neutral-700: #242e3c;
+  --color-neutral-800: #1c242f;
+  --color-neutral-900: #151b24;
+  --spacing-0: 0px;
+  --spacing-2: 2px; /** Legacy 2dp step — off the M3 4dp grid, kept for existing bindings */
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-negative-4: -4px;
+  --spacing-negative-8: -8px;
+  --borderwidth-1: 1px; /** Default outline */
+  --borderwidth-2: 2px; /** Emphasis / selected state */
+  --borderwidth-05: 0.5px; /** Sub-pixel hairline — legacy, renders inconsistently; prefer borderwidth/1 */
+  --borderradius-extra-small: 4px; /** M3 extra small — 4dp */
+  --borderradius-small: 8px; /** M3 small — 8dp */
+  --borderradius-large: 16px; /** M3 large — 16dp (was named md; 16dp is M3 large, not medium) */
+  --borderradius-extra-large-increased: 32px; /** M3 extra large increased — 32dp */
+  --borderradius-full: 10000px; /** Fully rounded / pill */
+  --elevation-legacy-color: rgba(51, 65, 85, 0.16); /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level1-blur: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level1-y: 2px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level2-y: 4px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level3-y: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level2-blur: 16px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level3-blur: 20px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --spacing-20: 20px;
+  --spacing-40: 40px;
+  --spacing-56: 56px;
+  --spacing-80: 80px;
+  --spacing-96: 96px;
+  --borderradius-none: 0px; /** M3 none — square corners */
+  --borderradius-medium: 12px; /** M3 medium — 12dp */
+  --borderradius-large-increased: 20px; /** M3 Expressive large increased — 20dp */
+  --borderradius-extra-large: 28px; /** M3 extra large — 28dp */
+  --borderradius-extra-extra-large: 48px; /** M3 Expressive extra extra large — 48dp */
+  --borderwidth-0: 0px; /** No border */
+  --borderwidth-3: 3px; /** M3 focus indicator ring */
+  --elevation-shadow-color-key: rgba(0, 0, 0, 0.3); /** M3 key light shadow — black 30% */
+  --elevation-shadow-color-ambient: rgba(0, 0, 0, 0.15); /** M3 ambient light shadow — black 15% */
+  --elevation-key-spread: 0px; /** Key shadow spread — 0 at every M3 level */
+  --elevation-level-1-key-y: 1px; /** M3 level 1 key shadow Y offset */
+  --elevation-level-1-key-blur: 2px; /** M3 level 1 key shadow blur */
+  --elevation-level-1-ambient-y: 1px; /** M3 level 1 ambient shadow Y offset */
+  --elevation-level-1-ambient-blur: 3px; /** M3 level 1 ambient shadow blur */
+  --elevation-level-1-ambient-spread: 1px; /** M3 level 1 ambient shadow spread */
+  --elevation-level-2-key-y: 1px; /** M3 level 2 key shadow Y offset */
+  --elevation-level-2-key-blur: 2px; /** M3 level 2 key shadow blur */
+  --elevation-level-2-ambient-y: 2px; /** M3 level 2 ambient shadow Y offset */
+  --elevation-level-2-ambient-blur: 6px; /** M3 level 2 ambient shadow blur */
+  --elevation-level-2-ambient-spread: 2px; /** M3 level 2 ambient shadow spread */
+  --elevation-level-3-key-y: 1px; /** M3 level 3 key shadow Y offset */
+  --elevation-level-3-key-blur: 3px; /** M3 level 3 key shadow blur */
+  --elevation-level-3-ambient-y: 4px; /** M3 level 3 ambient shadow Y offset */
+  --elevation-level-3-ambient-blur: 8px; /** M3 level 3 ambient shadow blur */
+  --elevation-level-3-ambient-spread: 3px; /** M3 level 3 ambient shadow spread */
+  --elevation-level-4-key-y: 2px; /** M3 level 4 key shadow Y offset */
+  --elevation-level-4-key-blur: 3px; /** M3 level 4 key shadow blur */
+  --elevation-level-4-ambient-y: 6px; /** M3 level 4 ambient shadow Y offset */
+  --elevation-level-4-ambient-blur: 10px; /** M3 level 4 ambient shadow blur */
+  --elevation-level-4-ambient-spread: 4px; /** M3 level 4 ambient shadow spread */
+  --elevation-level-5-key-y: 4px; /** M3 level 5 key shadow Y offset */
+  --elevation-level-5-key-blur: 4px; /** M3 level 5 key shadow blur */
+  --elevation-level-5-ambient-y: 8px; /** M3 level 5 ambient shadow Y offset */
+  --elevation-level-5-ambient-blur: 12px; /** M3 level 5 ambient shadow blur */
+  --elevation-level-5-ambient-spread: 6px; /** M3 level 5 ambient shadow spread */
+  --color-neutral-25: #f7f8f9; /** Subtle surface tint — lighter than neutral-50 */
+  --icon-size-20: 20px; /** M3 optical size 20 — dense UI, inline with body text */
+  --icon-size-24: 24px; /** M3 default icon size — buttons, list items, nav */
+  --icon-size-40: 40px; /** M3 optical size 40 — prominent actions, FAB */
+  --icon-size-48: 48px; /** M3 optical size 48 — largest optical size, hero and empty states */
+  --color: #ffffff;
+  --color-bg-base: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-surfaceprimary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-overlay: rgba(51, 65, 85, 0.12); /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-primary-light: #ebf3fe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-primary-idle: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-primary-hovered: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-primary-focused: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-light: #fdecec; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-idle: #aa3030; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-hovered: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-focused: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-primary-neutral-idle: #151b24;
+  --color-bg-primary-neutral-hovered: #151b24;
+  --color-bg-primary-neutral-focused: #1c242f;
+  --color-bg-positive-light: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-idle: #188c43; /** White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill. */
+  --color-bg-positive-hovered: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-focused: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-warning-light: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-warning-idle: #df900a; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-hovered: #f59e0b; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-focused: #f59e0b; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-info-light: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-idle: #0a75a5; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-hovered: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-focused: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-light: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-idle: #6341af; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-hovered: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-focused: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-blue: #ebf3fe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-indigo: #eff0fe; /** Dark value corrected to indigo-900 to match the other accent tints */
+  --color-bg-accent-cyan: #e6f8fb; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-green: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-amber: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-red: #fdecec; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-sky: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-violet: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-primary: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
+  --color-text-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
+  --color-text-disabled-on-dark: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-brand: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-negative: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-positive: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-warning: #875706; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-info: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-update: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-primary: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
+  --color-icon-disabled-on-dark: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-brand: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-negative: #d93e3e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-positive: #188c43; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base */
+  --color-icon-warning: #875706; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base — amber needs a larger step */
+  --color-icon-info: #0a75a5; /** Darkened to clear 3:1 on bg/surfacePrimary */
+  --color-icon-update: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-base: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-surfaceprimary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-overlay: rgba(51, 65, 85, 0.12); /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-disabled: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-light: #7cabf9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-default: #629bf8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-bold: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-light: #f48282; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-default: #f26969; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-bold: #ef4444; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-light: #6bd893; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-default: #4ed17e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-bold: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-light: #f8be5c; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-default: #f7b13c; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-bold: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-light: #5ec3f0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-default: #3eb7ed; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-bold: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-light: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-default: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-bold: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --margin-page: 24px; /** Page edge margin. M3: 16dp compact, 24dp medium and up */
+  --gap-gutter: 24px; /** Gutter between grid columns */
+  --gap-pane: 24px; /** M3 pane spacing between layout panes */
+  --gap-section: 40px; /** Vertical gap between page sections */
+  --gap-card: 16px; /** Gap between cards in a list or grid */
+  --gap-component: 8px; /** Gap between components inside a group */
+  --gap-element: 4px; /** Gap between elements inside a component */
+  --padding-container: 24px; /** Inner padding of a page-level container */
+  --padding-card: 24px; /** Inner padding of a card or surface */
+  --padding-list-item: 16px; /** Inner padding of a list item row */
+  --padding-button-inline: 24px; /** M3 button horizontal padding */
   --size-display-lg: 57px; /** Material 3 display large size. Web and mobile share the comfortable value; back office is compact. */
   --lineheight-display-lg: 64px; /** Material 3 display large lineHeight. Web and mobile share the comfortable value; back office is compact. */
   --tracking-display-lg: -0.25px; /** Material 3 display large tracking. Web and mobile share the comfortable value; back office is compact. */
@@ -182,34 +315,75 @@
   --size-label-sm: 11px; /** Material 3 label small size. Web and mobile share the comfortable value; back office is compact. */
   --lineheight-label-sm: 16px; /** Material 3 label small lineHeight. Web and mobile share the comfortable value; back office is compact. */
   --tracking-label-sm: 0.5px; /** Material 3 label small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --weight-regular: 400; /** Body and long-form copy. */
-  --weight-medium: 500; /** Titles and labels. Material 3 base emphasis. */
+  --weight-regular: 400; /** M3 weight 400 */
+  --weight-medium: 500; /** M3 weight 500 */
   --weight-bold: 600; /** Emphasised titles, buttons and prices. Extension of the M3 base scale. */
   --family-default: Inter; /** Inter. Already 100% consistent across all three platforms — the one thing that was. */
-  --display-lg: 400 57px/64px Inter; /** horizon.type.display.lg — web and mobile. */
-  --display-md: 400 45px/52px Inter; /** horizon.type.display.md — web and mobile. */
-  --display-sm: 400 36px/44px Inter; /** horizon.type.display.sm — web and mobile. */
-  --headline-lg: 400 32px/40px Inter; /** horizon.type.headline.lg — web and mobile. */
-  --headline-md: 400 28px/36px Inter; /** horizon.type.headline.md — web and mobile. */
-  --headline-sm: 400 24px/32px Inter; /** horizon.type.headline.sm — web and mobile. */
-  --headline-lg-bold: 600 32px/40px Inter; /** horizon.type.headline.lg.bold — Inter Semi Bold 600. */
-  --title-lg: 400 22px/28px Inter; /** horizon.type.title.lg — web and mobile. */
-  --title-md: 500 16px/24px Inter; /** horizon.type.title.md — web and mobile. */
-  --title-sm: 500 14px/20px Inter; /** horizon.type.title.sm — web and mobile. */
-  --title-lg-bold: 600 22px/28px Inter; /** horizon.type.title.lg.bold — Inter Semi Bold 600. */
-  --title-md-bold: 600 16px/24px Inter; /** horizon.type.title.md.bold — Inter Semi Bold 600. */
-  --title-sm-bold: 600 14px/20px Inter; /** horizon.type.title.sm.bold — Inter Semi Bold 600. */
-  --body-lg: 400 16px/24px Inter; /** horizon.type.body.lg — web and mobile. */
-  --body-md: 400 14px/20px Inter; /** horizon.type.body.md — web and mobile. */
-  --body-sm: 400 12px/16px Inter; /** horizon.type.body.sm — web and mobile. */
-  --body-lg-bold: 600 16px/24px Inter; /** horizon.type.body.lg.bold — Inter Semi Bold 600. */
-  --label-lg: 500 14px/20px Inter; /** horizon.type.label.lg — web and mobile. */
-  --label-md: 500 12px/16px Inter; /** horizon.type.label.md — web and mobile. */
-  --label-sm: 500 11px/16px Inter; /** horizon.type.label.sm — web and mobile. */
-  --label-lg-bold: 600 14px/20px Inter; /** horizon.type.label.lg.bold — Inter Semi Bold 600. */
-  --elevation-level1: 0px 1px 2px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 1px 3px 0px rgb(10.588% 15.294% 20% / 0.1); /** Card and raised surface. Use where a card sits on a busy ground; keep border-only on quiet grounds. New to the system — the audited products use zero shadows today. */
-  --elevation-level2: 0px 2px 4px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.1); /** Sticky header, raised panel. New to the system — the audited products use zero shadows today. */
-  --elevation-level3: 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.12); /** Dropdown, popover, tooltip. New to the system — the audited products use zero shadows today. */
-  --elevation-level4: 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.08), 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.14); /** Modal and dialog. New to the system — the audited products use zero shadows today. */
-  --elevation-level5: 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.1), 0px 24px 48px 0px rgb(10.588% 15.294% 20% / 0.18); /** Full-screen overlay, command palette. New to the system — the audited products use zero shadows today. */
+  --family-brand: Roboto; /** M3 brand typeface — Display, Headline, Title roles */
+  --family-plain: Roboto; /** M3 plain typeface — Body, Label roles */
+  --size-display-large: 57px;
+  --line-height-display-large: 64px;
+  --tracking-display-large: -0.25px;
+  --size-display-medium: 45px;
+  --line-height-display-medium: 52px;
+  --tracking-display-medium: 0px;
+  --size-display-small: 36px;
+  --line-height-display-small: 44px;
+  --tracking-display-small: 0px;
+  --size-headline-large: 32px;
+  --line-height-headline-large: 40px;
+  --tracking-headline-large: 0px;
+  --size-headline-medium: 28px;
+  --line-height-headline-medium: 36px;
+  --tracking-headline-medium: 0px;
+  --size-headline-small: 24px;
+  --line-height-headline-small: 32px;
+  --tracking-headline-small: 0px;
+  --size-title-large: 22px;
+  --line-height-title-large: 28px;
+  --tracking-title-large: 0px;
+  --size-title-medium: 16px;
+  --line-height-title-medium: 24px;
+  --tracking-title-medium: 0.15000000596046448px;
+  --size-title-small: 14px;
+  --line-height-title-small: 20px;
+  --tracking-title-small: 0.10000000149011612px;
+  --size-body-large: 16px;
+  --line-height-body-large: 24px;
+  --tracking-body-large: 0.5px;
+  --size-body-medium: 14px;
+  --line-height-body-medium: 20px;
+  --tracking-body-medium: 0.25px;
+  --size-body-small: 12px;
+  --line-height-body-small: 16px;
+  --tracking-body-small: 0.4000000059604645px;
+  --size-label-large: 14px;
+  --line-height-label-large: 20px;
+  --tracking-label-large: 0.10000000149011612px;
+  --size-label-medium: 12px;
+  --line-height-label-medium: 16px;
+  --tracking-label-medium: 0.5px;
+  --size-label-small: 11px;
+  --line-height-label-small: 16px;
+  --tracking-label-small: 0.5px;
+  --display-large: 400 57px/64px Roboto; /** M3 Display Large — Roboto Regular 57/64, tracking -0.25px */
+  --display-medium: 400 45px/52px Roboto; /** M3 Display Medium — Roboto Regular 45/52, tracking 0px */
+  --display-small: 400 36px/44px Roboto; /** M3 Display Small — Roboto Regular 36/44, tracking 0px */
+  --headline-large: 400 32px/40px Roboto; /** M3 Headline Large — Roboto Regular 32/40, tracking 0px */
+  --headline-medium: 400 28px/36px Roboto; /** M3 Headline Medium — Roboto Regular 28/36, tracking 0px */
+  --headline-small: 400 24px/32px Roboto; /** M3 Headline Small — Roboto Regular 24/32, tracking 0px */
+  --title-large: 400 22px/28px Roboto; /** M3 Title Large — Roboto Regular 22/28, tracking 0px */
+  --title-medium: 500 16px/24px Roboto; /** M3 Title Medium — Roboto Medium 16/24, tracking 0.15px */
+  --title-small: 500 14px/20px Roboto; /** M3 Title Small — Roboto Medium 14/20, tracking 0.1px */
+  --body-large: 400 16px/24px Roboto; /** M3 Body Large — Roboto Regular 16/24, tracking 0.5px */
+  --body-medium: 400 14px/20px Roboto; /** M3 Body Medium — Roboto Regular 14/20, tracking 0.25px */
+  --body-small: 400 12px/16px Roboto; /** M3 Body Small — Roboto Regular 12/16, tracking 0.4px */
+  --label-large: 500 14px/20px Roboto; /** M3 Label Large — Roboto Medium 14/20, tracking 0.1px */
+  --label-medium: 500 12px/16px Roboto; /** M3 Label Medium — Roboto Medium 12/16, tracking 0.5px */
+  --label-small: 500 11px/16px Roboto; /** M3 Label Small — Roboto Medium 11/16, tracking 0.5px */
+  --elevation-level-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /** M3 elevation level 1 — 1dp */
+  --elevation-level-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15); /** M3 elevation level 2 — 3dp */
+  --elevation-level-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15); /** M3 elevation level 3 — 6dp */
+  --elevation-level-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15); /** M3 elevation level 4 — 8dp */
+  --elevation-level-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15); /** M3 elevation level 5 — 12dp */
 }

@@ -28,27 +28,31 @@ itself is built, not a copy of Figma's state or a copy of the pipeline's output.
 Read `tokens/manifest.json` for the declared shape, but don't stop there — what's declared and
 what `build-tokens.js` actually builds have already drifted once, so check both.
 
-| Collection | Modes | Actually shipped to a platform today |
-|---|---|---|
-| `core` | `value` (`core.value.tokens.json`) | Yes — every platform's base source |
-| `semantic-color` | `light`, `dark` | Both — `light` in `:root`, `dark` under `[data-theme="dark"]` |
-| `semantic-space` | `web`, `mobile`, `back-office` | `web` → CSS `:root`. `mobile` → iOS/Android. **`back-office` is not wired to any platform yet.** |
-| `type` | `web`, `mobile`, `back-office` | Same split as `semantic-space` — `back-office` unbuilt. |
-| `typography`, `effects` | none — single `styles`/`value` file each | Yes, into every CSS build |
+**Figma is canonical.** Since 2026-09-17 the build consumes the Figma export — `core.light`,
+`semantic.*`, `layout.*`, `typography.value` — and the earlier export is no longer built.
 
-Two things the manifest doesn't tell you, because they aren't in it:
+| File(s) | Actually shipped to a platform today |
+|---|---|
+| `core.light` | **Yes — every platform's base source.** All aliases resolve against it. |
+| `semantic.light`, `semantic.dark` | Both — `light` in `:root`, `dark` under `[data-theme="dark"]`, `light` to iOS/Android |
+| `layout.medium` | CSS `:root` (web) |
+| `layout.compact` | iOS/Android (mobile) |
+| `layout.expanded` | **Not wired to any platform yet.** |
+| `typography.value` | CSS `:root` and iOS/Android — Figma's type values (`family-plain`, `size-label-large`, …) |
+| `type.web` / `type.mobile` | Still built, only because they ship the earlier type names (`size-label-lg`, `tracking-label-lg`, …). `typography.styles` no longer composes from them. They share `weight-regular`/`weight-medium` with `typography.value`, which loads after them and wins |
+| `type.back-office` | Not wired |
+| `typography.styles`, `effects.styles` | Yes, into every build |
+| `core.value`, `semantic-color.*`, `semantic-space.*` | **No longer built.** The earlier export, superseded. |
 
-- **`core.light.tokens.json` isn't a declared mode of anything.** It's the newer Figma core that
-  `semantic.*` and `layout.*` are authored against, but `core.value.tokens.json` — not
-  `core.light` — is what every real build resolves aliases against. An alias that exists in
-  `core.light` and not in `core.value` will fail to resolve in the actual build, and it will look
-  exactly like a missing token.
-- **`semantic.light/dark` (extended semantic) and `layout.compact/medium/expanded` exist as files
-  and are not wired into `build-tokens.js` at all.** `build-token-data.js` builds Storybook views
-  for them so they're visible, but says so explicitly in its own source: "Not wired into
-  build-tokens.js yet." Nothing you change in those files will appear in `build/css/tokens.css`,
-  ever, until someone adds them to a platform in `build-tokens.js`. That absence is not a gap in
-  the export.
+Two things `tokens/manifest.json` won't tell you:
+
+- **The manifest describes the Figma export, not the build.** Since the 2026-09-17 re-export it
+  lists `core`, `semantic`, `layout` and `typography` — but `tokens/` still holds the earlier
+  export's files (`core.value`, `semantic-color.*`, `semantic-space.*`, `type.*`), which the export
+  no longer writes and nobody has deleted. Trust `build-tokens.js` for what ships, not the manifest.
+- **Never load both cores.** 31 names — the `color-neutral-*` and `color-blue-*` ramps — exist in
+  `core.value` and `core.light` with different values. Loading both lets the later source silently
+  override the earlier, with no collision warning worth noticing.
 
 ## Telling a real token gap from a naming or wiring mistake
 
@@ -58,14 +62,16 @@ Figma's:
 1. **It's a real gap.** The token doesn't exist in the relevant `tokens/*.json` file at all — not
    under a different name, not as an unresolved alias. Figma never defined it. This is the only
    case that goes back to the design tool.
-2. **It's an alias resolving against the wrong core.** The token exists, but its `$value` is an
-   alias like `{color-sky-500}` that's only defined in `core.light.tokens.json`, while the build
-   resolves against `core.value.tokens.json`. Check both core files before concluding anything is
-   missing — grep the alias name in each.
+2. **It's a name from the earlier export.** The token exists — in `core.value`,
+   `semantic-color.*` or `semantic-space.*` — but those files are no longer built. Names like
+   `--color-bg-primary`, `--color-border-focused`, `--size-control-md` or `--border-radius-control`
+   came from there. The Figma equivalent has a different name (`--color-bg-primary-idle`,
+   `--color-border-brand-default`, `--borderradius-small`); rebind to it rather than wiring the old
+   file back in.
 3. **It's a wiring gap, not an export gap.** The source file that defines the token isn't in the
-   `source` array of the `css()` or `native()` call that builds the platform you're checking — the
-   `back-office` mode and the extended `semantic`/`layout` collections are exactly this today. The
-   token is fully exported and perfectly named; nothing in `build-tokens.js` asks for it yet.
+   `source` array of the `css()` or `native()` call that builds the platform you're checking —
+   `layout.expanded` and `type.back-office` are exactly this today. The token is fully exported and
+   perfectly named; nothing in `build-tokens.js` asks for it yet.
 
 Report case 1 to the design tool. Report cases 2 and 3 as a build-wiring problem — they're a
 naming/config mismatch in this repo, not something a re-export fixes, and re-exporting from Figma
@@ -109,8 +115,8 @@ pipeline.
 
 ## Self-check
 - [ ] Nothing was hand-edited under `tokens/` or `build/`
-- [ ] A missing token was checked against both core files (`core.value`, `core.light`) before
-      being called a gap
+- [ ] A missing token was checked against `core.light` and the Figma files before being called a
+      gap — and not mistaken for a name from the earlier, unbuilt export
 - [ ] A missing token was checked against `build-tokens.js`'s actual `source` arrays before being
       called a gap — not every exported collection is wired to a platform
 - [ ] The rebuild was verified by finding the token's name **and** value in the generated output,
