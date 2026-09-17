@@ -93,7 +93,7 @@ The Developer has **two distinct lanes** on the board, entered from different st
     Developer to keep working.
 - **Refuses:** not stated on the board.
 
-### 2.4 QA — **Human** (as labelled on the board)
+### 2.4 QA — **Agent** (as labelled on the board)
 
 - **Works in:** the staging URL, tested against the Figma UI Kit.
 - **Reads:** Jira **Ready for QA** (from a new build) or Jira **Fixed** (from a re-test); the staging
