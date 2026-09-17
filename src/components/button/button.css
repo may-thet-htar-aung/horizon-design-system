@@ -1,10 +1,14 @@
 /* Horizon Button
  * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=65-22
  *
- * Every value below resolves to a semantic token from build/css/tokens.css.
- * Where the Figma node is bound to a variable that has no Horizon equivalent,
- * the nearest published semantic is used and the gap is marked GAP: — see
- * reports/button-token-gaps.md.
+ * Every value is bound to the Figma variable the node itself uses, by its Figma name:
+ * `color/bg/primary/idle` -> var(--color-bg-primary-idle). Resolved from build/css/tokens.css,
+ * built from Figma's core.light / semantic / layout / typography files.
+ *
+ * Two properties Figma does not bind at all, and the token chosen for each:
+ *   - focus ring: Figma has no focus variant. --borderwidth-3 ("M3 focus indicator ring"),
+ *     --color-border-brand-bold, offset --spacing-2.
+ *   - icon slot size: the Symbol instances are 20x20 and unbound. --spacing-20.
  */
 
 .hz-button {
@@ -12,19 +16,24 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: var(--spacing-gap-xs);              /* Figma gap/component 8 */
-  height: var(--size-control-md);          /* Figma spacing/40 */
-  padding-inline: var(--spacing-padding-lg); /* Figma padding/button-inline 24 */
-  padding-block: 0;
+  gap: var(--gap-component);                        /* gap/component */
+  height: var(--spacing-40);                        /* spacing/40 */
+  padding-inline: var(--padding-button-inline);     /* padding/button-inline */
+  padding-block: var(--spacing-0);
   box-sizing: border-box;
-  border: 0;
-  border-radius: var(--border-radius-control); /* GAP: Figma borderradius/small = 8, Horizon control radius = 12 */
-  background: transparent;
+  border-radius: var(--borderradius-small);         /* borderradius/small */
 
-  /* Figma Label/Large — 500 14/20, tracking 0.1.
-     GAP: Figma family/plain = Roboto, Horizon family-default = Inter. */
-  font: var(--label-lg);
-  letter-spacing: var(--tracking-label-lg);
+  /* Reset the UA button chrome. Figma's rest variants of Outline and Ghost have an
+     empty fills array and no stroke — nothing is painted until a variant says so. */
+  border: none;
+  background: none;
+
+  /* Label/Large — composite, no single token. */
+  font-family: var(--family-plain);                 /* family/plain */
+  font-weight: var(--weight-medium);                /* weight/medium */
+  font-size: var(--size-label-large);               /* size/label-large */
+  line-height: var(--line-height-label-large);      /* line-height/label-large */
+  letter-spacing: var(--tracking-label-large);      /* tracking/label-large */
   white-space: nowrap;
 
   cursor: pointer;
@@ -36,27 +45,24 @@
   cursor: not-allowed;
 }
 
-/* Keyboard focus.
- * GAP: not present in the Figma set — the component doc calls it out as missing.
- * Built here because Disabled-is-visual-only accessibility notes require it. */
+/* Keyboard focus — unbound in Figma; see header. */
 .hz-button:focus-visible {
-  outline: var(--border-width-focused) solid var(--color-border-focused);
-  outline-offset: var(--spacing-padding-2xs);
+  outline: var(--borderwidth-3) solid var(--color-border-brand-bold);
+  outline-offset: var(--spacing-2);
 }
 
-/* Icon slots — 20px.
- * Figma leaves this unbound (icon/size-20 unpublished); Horizon publishes it. */
+/* Icon slots — Symbol/outlined/arrow-small-*, 20x20, unbound in Figma; see header. */
 .hz-button__icon {
   display: inline-flex;
   flex: none;
-  width: var(--size-icon-md);
-  height: var(--size-icon-md);
+  width: var(--spacing-20);
+  height: var(--spacing-20);
 }
 
 .hz-button__icon > svg {
   display: block;
-  width: var(--size-icon-md);
-  height: var(--size-icon-md);
+  width: var(--spacing-20);
+  height: var(--spacing-20);
 }
 
 .hz-button__label {
@@ -66,58 +72,55 @@
 /* ---------------------------------------------------------------- Primary */
 
 .hz-button--primary {
-  background: var(--color-bg-primary);
-  color: var(--color-text-inverse);
+  background: var(--color-bg-primary-idle);         /* color/bg/primary/idle */
+  color: var(--color-text-inverse);                 /* color/text/inverse */
 }
 
 .hz-button--primary:hover:not(:disabled),
 .hz-button--primary[data-state='Hover']:not(:disabled) {
-  background: var(--color-bg-primary-hovered);
+  background: var(--color-bg-primary-hovered);      /* color/bg/primary/hovered */
 }
 
 .hz-button--primary:disabled {
-  background: var(--color-bg-primary-disabled);
-  color: var(--color-text-disabled);
+  background: var(--color-bg-surfaceprimary);       /* color/bg/surfacePrimary */
+  color: var(--color-text-disabled-on-dark);        /* color/text/disabled on dark */
 }
 
 /* ---------------------------------------------------------------- Outline */
+/* Figma's stroke is INSIDE, so it must not add to the box. An inset shadow draws the
+   1px line inside the border-box, above the fill and below the label. */
 
 .hz-button--outline {
-  background: transparent;
-  /* GAP: Figma binds color/border/brand/default (#629bf8); Horizon has no
-     brand border token. --color-border-bold is documented as
-     "Outlined control at rest", so it carries the meaning. */
-  border: var(--border-width-default) solid var(--color-border-bold);
-  color: var(--color-text-link);
+  /* No fill at rest — 64:53 binds none. */
+  box-shadow: inset 0 0 0 var(--borderwidth-1) var(--color-border-brand-default); /* borderwidth/1, color/border/brand/default */
+  color: var(--color-text-brand);                   /* color/text/brand */
 }
 
 .hz-button--outline:hover:not(:disabled),
 .hz-button--outline[data-state='Hover']:not(:disabled) {
-  background: var(--color-bg-secondary);
-  /* GAP: Figma binds color/border/brand/bold (#3b82f6); nearest published
-     brand-weight border semantic is --color-border-focused. */
-  border-color: var(--color-border-focused);
+  background: var(--color-bg-base);                 /* color/bg/base — hover only */
+  box-shadow: inset 0 0 0 var(--borderwidth-1) var(--color-border-brand-bold);    /* color/border/brand/bold */
 }
 
 .hz-button--outline:disabled {
-  background: var(--color-bg-primary-disabled);
-  border-color: var(--color-border-disabled);
-  color: var(--color-text-disabled);
+  background: var(--color-bg-surfaceprimary);       /* color/bg/surfacePrimary */
+  box-shadow: inset 0 0 0 var(--borderwidth-1) var(--color-border-disabled);      /* color/border/disabled */
+  color: var(--color-text-disabled-on-dark);        /* color/text/disabled on dark */
 }
 
 /* ------------------------------------------------------------------ Ghost */
 
 .hz-button--ghost {
-  background: transparent;
-  color: var(--color-text-link);
+  /* No fill, no stroke at rest — 65:4 binds none. */
+  color: var(--color-text-brand);                   /* color/text/brand */
 }
 
 .hz-button--ghost:hover:not(:disabled),
 .hz-button--ghost[data-state='Hover']:not(:disabled) {
-  background: var(--color-bg-primary-subtle);
+  background: var(--color-bg-primary-light);        /* color/bg/primary/Light */
 }
 
 .hz-button--ghost:disabled {
-  background: transparent;
-  color: var(--color-text-disabled);
+  /* No fill — 65:16 binds none. */
+  color: var(--color-text-disabled-on-dark);        /* color/text/disabled on dark */
 }
