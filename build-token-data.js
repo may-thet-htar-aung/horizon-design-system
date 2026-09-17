@@ -20,30 +20,35 @@ const TYPE_WEB = T + 'type.web.tokens.json';
 const VIEWS = [
   { id: 'core', group: 'Core', title: 'Core', mode: 'value',
     sources: [CORE], own: ['core.value'],
-    note: 'The core ramp the build actually consumes.' },
+    note: 'Earlier export. No longer built — superseded by the Figma core.' },
 
   { id: 'core-figma', group: 'Core', title: 'Core — Figma export', mode: 'light',
     sources: [T + 'core.light.tokens.json'], own: ['core.light'],
-    note: 'Latest Figma export. NOT consumed by build-tokens.js — shown for comparison.' },
+    note: 'Figma export. The core every platform build resolves against.' },
 
   { id: 'semantic-color-light', group: 'Semantic colour', title: 'Semantic colour', mode: 'light',
-    sources: [CORE, T + 'semantic-color.light.tokens.json'], own: ['semantic-color.light'] },
+    sources: [CORE, T + 'semantic-color.light.tokens.json'], own: ['semantic-color.light'],
+    note: 'Earlier export. No longer built — superseded by extended semantic.' },
   { id: 'semantic-color-dark', group: 'Semantic colour', title: 'Semantic colour', mode: 'dark',
-    sources: [CORE, T + 'semantic-color.dark.tokens.json'], own: ['semantic-color.dark'] },
+    sources: [CORE, T + 'semantic-color.dark.tokens.json'], own: ['semantic-color.dark'],
+    note: 'Earlier export. No longer built — superseded by extended semantic.' },
 
   { id: 'semantic-full-light', group: 'Semantic colour (extended)', title: 'Extended semantic', mode: 'light',
     sources: [CORE_FIGMA, T + 'semantic.light.tokens.json'], own: ['semantic.light'],
-    note: 'Resolves against the Figma core. Not wired into build-tokens.js yet.' },
+    note: 'Figma export. Built into tokens.css (:root).' },
   { id: 'semantic-full-dark', group: 'Semantic colour (extended)', title: 'Extended semantic', mode: 'dark',
     sources: [CORE_FIGMA, T + 'semantic.dark.tokens.json'], own: ['semantic.dark'],
-    note: 'Resolves against the Figma core. Not wired into build-tokens.js yet.' },
+    note: 'Figma export. Built into tokens-dark.css.' },
 
   { id: 'space-web', group: 'Semantic space', title: 'Semantic space', mode: 'web',
-    sources: [CORE, T + 'semantic-space.web.tokens.json'], own: ['semantic-space.web'] },
+    sources: [CORE, T + 'semantic-space.web.tokens.json'], own: ['semantic-space.web'],
+    note: 'Earlier export. No longer built — superseded by layout.' },
   { id: 'space-mobile', group: 'Semantic space', title: 'Semantic space', mode: 'mobile',
-    sources: [CORE, T + 'semantic-space.mobile.tokens.json'], own: ['semantic-space.mobile'] },
+    sources: [CORE, T + 'semantic-space.mobile.tokens.json'], own: ['semantic-space.mobile'],
+    note: 'Earlier export. No longer built — superseded by layout.' },
   { id: 'space-back-office', group: 'Semantic space', title: 'Semantic space', mode: 'back-office',
-    sources: [CORE, T + 'semantic-space.back-office.tokens.json'], own: ['semantic-space.back-office'] },
+    sources: [CORE, T + 'semantic-space.back-office.tokens.json'], own: ['semantic-space.back-office'],
+    note: 'Earlier export. No longer built — superseded by layout.' },
 
   { id: 'type-web', group: 'Type scale', title: 'Type scale', mode: 'web',
     sources: [CORE, TYPE_WEB], own: ['type.web'] },
@@ -62,13 +67,13 @@ const VIEWS = [
 
   { id: 'layout-compact', group: 'Layout', title: 'Layout', mode: 'compact',
     sources: [CORE_FIGMA, T + 'layout.compact.tokens.json'], own: ['layout.compact'],
-    note: 'Resolves against the Figma core. Not wired into build-tokens.js yet.' },
+    note: 'Figma export. Built into iOS and Android (mobile).' },
   { id: 'layout-medium', group: 'Layout', title: 'Layout', mode: 'medium',
     sources: [CORE_FIGMA, T + 'layout.medium.tokens.json'], own: ['layout.medium'],
-    note: 'Resolves against the Figma core. Not wired into build-tokens.js yet.' },
+    note: 'Figma export. Built into tokens.css (web).' },
   { id: 'layout-expanded', group: 'Layout', title: 'Layout', mode: 'expanded',
     sources: [CORE_FIGMA, T + 'layout.expanded.tokens.json'], own: ['layout.expanded'],
-    note: 'Resolves against the Figma core. Not wired into build-tokens.js yet.' },
+    note: 'Figma export. Not wired into any platform yet.' },
 ];
 
 const val = (t) => t.$value ?? t.value;
