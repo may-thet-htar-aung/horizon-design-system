@@ -57,13 +57,16 @@ const VIEWS = [
   { id: 'type-back-office', group: 'Type scale', title: 'Type scale', mode: 'back-office',
     sources: [CORE, T + 'type.back-office.tokens.json'], own: ['type.back-office'] },
 
+  // Figma's styles alias typography.value ({size-label-large}, {family-plain}, …), not type.web.
   { id: 'typography-styles', group: 'Typography', title: 'Typography styles', mode: 'web',
-    sources: [CORE, TYPE_WEB, T + 'typography.styles.tokens.json'], own: ['typography.styles'] },
+    sources: [T + 'typography.value.tokens.json', T + 'typography.styles.tokens.json'],
+    own: ['typography.styles'] },
   { id: 'typography-value', group: 'Typography', title: 'Typography primitives', mode: 'value',
     sources: [T + 'typography.value.tokens.json'], own: ['typography.value'] },
 
+  // Elevation is composed from shadow parts in the Figma core ({elevation-shadow-color-key}, …).
   { id: 'effects', group: 'Effects', title: 'Elevation', mode: 'styles',
-    sources: [T + 'effects.styles.tokens.json'], own: ['effects.styles'] },
+    sources: [CORE_FIGMA, T + 'effects.styles.tokens.json'], own: ['effects.styles'] },
 
   { id: 'layout-compact', group: 'Layout', title: 'Layout', mode: 'compact',
     sources: [CORE_FIGMA, T + 'layout.compact.tokens.json'], own: ['layout.compact'],

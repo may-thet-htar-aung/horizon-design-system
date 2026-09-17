@@ -9,26 +9,26 @@
   --color-blue-700: #2a5caf;
   --color-blue-800: #204887;
   --color-blue-900: #193767;
-  --color-indigo-50: #eff0fe;
-  --color-indigo-100: #cfd0fb;
-  --color-indigo-200: #b7b9f9;
-  --color-indigo-300: #9698f6;
-  --color-indigo-400: #8285f4;
-  --color-indigo-500: #6366f1;
-  --color-indigo-600: #5a5ddb;
-  --color-indigo-700: #4648ab;
-  --color-indigo-800: #363885;
-  --color-indigo-900: #2a2b65;
-  --color-cyan-50: #e6f8fb;
-  --color-cyan-100: #b2e8f2;
-  --color-cyan-200: #8cddeb;
-  --color-cyan-300: #58cee2;
-  --color-cyan-400: #38c5dd;
-  --color-cyan-500: #06b6d4;
-  --color-cyan-600: #05a6c1;
-  --color-cyan-700: #048197;
-  --color-cyan-800: #036475;
-  --color-cyan-900: #034c59;
+  --color-indigo-50: #eff0fe; /** Used by color/bg/accent — only steps 100-900 of this ramp are unreferenced */
+  --color-indigo-100: #cfd0fb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-200: #b7b9f9; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-300: #9698f6; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-400: #8285f4; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-500: #6366f1; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-600: #5a5ddb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-700: #4648ab; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-800: #363885; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-indigo-900: #2a2b65; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-50: #e6f8fb; /** Used by color/bg/accent — only steps 100-900 of this ramp are unreferenced */
+  --color-cyan-100: #b2e8f2; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-200: #8cddeb; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-300: #58cee2; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-400: #38c5dd; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-500: #06b6d4; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-600: #05a6c1; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-700: #048197; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-800: #036475; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
+  --color-cyan-900: #034c59; /** Unused — no semantic token references this ramp. Kept for future brand or status use. */
   --color-green-50: #e9f9ef;
   --color-green-100: #baedcd;
   --color-green-200: #99e4b5;
@@ -91,7 +91,7 @@
   --color-neutral-300a: rgba(51, 65, 85, 0.16);
   --color-neutral-400: #5c6777;
   --color-neutral-400a: rgba(51, 65, 85, 0.2);
-  --color-neutral-500: #334155;
+  --color-neutral-500: #485466; /** Respaced — previously duplicated neutral-600 (#334155) */
   --color-neutral-500a: rgba(51, 65, 85, 0.24);
   --color-neutral-600: #334155;
   --color-neutral-700: #242e3c;
@@ -164,6 +164,11 @@
   --elevation-level-5-ambient-y: 8px; /** M3 level 5 ambient shadow Y offset */
   --elevation-level-5-ambient-blur: 12px; /** M3 level 5 ambient shadow blur */
   --elevation-level-5-ambient-spread: 6px; /** M3 level 5 ambient shadow spread */
+  --color-neutral-25: #f7f8f9; /** Subtle surface tint — lighter than neutral-50 */
+  --icon-size-20: 20px; /** M3 optical size 20 — dense UI, inline with body text */
+  --icon-size-24: 24px; /** M3 default icon size — buttons, list items, nav */
+  --icon-size-40: 40px; /** M3 optical size 40 — prominent actions, FAB */
+  --icon-size-48: 48px; /** M3 optical size 48 — largest optical size, hero and empty states */
   --color: #ffffff;
   --color-bg-base: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -175,30 +180,30 @@
   --color-bg-primary-hovered: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-focused: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-negative-light: #fdecec; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-idle: #d93e3e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-hovered: #ef4444; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-focused: #ef4444; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-idle: #aa3030; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-hovered: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-focused: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-neutral-idle: #151b24;
   --color-bg-primary-neutral-hovered: #151b24;
   --color-bg-primary-neutral-focused: #1c242f;
   --color-bg-positive-light: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-idle: #1fb356; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-hovered: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-focused: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-idle: #188c43; /** White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill. */
+  --color-bg-positive-hovered: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-focused: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-warning-light: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-idle: #df900a; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-hovered: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-focused: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-warning-idle: #df900a; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-hovered: #f59e0b; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-focused: #f59e0b; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
   --color-bg-info-light: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-idle: #0d96d4; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-hovered: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-focused: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-idle: #0a75a5; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-hovered: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-focused: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-update-light: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-idle: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-hovered: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-focused: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-idle: #6341af; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-hovered: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-focused: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-accent-blue: #ebf3fe; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-indigo: #eff0fe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-indigo: #eff0fe; /** Dark value corrected to indigo-900 to match the other accent tints */
   --color-bg-accent-cyan: #e6f8fb; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-accent-green: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-accent-amber: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -206,13 +211,13 @@
   --color-bg-accent-sky: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-accent-violet: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-primary: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
   --color-text-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-inverse-secondary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-disabled-on-dark: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-brand: #204887; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
+  --color-text-disabled-on-dark: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-brand: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-negative: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-positive: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-warning: #875706; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -223,19 +228,19 @@
   --color-icon-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-inverse-secondary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-icon-disabled-on-dark: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-brand: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-negative: #d93e3e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-positive: #1fb356; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-warning: #df900a; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-info: #0d96d4; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-positive: #188c43; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base */
+  --color-icon-warning: #875706; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base — amber needs a larger step */
+  --color-icon-info: #0a75a5; /** Darkened to clear 3:1 on bg/surfacePrimary */
   --color-icon-update: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-base: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-surfaceprimary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-overlay: rgba(51, 65, 85, 0.12); /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-disabled: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-brand-light: #7cabf9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-brand-default: #629bf8; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-brand-bold: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -265,6 +270,55 @@
   --padding-card: 24px; /** Inner padding of a card or surface */
   --padding-list-item: 16px; /** Inner padding of a list item row */
   --padding-button-inline: 24px; /** M3 button horizontal padding */
+  --size-display-lg: 57px; /** Material 3 display large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-lg: 64px; /** Material 3 display large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-lg: -0.25px; /** Material 3 display large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-display-md: 45px; /** Material 3 display medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-md: 52px; /** Material 3 display medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-md: 0px; /** Material 3 display medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-display-sm: 36px; /** Material 3 display small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-display-sm: 44px; /** Material 3 display small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-display-sm: 0px; /** Material 3 display small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-lg: 32px; /** Material 3 headline large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-lg: 40px; /** Material 3 headline large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-lg: 0px; /** Material 3 headline large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-md: 28px; /** Material 3 headline medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-md: 36px; /** Material 3 headline medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-md: 0px; /** Material 3 headline medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-headline-sm: 24px; /** Material 3 headline small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-headline-sm: 32px; /** Material 3 headline small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-headline-sm: 0px; /** Material 3 headline small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-lg: 22px; /** Material 3 title large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-lg: 28px; /** Material 3 title large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-lg: 0px; /** Material 3 title large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-md: 16px; /** Material 3 title medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-md: 24px; /** Material 3 title medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-md: 0.15000000596046448px; /** Material 3 title medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-title-sm: 14px; /** Material 3 title small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-title-sm: 20px; /** Material 3 title small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-title-sm: 0.10000000149011612px; /** Material 3 title small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-lg: 16px; /** Material 3 body large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-lg: 24px; /** Material 3 body large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-lg: 0.5px; /** Material 3 body large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-md: 14px; /** Material 3 body medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-md: 20px; /** Material 3 body medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-md: 0.25px; /** Material 3 body medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-body-sm: 12px; /** Material 3 body small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-body-sm: 16px; /** Material 3 body small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-body-sm: 0.4000000059604645px; /** Material 3 body small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-lg: 14px; /** Material 3 label large size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-lg: 20px; /** Material 3 label large lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-lg: 0.10000000149011612px; /** Material 3 label large tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-md: 12px; /** Material 3 label medium size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-md: 16px; /** Material 3 label medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-md: 0.5px; /** Material 3 label medium tracking. Web and mobile share the comfortable value; back office is compact. */
+  --size-label-sm: 11px; /** Material 3 label small size. Web and mobile share the comfortable value; back office is compact. */
+  --lineheight-label-sm: 16px; /** Material 3 label small lineHeight. Web and mobile share the comfortable value; back office is compact. */
+  --tracking-label-sm: 0.5px; /** Material 3 label small tracking. Web and mobile share the comfortable value; back office is compact. */
+  --weight-regular: 400; /** M3 weight 400 */
+  --weight-medium: 500; /** M3 weight 500 */
+  --weight-bold: 600; /** Emphasised titles, buttons and prices. Extension of the M3 base scale. */
+  --family-default: Inter; /** Inter. Already 100% consistent across all three platforms — the one thing that was. */
   --family-brand: Roboto; /** M3 brand typeface — Display, Headline, Title roles */
   --family-plain: Roboto; /** M3 plain typeface — Body, Label roles */
   --size-display-large: 57px;
@@ -312,79 +366,24 @@
   --size-label-small: 11px;
   --line-height-label-small: 16px;
   --tracking-label-small: 0.5px;
-  --size-display-lg: 57px; /** Material 3 display large size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-display-lg: 64px; /** Material 3 display large lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-display-lg: -0.25px; /** Material 3 display large tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-display-md: 45px; /** Material 3 display medium size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-display-md: 52px; /** Material 3 display medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-display-md: 0px; /** Material 3 display medium tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-display-sm: 36px; /** Material 3 display small size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-display-sm: 44px; /** Material 3 display small lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-display-sm: 0px; /** Material 3 display small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-headline-lg: 32px; /** Material 3 headline large size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-headline-lg: 40px; /** Material 3 headline large lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-headline-lg: 0px; /** Material 3 headline large tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-headline-md: 28px; /** Material 3 headline medium size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-headline-md: 36px; /** Material 3 headline medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-headline-md: 0px; /** Material 3 headline medium tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-headline-sm: 24px; /** Material 3 headline small size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-headline-sm: 32px; /** Material 3 headline small lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-headline-sm: 0px; /** Material 3 headline small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-title-lg: 22px; /** Material 3 title large size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-title-lg: 28px; /** Material 3 title large lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-title-lg: 0px; /** Material 3 title large tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-title-md: 16px; /** Material 3 title medium size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-title-md: 24px; /** Material 3 title medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-title-md: 0.15000000596046448px; /** Material 3 title medium tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-title-sm: 14px; /** Material 3 title small size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-title-sm: 20px; /** Material 3 title small lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-title-sm: 0.10000000149011612px; /** Material 3 title small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-body-lg: 16px; /** Material 3 body large size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-body-lg: 24px; /** Material 3 body large lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-body-lg: 0.5px; /** Material 3 body large tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-body-md: 14px; /** Material 3 body medium size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-body-md: 20px; /** Material 3 body medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-body-md: 0.25px; /** Material 3 body medium tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-body-sm: 12px; /** Material 3 body small size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-body-sm: 16px; /** Material 3 body small lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-body-sm: 0.4000000059604645px; /** Material 3 body small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-label-lg: 14px; /** Material 3 label large size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-label-lg: 20px; /** Material 3 label large lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-label-lg: 0.10000000149011612px; /** Material 3 label large tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-label-md: 12px; /** Material 3 label medium size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-label-md: 16px; /** Material 3 label medium lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-label-md: 0.5px; /** Material 3 label medium tracking. Web and mobile share the comfortable value; back office is compact. */
-  --size-label-sm: 11px; /** Material 3 label small size. Web and mobile share the comfortable value; back office is compact. */
-  --lineheight-label-sm: 16px; /** Material 3 label small lineHeight. Web and mobile share the comfortable value; back office is compact. */
-  --tracking-label-sm: 0.5px; /** Material 3 label small tracking. Web and mobile share the comfortable value; back office is compact. */
-  --weight-regular: 400; /** Body and long-form copy. */
-  --weight-medium: 500; /** Titles and labels. Material 3 base emphasis. */
-  --weight-bold: 600; /** Emphasised titles, buttons and prices. Extension of the M3 base scale. */
-  --family-default: Inter; /** Inter. Already 100% consistent across all three platforms — the one thing that was. */
-  --display-lg: 400 57px/64px Inter; /** horizon.type.display.lg — web and mobile. */
-  --display-md: 400 45px/52px Inter; /** horizon.type.display.md — web and mobile. */
-  --display-sm: 400 36px/44px Inter; /** horizon.type.display.sm — web and mobile. */
-  --headline-lg: 400 32px/40px Inter; /** horizon.type.headline.lg — web and mobile. */
-  --headline-md: 400 28px/36px Inter; /** horizon.type.headline.md — web and mobile. */
-  --headline-sm: 400 24px/32px Inter; /** horizon.type.headline.sm — web and mobile. */
-  --headline-lg-bold: 600 32px/40px Inter; /** horizon.type.headline.lg.bold — Inter Semi Bold 600. */
-  --title-lg: 400 22px/28px Inter; /** horizon.type.title.lg — web and mobile. */
-  --title-md: 500 16px/24px Inter; /** horizon.type.title.md — web and mobile. */
-  --title-sm: 500 14px/20px Inter; /** horizon.type.title.sm — web and mobile. */
-  --title-lg-bold: 600 22px/28px Inter; /** horizon.type.title.lg.bold — Inter Semi Bold 600. */
-  --title-md-bold: 600 16px/24px Inter; /** horizon.type.title.md.bold — Inter Semi Bold 600. */
-  --title-sm-bold: 600 14px/20px Inter; /** horizon.type.title.sm.bold — Inter Semi Bold 600. */
-  --body-lg: 400 16px/24px Inter; /** horizon.type.body.lg — web and mobile. */
-  --body-md: 400 14px/20px Inter; /** horizon.type.body.md — web and mobile. */
-  --body-sm: 400 12px/16px Inter; /** horizon.type.body.sm — web and mobile. */
-  --body-lg-bold: 600 16px/24px Inter; /** horizon.type.body.lg.bold — Inter Semi Bold 600. */
-  --label-lg: 500 14px/20px Inter; /** horizon.type.label.lg — web and mobile. */
-  --label-md: 500 12px/16px Inter; /** horizon.type.label.md — web and mobile. */
-  --label-sm: 500 11px/16px Inter; /** horizon.type.label.sm — web and mobile. */
-  --label-lg-bold: 600 14px/20px Inter; /** horizon.type.label.lg.bold — Inter Semi Bold 600. */
-  --elevation-level1: 0px 1px 2px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 1px 3px 0px rgb(10.588% 15.294% 20% / 0.1); /** Card and raised surface. Use where a card sits on a busy ground; keep border-only on quiet grounds. New to the system — the audited products use zero shadows today. */
-  --elevation-level2: 0px 2px 4px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.1); /** Sticky header, raised panel. New to the system — the audited products use zero shadows today. */
-  --elevation-level3: 0px 4px 8px 0px rgb(10.588% 15.294% 20% / 0.06), 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.12); /** Dropdown, popover, tooltip. New to the system — the audited products use zero shadows today. */
-  --elevation-level4: 0px 8px 16px 0px rgb(10.588% 15.294% 20% / 0.08), 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.14); /** Modal and dialog. New to the system — the audited products use zero shadows today. */
-  --elevation-level5: 0px 16px 32px 0px rgb(10.588% 15.294% 20% / 0.1), 0px 24px 48px 0px rgb(10.588% 15.294% 20% / 0.18); /** Full-screen overlay, command palette. New to the system — the audited products use zero shadows today. */
+  --display-large: 400 57px/64px Roboto; /** M3 Display Large — Roboto Regular 57/64, tracking -0.25px */
+  --display-medium: 400 45px/52px Roboto; /** M3 Display Medium — Roboto Regular 45/52, tracking 0px */
+  --display-small: 400 36px/44px Roboto; /** M3 Display Small — Roboto Regular 36/44, tracking 0px */
+  --headline-large: 400 32px/40px Roboto; /** M3 Headline Large — Roboto Regular 32/40, tracking 0px */
+  --headline-medium: 400 28px/36px Roboto; /** M3 Headline Medium — Roboto Regular 28/36, tracking 0px */
+  --headline-small: 400 24px/32px Roboto; /** M3 Headline Small — Roboto Regular 24/32, tracking 0px */
+  --title-large: 400 22px/28px Roboto; /** M3 Title Large — Roboto Regular 22/28, tracking 0px */
+  --title-medium: 500 16px/24px Roboto; /** M3 Title Medium — Roboto Medium 16/24, tracking 0.15px */
+  --title-small: 500 14px/20px Roboto; /** M3 Title Small — Roboto Medium 14/20, tracking 0.1px */
+  --body-large: 400 16px/24px Roboto; /** M3 Body Large — Roboto Regular 16/24, tracking 0.5px */
+  --body-medium: 400 14px/20px Roboto; /** M3 Body Medium — Roboto Regular 14/20, tracking 0.25px */
+  --body-small: 400 12px/16px Roboto; /** M3 Body Small — Roboto Regular 12/16, tracking 0.4px */
+  --label-large: 500 14px/20px Roboto; /** M3 Label Large — Roboto Medium 14/20, tracking 0.1px */
+  --label-medium: 500 12px/16px Roboto; /** M3 Label Medium — Roboto Medium 12/16, tracking 0.5px */
+  --label-small: 500 11px/16px Roboto; /** M3 Label Small — Roboto Medium 11/16, tracking 0.5px */
+  --elevation-level-1: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15); /** M3 elevation level 1 — 1dp */
+  --elevation-level-2: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 2px 6px 2px rgba(0, 0, 0, 0.15); /** M3 elevation level 2 — 3dp */
+  --elevation-level-3: 0px 1px 3px 0px rgba(0, 0, 0, 0.3), 0px 4px 8px 3px rgba(0, 0, 0, 0.15); /** M3 elevation level 3 — 6dp */
+  --elevation-level-4: 0px 2px 3px 0px rgba(0, 0, 0, 0.3), 0px 6px 10px 4px rgba(0, 0, 0, 0.15); /** M3 elevation level 4 — 8dp */
+  --elevation-level-5: 0px 4px 4px 0px rgba(0, 0, 0, 0.3), 0px 8px 12px 6px rgba(0, 0, 0, 0.15); /** M3 elevation level 5 — 12dp */
 }

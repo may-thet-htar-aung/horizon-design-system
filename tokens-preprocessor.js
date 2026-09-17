@@ -19,7 +19,12 @@ const walk = (node) => {
   for (const key of Object.keys(node)) {
     const t = node[key];
     if (!t || typeof t !== 'object') continue;
-    if (t.$type === 'typography' && t.$value) {
+    if (t.$type === 'fontWeight') {
+      // Standalone weight tokens too: Figma exports weight-regular as "regular", which is
+      // not a valid CSS font-weight. Normalising here makes it 400 in every platform output,
+      // whichever source file happens to load last.
+      t.$value = weightToNumber(t.$value);
+    } else if (t.$type === 'typography' && t.$value) {
       const v = t.$value;
       t.$value = {
         ...v,

@@ -62,17 +62,17 @@
   },
   "color-bg-negative-idle": {
     "$type": "color",
-    "$value": "{color-red-400}",
+    "$value": "{color-red-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-negative-hovered": {
     "$type": "color",
-    "$value": "{color-red-800}",
+    "$value": "{color-red-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-negative-focused": {
     "$type": "color",
-    "$value": "{color-red-700}",
+    "$value": "{color-red-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-primary-neutral-idle": {
@@ -89,122 +89,122 @@
   },
   "color-bg-positive-light": {
     "$type": "color",
-    "$value": "{color-green-50}",
+    "$value": "{color-green-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-positive-idle": {
     "$type": "color",
-    "$value": "{color-green-600}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-green-200}",
+    "$description": "White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill."
   },
   "color-bg-positive-hovered": {
     "$type": "color",
-    "$value": "{color-green-500}",
+    "$value": "{color-green-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-positive-focused": {
     "$type": "color",
-    "$value": "{color-green-500}",
+    "$value": "{color-green-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-warning-light": {
     "$type": "color",
-    "$value": "{color-amber-50}",
+    "$value": "{color-amber-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-warning-idle": {
     "$type": "color",
-    "$value": "{color-amber-600}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-amber-300}",
+    "$description": "Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation."
   },
   "color-bg-warning-hovered": {
     "$type": "color",
-    "$value": "{color-amber-500}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-amber-400}",
+    "$description": "Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation."
   },
   "color-bg-warning-focused": {
     "$type": "color",
-    "$value": "{color-amber-500}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-amber-400}",
+    "$description": "Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation."
   },
   "color-bg-info-light": {
     "$type": "color",
-    "$value": "{color-sky-50}",
+    "$value": "{color-sky-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-info-idle": {
     "$type": "color",
-    "$value": "{color-sky-600}",
+    "$value": "{color-sky-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-info-hovered": {
     "$type": "color",
-    "$value": "{color-sky-500}",
+    "$value": "{color-sky-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-info-focused": {
     "$type": "color",
-    "$value": "{color-sky-500}",
+    "$value": "{color-sky-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-update-light": {
     "$type": "color",
-    "$value": "{color-violet-50}",
+    "$value": "{color-violet-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-update-idle": {
     "$type": "color",
-    "$value": "{color-violet-600}",
+    "$value": "{color-violet-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-update-hovered": {
     "$type": "color",
-    "$value": "{color-violet-500}",
+    "$value": "{color-violet-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-update-focused": {
     "$type": "color",
-    "$value": "{color-violet-500}",
+    "$value": "{color-violet-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-blue": {
     "$type": "color",
-    "$value": "{color-blue-50}",
+    "$value": "{color-blue-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-indigo": {
     "$type": "color",
-    "$value": "{color-violet-50}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-indigo-900}",
+    "$description": "Dark value corrected to indigo-900 to match the other accent tints"
   },
   "color-bg-accent-cyan": {
     "$type": "color",
-    "$value": "{color-cyan-50}",
+    "$value": "{color-cyan-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-green": {
     "$type": "color",
-    "$value": "{color-green-50}",
+    "$value": "{color-green-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-amber": {
     "$type": "color",
-    "$value": "{color-amber-50}",
+    "$value": "{color-amber-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-red": {
     "$type": "color",
-    "$value": "{color-red-50}",
+    "$value": "{color-red-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-sky": {
     "$type": "color",
-    "$value": "{color-sky-50}",
+    "$value": "{color-sky-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-bg-accent-violet": {
     "$type": "color",
-    "$value": "{color-violet-50}",
+    "$value": "{color-violet-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-text-primary": {
@@ -214,8 +214,8 @@
   },
   "color-text-secondary": {
     "$type": "color",
-    "$value": "{color-neutral-400}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-neutral-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value"
   },
   "color-text-bold": {
     "$type": "color",
@@ -235,7 +235,7 @@
   "color-text-inverse-secondary": {
     "$type": "color",
     "$value": "{color-neutral-900}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$description": "Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills."
   },
   "color-text-disabled-on-dark": {
     "$type": "color",
@@ -259,32 +259,32 @@
   },
   "color-text-warning": {
     "$type": "color",
-    "$value": "{color-amber-800}",
+    "$value": "{color-amber-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-text-info": {
     "$type": "color",
-    "$value": "{color-sky-800}",
+    "$value": "{color-sky-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-text-update": {
     "$type": "color",
-    "$value": "{color-violet-800}",
+    "$value": "{color-violet-100}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-primary": {
     "$type": "color",
-    "$value": "{color-neutral-800}",
+    "$value": "{color-neutral-50}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-secondary": {
     "$type": "color",
-    "$value": "{color-neutral-600}",
+    "$value": "{color-neutral-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-bold": {
     "$type": "color",
-    "$value": "{color-neutral-900}",
+    "$value": "{color-neutral-0}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-disabled": {
@@ -294,13 +294,13 @@
   },
   "color-icon-inverse": {
     "$type": "color",
-    "$value": "{color-neutral-0}",
+    "$value": "{color-neutral-900}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-inverse-secondary": {
     "$type": "color",
-    "$value": "{color-neutral-50}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-neutral-800}",
+    "$description": "Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills."
   },
   "color-icon-disabled-on-dark": {
     "$type": "color",
@@ -309,32 +309,32 @@
   },
   "color-icon-brand": {
     "$type": "color",
-    "$value": "{color-blue-600}",
+    "$value": "{color-blue-300}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-negative": {
     "$type": "color",
-    "$value": "{color-red-600}",
+    "$value": "{color-red-300}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-positive": {
     "$type": "color",
-    "$value": "{color-green-600}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-green-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base"
   },
   "color-icon-warning": {
     "$type": "color",
-    "$value": "{color-amber-600}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-amber-300}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base — amber needs a larger step"
   },
   "color-icon-info": {
     "$type": "color",
-    "$value": "{color-sky-600}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
+    "$value": "{color-sky-300}",
+    "$description": "Darkened to clear 3:1 on bg/surfacePrimary"
   },
   "color-icon-update": {
     "$type": "color",
-    "$value": "{color-violet-600}",
+    "$value": "{color-violet-300}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-base": {
@@ -364,92 +364,92 @@
   },
   "color-border-brand-light": {
     "$type": "color",
-    "$value": "{color-blue-300}",
+    "$value": "{color-blue-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-brand-default": {
     "$type": "color",
-    "$value": "{color-blue-400}",
+    "$value": "{color-blue-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-brand-bold": {
     "$type": "color",
-    "$value": "{color-blue-500}",
+    "$value": "{color-blue-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-negative-light": {
     "$type": "color",
-    "$value": "{color-red-300}",
+    "$value": "{color-red-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-negative-default": {
     "$type": "color",
-    "$value": "{color-red-400}",
+    "$value": "{color-red-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-negative-bold": {
     "$type": "color",
-    "$value": "{color-red-500}",
+    "$value": "{color-red-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-positive-light": {
     "$type": "color",
-    "$value": "{color-green-300}",
+    "$value": "{color-green-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-positive-default": {
     "$type": "color",
-    "$value": "{color-green-400}",
+    "$value": "{color-green-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-positive-bold": {
     "$type": "color",
-    "$value": "{color-green-500}",
+    "$value": "{color-green-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-warning-light": {
     "$type": "color",
-    "$value": "{color-amber-300}",
+    "$value": "{color-amber-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-warning-default": {
     "$type": "color",
-    "$value": "{color-amber-400}",
+    "$value": "{color-amber-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-warning-bold": {
     "$type": "color",
-    "$value": "{color-amber-500}",
+    "$value": "{color-amber-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-info-light": {
     "$type": "color",
-    "$value": "{color-sky-300}",
+    "$value": "{color-sky-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-info-default": {
     "$type": "color",
-    "$value": "{color-sky-400}",
+    "$value": "{color-sky-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-info-bold": {
     "$type": "color",
-    "$value": "{color-sky-500}",
+    "$value": "{color-sky-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-update-light": {
     "$type": "color",
-    "$value": "{color-violet-300}",
+    "$value": "{color-violet-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-update-default": {
     "$type": "color",
-    "$value": "{color-violet-400}",
+    "$value": "{color-violet-500}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-update-bold": {
     "$type": "color",
-    "$value": "{color-violet-500}",
+    "$value": "{color-violet-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   }
 }

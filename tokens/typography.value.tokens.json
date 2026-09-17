@@ -9,6 +9,16 @@
     "$value": "Roboto",
     "$description": "M3 plain typeface — Body, Label roles"
   },
+  "weight-regular": {
+    "$type": "fontWeight",
+    "$value": "regular",
+    "$description": "M3 weight 400"
+  },
+  "weight-medium": {
+    "$type": "fontWeight",
+    "$value": "medium",
+    "$description": "M3 weight 500"
+  },
   "size-display-large": {
     "$type": "dimension",
     "$value": {

@@ -39,16 +39,17 @@ what `build-tokens.js` actually builds have already drifted once, so check both.
 | `layout.compact` | iOS/Android (mobile) |
 | `layout.expanded` | **Not wired to any platform yet.** |
 | `typography.value` | CSS `:root` and iOS/Android — Figma's type values (`family-plain`, `size-label-large`, …) |
-| `type.web` / `type.mobile` | Still built, for the `weight-*` values and the names `typography.styles` composes from |
+| `type.web` / `type.mobile` | Still built, only because they ship the earlier type names (`size-label-lg`, `tracking-label-lg`, …). `typography.styles` no longer composes from them. They share `weight-regular`/`weight-medium` with `typography.value`, which loads after them and wins |
 | `type.back-office` | Not wired |
 | `typography.styles`, `effects.styles` | Yes, into every build |
 | `core.value`, `semantic-color.*`, `semantic-space.*` | **No longer built.** The earlier export, superseded. |
 
-Two things `tokens/manifest.json` won't tell you, because it still describes the earlier export:
+Two things `tokens/manifest.json` won't tell you:
 
-- **The manifest lists `core.value`, `semantic-color` and `semantic-space` — the files that are no
-  longer built — and doesn't list `core.light`, `semantic` or `layout` at all.** Trust
-  `build-tokens.js` for what ships, not the manifest.
+- **The manifest describes the Figma export, not the build.** Since the 2026-09-17 re-export it
+  lists `core`, `semantic`, `layout` and `typography` — but `tokens/` still holds the earlier
+  export's files (`core.value`, `semantic-color.*`, `semantic-space.*`, `type.*`), which the export
+  no longer writes and nobody has deleted. Trust `build-tokens.js` for what ships, not the manifest.
 - **Never load both cores.** 31 names — the `color-neutral-*` and `color-blue-*` ramps — exist in
   `core.value` and `core.light` with different values. Loading both lets the later source silently
   override the earlier, with no collision warning worth noticing.

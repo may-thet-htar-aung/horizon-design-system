@@ -21,10 +21,9 @@
   border-radius: var(--border-radius-control); /* GAP: Figma borderradius/small = 8, Horizon control radius = 12 */
   background: transparent;
 
-  /* Figma Label/Large — 500 14/20, tracking 0.1.
-     GAP: Figma family/plain = Roboto, Horizon family-default = Inter. */
-  font: var(--label-lg);
-  letter-spacing: var(--tracking-label-lg);
+  /* Figma Label/Large — Roboto Medium 14/20, tracking 0.1. Bound to Figma's own style names. */
+  font: var(--label-large);
+  letter-spacing: var(--tracking-label-large);
   white-space: nowrap;
 
   cursor: pointer;

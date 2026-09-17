@@ -10,83 +10,83 @@
   --color-bg-primary-hovered: #2a5caf; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-focused: #193767; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-negative-light: #641d1d; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-idle: #f26969; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-hovered: #832525; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-negative-focused: #aa3030; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-idle: #f8a9a9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-hovered: #fac5c5; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-negative-focused: #fac5c5; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-neutral-idle: #ffffff;
   --color-bg-primary-neutral-hovered: #ebecee;
   --color-bg-primary-neutral-focused: #c0c4ca;
-  --color-bg-positive-light: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-idle: #1fb356; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-hovered: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-positive-focused: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-light: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-idle: #df900a; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-hovered: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-warning-focused: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-light: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-idle: #0d96d4; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-hovered: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-info-focused: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-light: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-idle: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-hovered: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-update-focused: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-blue: #ebf3fe; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-indigo: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-cyan: #e6f8fb; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-green: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-amber: #fef5e7; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-red: #fdecec; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-sky: #e7f6fd; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-bg-accent-violet: #f3effe; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-light: #0e5327; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-idle: #99e4b5; /** White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill. */
+  --color-bg-positive-hovered: #baedcd; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-positive-focused: #baedcd; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-warning-light: #674205; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-warning-idle: #f8be5c; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-hovered: #f7b13c; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-warning-focused: #f7b13c; /** Carries DARK text — pair with text/primary and icon/primary, not text/inverse. Amber cannot reach 4.5:1 with white text at any usable saturation. */
+  --color-bg-info-light: #064562; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-idle: #90d6f5; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-hovered: #b4e3f8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-info-focused: #b4e3f8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-light: #3a2767; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-idle: #cab4fb; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-hovered: #dbccfc; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-update-focused: #dbccfc; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-blue: #193767; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-indigo: #2a2b65; /** Dark value corrected to indigo-900 to match the other accent tints */
+  --color-bg-accent-cyan: #034c59; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-green: #0e5327; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-amber: #674205; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-red: #641d1d; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-sky: #064562; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-accent-violet: #3a2767; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-primary: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-secondary: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-secondary: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
   --color-text-bold: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-disabled: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-inverse-secondary: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-inverse-secondary: #151b24; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-text-disabled-on-dark: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-brand: #7cabf9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-negative: #f8a9a9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-positive: #99e4b5; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-warning: #875706; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-info: #085b80; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-update: #4c3387; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-primary: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-warning: #fce1b3; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-info: #b4e3f8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-update: #dbccfc; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-primary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-secondary: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-bold: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-inverse-secondary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-inverse-secondary: #1c242f; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-icon-disabled-on-dark: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-brand: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-negative: #d93e3e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-positive: #1fb356; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-warning: #df900a; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-info: #0d96d4; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-update: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-brand: #7cabf9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-negative: #f48282; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-positive: #6bd893; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base */
+  --color-icon-warning: #f8be5c; /** Background for most UI surfaces, creating a neutral canvas. · Darkened to clear 3:1 against bg/base — amber needs a larger step */
+  --color-icon-info: #5ec3f0; /** Darkened to clear 3:1 on bg/surfacePrimary */
+  --color-icon-update: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-base: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-inverse: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-surfaceprimary: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-overlay: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-disabled: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-brand-light: #7cabf9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-brand-default: #629bf8; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-brand-bold: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-negative-light: #f48282; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-negative-default: #f26969; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-negative-bold: #ef4444; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-positive-light: #6bd893; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-positive-default: #4ed17e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-positive-bold: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-warning-light: #f8be5c; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-warning-default: #f7b13c; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-warning-bold: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-info-light: #5ec3f0; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-info-default: #3eb7ed; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-info-bold: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-update-light: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-update-default: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-update-bold: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-light: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-default: #3b82f6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-brand-bold: #629bf8; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-light: #d93e3e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-default: #ef4444; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-negative-bold: #f26969; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-light: #1fb356; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-default: #22c55e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-positive-bold: #4ed17e; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-light: #df900a; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-default: #f59e0b; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-warning-bold: #f7b13c; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-light: #0d96d4; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-default: #0ea5e9; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-info-bold: #3eb7ed; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-light: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-default: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-update-bold: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
 }
