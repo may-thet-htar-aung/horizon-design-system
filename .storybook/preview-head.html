@@ -1,5 +1,7 @@
-<!-- The type tokens specify Inter; load it so specimens render at the real weights.
-     Falls back to the system stack offline. -->
+<!-- Load every typeface the tokens name, so specimens and components render at the real faces
+     and weights. Roboto is Figma's family-plain and family-brand (Body, Label, Display, Headline,
+     Title). Inter is family-default, still used by the type scale and text styles.
+     Falls back to the system stack offline — measure before trusting a width. -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
