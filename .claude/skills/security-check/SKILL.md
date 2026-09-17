@@ -22,10 +22,21 @@ personal access tokens, Airtable personal access tokens and legacy keys, and PEM
 blocks. Deliberately not entropy-based — see "What this does not cover."
 
 **2 · Private identifiers.**
-Airtable base, table, record, field, and view IDs (`app…`, `tbl…`, `rec…`, `fld…`, `viw…`) — the
-exact IDs `.claude/skills/registry/SKILL.md` says must never be hardcoded — plus private IPv4
-ranges (`10.x`, `172.16–31.x`, `192.168.x`) and `.internal` / `.corp` / `.lan` hostnames, none of
-which belong in a public bundle.
+Two ways, because one alone either misses or cries wolf:
+- **Exact match on the real IDs.** The base and table IDs in `.claude/registry.local.json` — the
+  ones `.claude/skills/registry/SKILL.md` says must never be hardcoded — are searched for verbatim,
+  at `critical`. Nothing about their spelling can hide them. If the file is absent (it's gitignored,
+  so a CI clone won't have it), the run prints a `[NOTE]` saying this part was skipped.
+- **Shape match for any Airtable ID** — base, table, record, field, view (`app…`, `tbl…`, `rec…`,
+  `fld…`, `viw…`) and legacy keys (`key…`). A shape match whose 14-character tail is letters only
+  and reads as camelCase words is skipped: minified JavaScript is full of names like
+  `applyRegistration`, `keySeparatorIndex` and `reconcilerVersion`, which are prefix + 14 letters and
+  aren't IDs. A real ID's tail is random and almost always carries a digit.
+
+Plus private IPv4 ranges (`10.x`, `172.16–31.x`, `192.168.x`), and `.internal` / `.corp` / `.lan`
+hostnames **where a host can actually appear** — after a scheme's `//`, after `user@`, or at the
+start of a quoted string — and ending at a port, path, quote, space or end of text. Property access
+like `link.internal`, or a name like `` `storybook.internal.composedWith` ``, isn't a hostname.
 
 **3 · Environment leakage into client JS.**
 Two checks: any `.env` value whose key looks secret (`SECRET`, `TOKEN`, `KEY`, `PASSWORD`, `PWD`,
@@ -33,6 +44,12 @@ Two checks: any `.env` value whose key looks secret (`SECRET`, `TOKEN`, `KEY`, `
 built files where `<NAME>` isn't `VITE_`-prefixed. Vite only exposes `VITE_`-prefixed variables to
 client code on purpose; anything else surviving into the bundle is a bundler-config bug leaking a
 server-side variable, not a false alarm.
+
+The `import.meta.env` / `process.env` *reference* checks skip `sb-manager/` — Storybook's
+precompiled manager UI, copied byte-for-byte from `node_modules/storybook/dist/manager/`. Nothing
+in it is compiled from this repo, so a reference there can't be one of our variables. The verbatim
+`.env` value check still scans every file, `sb-manager/` included, and so do the credential and
+private-ID checks.
 
 **4 · Dependency advisories.**
 Shells out to `npm audit --json` — already part of the toolchain, nothing new installed — and fails
@@ -71,6 +88,15 @@ Said plainly, because a gate that implies more than it checks is worse than no g
   show up in `npm audit`. Clean means "nothing known today," not "nothing wrong."
 - **Pattern lists rot.** A provider that changes its token format, or one never added to this
   list, passes silently. Treat the pattern list as a living document, not a finished one.
+- **The camelCase filter trades a sliver of recall for silence on minified code.** An Airtable ID
+  from *another* base whose random tail happens to be letters-only camelCase would be skipped by
+  the shape check. Our own base and table IDs are unaffected — they're matched exactly. Record,
+  field and view IDs of our own base are not in `registry.local.json`, so they rely on the shape
+  check alone.
+- **A hostname outside a URL or quoted string isn't caught** — e.g. one assembled from parts at
+  runtime, or written in a comment without quotes.
+- **`process.env` references inside `sb-manager/` aren't reported.** If a future Storybook version
+  compiled project code into that directory, this assumption would need revisiting.
 
 A clean run means: no known-shape credential, no flagged private ID, no detected env leak, no
 high/critical advisory, a clean tree, and — in live mode — the URL's posture matched what was
