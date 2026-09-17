@@ -22,7 +22,7 @@ Nothing is "I'll work it out when I write it."
 
 ### 2 · Tokens — resolve, don't choose
 For each visual property, find the semantic token that carries that meaning in
-`build/tokens/css/tokens.css`. Never a raw value. Never a base token directly —
+`build/css/tokens.css`. Never a raw value. Never a base token directly —
 the `--primitives-*` names in that file are the base layer, and a component that
 reaches for one has skipped the semantic token that should sit in front of it.
 
@@ -107,7 +107,7 @@ recorded link.
 opened, seen to render, and written to `Staging Storybook`.
 
 ## References
-- The token source: `build/tokens/css/tokens.css` (generated, read-only)
+- The token source: `build/css/tokens.css` (generated, read-only)
 - The good example to copy: `src/components/button/` (camelCase folder, per `CLAUDE.md`)
 - Naming and conventions: `CLAUDE.md`
 - Commands and stack: `tools.md`
