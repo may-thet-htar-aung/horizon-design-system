@@ -5,18 +5,35 @@
  * Figma name: `color/bg/base` -> var(--color-bg-base). Resolved from build/css/tokens.css,
  * built from Figma's core.light / semantic / layout / typography files.
  *
- * The node binds five variables and nothing else:
- *   color/bg/base · color/border/brand/bold · color/icon/brand
- *   color/bg/surfacePrimary · color/border/disabled
+ * The node binds six variables and nothing else:
+ *   color/bg/base · color/border/brand/Light · color/border/brand/bold
+ *   color/icon/brand · color/bg/surfacePrimary · color/border/disabled
+ *
+ * ---------------------------------------------------------------------------
+ * WHERE THE SPEC PROSE AND THE LIVE BINDING DISAGREE, THE BINDING WINS.
+ * ---------------------------------------------------------------------------
+ * The node's written SPEC contradicts its own variable bindings in three places.
+ * A description is a note; a binding is what the design does. All three follow
+ * the binding, and the prose is reported back to the designer to correct.
+ *
+ *   - Resting stroke. SPEC says "The resting stroke stays #c8d2dd. That grey has no
+ *     matching token." Nodes 251:4 (Default) and 251:13 (Unchecked) both bind their
+ *     stroke to color/border/brand/Light (#7cabf9), confirmed by get_variable_defs
+ *     on each node. --color-border-brand-light is exported, built and resolving, so
+ *     this is not a gap at all. Bound below.
+ *   - Mark colour. SPEC says color/icon/primary (#1c242f); the node binds
+ *     color/icon/brand (#3676e0). Bound below.
+ *   - Mark size. SPEC says "drawn at 12"; the node and the exported SVG both say 10.
+ *     Unbound either way, so it stays a placeholder — but at the node's 10, not 12.
  *
  * ---------------------------------------------------------------------------
  * UNBOUND IN FIGMA — reported, not invented.
  * ---------------------------------------------------------------------------
- * Five properties carry no variable on the node. They are NOT given a semantic token
+ * Four properties carry no variable on the node. They are NOT given a semantic token
  * here, and no near-fitting token is substituted. Each is parked in one
  * `--hz-checkbox-*-unbound` custom property below, carrying the literal value the
- * designer wrote in the node's own SPEC, so that the day a real token is bound in
- * Figma each becomes a one-line change and nothing else in this file moves.
+ * node itself renders, so that the day a real token is bound in Figma each becomes
+ * a one-line change and nothing else in this file moves.
  *
  *   1. Box size — SPEC says "Size 16", "Don't override the box size".
  *      No variable bound. --spacing-16 exists and is exactly 16px, but the design
@@ -27,12 +44,8 @@
  *   3. Stroke weight — SPEC says "stroke weight 1, aligned inside".
  *      No variable bound. --borderwidth-1 exists and is exactly 1px and is even
  *      described "Default outline", but the design does not bind it.
- *   4. Resting stroke colour — SPEC says "The resting stroke stays #c8d2dd. That grey
- *      has no matching token." Applies to State=Default and State=Unchecked only.
- *      Hovered/Checked/Disabled strokes ARE bound and use their tokens below.
- *   5. Check mark size — the Icon instance renders 10x10. SPEC says "drawn at 12 ...
- *      12 has no size token"; the node and the exported SVG both say 10. Unbound
- *      either way. The node is followed, not the prose.
+ *   4. Check mark size — the Icon instance renders 10x10. No variable bound, and no
+ *      size token in the build is 10px. The node is followed, not the prose.
  *
  * Also absent from the design, and therefore absent here:
  *   - Keyboard focus. The node's own ACCESSIBILITY note says "Keyboard focus needs its
@@ -42,11 +55,10 @@
  */
 
 .hz-checkbox {
-  /* The five unbound values. See the header. Not tokens — placeholders for tokens. */
+  /* The four unbound values. See the header. Not tokens — placeholders for tokens. */
   --hz-checkbox-size-unbound: 16px;
   --hz-checkbox-radius-unbound: 3px;
   --hz-checkbox-border-width-unbound: 1px;
-  --hz-checkbox-border-resting-unbound: #c8d2dd;
   --hz-checkbox-mark-size-unbound: 10px;
 
   /* Auto-layout: centre/centre, fixed 16x16, stroke aligned inside. */
@@ -60,7 +72,11 @@
   overflow: clip;
 
   border-radius: var(--hz-checkbox-radius-unbound);
-  border: var(--hz-checkbox-border-width-unbound) solid var(--hz-checkbox-border-resting-unbound);
+
+  /* State=Default / State=Unchecked stroke — color/border/brand/Light.
+     Nodes 251:4 and 251:13 both bind it; the SPEC prose that called it an
+     untokenised grey is wrong, and the binding is what the design does. */
+  border: var(--hz-checkbox-border-width-unbound) solid var(--color-border-brand-light);
 
   /* State=Default / State=Unchecked fill — color/bg/base. */
   background: var(--color-bg-base);
