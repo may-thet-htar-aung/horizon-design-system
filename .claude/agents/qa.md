@@ -82,9 +82,8 @@ not a write you make. Every other registry column, in every table, is read-only 
 | What exists when you're done | Where |
 |---|---|
 | One row per case — variant × size × state, never one per component | `stagingTesting`, linked via `Composed In` |
-| `Expected Results` on every row | same rows |
+| The finding-format block, identical, on every row — pass or fail | `Expected Results` **and** `Suggestion for Improvement`, same text in both |
 | A screenshot on every row, pass and fail alike | `Attachment` on each row |
-| `Suggestion for Improvement` where you have one | on failed rows |
 | One report per run: the full matrix, passes and failures both | `reports/<Component>.md` |
 | Screenshots the report references | saved beside the report file |
 
@@ -97,6 +96,9 @@ itself. You don't message the engineer — the status is the message.
 - [ ] Every case in the matrix has a row
 - [ ] Every row is linked to its component through `Composed In`
 - [ ] Both passes and failures are recorded, not only the failures
+- [ ] Every row's `Expected Results` and `Suggestion for Improvement` follow
+      `.claude/skills/finding-format/SKILL.md` — dated, the right shape for a pass or a failure,
+      and identical to each other
 - [ ] Every failed row names a token or a prop, never a raw value
 - [ ] Every failed row has a screenshot attached
 - [ ] I tested the deployed staging build — never local, never the story file
