@@ -227,6 +227,11 @@
     "$value": "{color-neutral-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
+  "color-text-input-text": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
   "color-text-inverse": {
     "$type": "color",
     "$value": "{color-neutral-900}",
@@ -288,6 +293,11 @@
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-disabled": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-icon-input": {
     "$type": "color",
     "$value": "{color-neutral-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
@@ -450,6 +460,26 @@
   "color-border-update-bold": {
     "$type": "color",
     "$value": "{color-violet-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-2": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-3": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-4": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-5": {
+    "$type": "color",
+    "$value": "{color-neutral-400}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   }
 }
