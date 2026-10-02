@@ -1,0 +1,144 @@
+/* Horizon Check Box
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=251-19
+ *
+ * Every COLOUR in this file is bound to the Figma variable the node itself uses, by its
+ * Figma name: `color/bg/base` -> var(--color-bg-base). Resolved from build/css/tokens.css,
+ * built from Figma's core.light / semantic / layout / typography files.
+ *
+ * The node binds six variables and nothing else:
+ *   color/bg/base · color/border/brand/Light · color/border/brand/bold
+ *   color/icon/brand · color/bg/surfacePrimary · color/border/disabled
+ *
+ * ---------------------------------------------------------------------------
+ * WHERE THE SPEC PROSE AND THE LIVE BINDING DISAGREE, THE BINDING WINS.
+ * ---------------------------------------------------------------------------
+ * The node's written SPEC contradicts its own variable bindings in three places.
+ * A description is a note; a binding is what the design does. All three follow
+ * the binding, and the prose is reported back to the designer to correct.
+ *
+ *   - Resting stroke. SPEC says "The resting stroke stays #c8d2dd. That grey has no
+ *     matching token." Nodes 251:4 (Default) and 251:13 (Unchecked) both bind their
+ *     stroke to color/border/brand/Light (#7cabf9), confirmed by get_variable_defs
+ *     on each node. --color-border-brand-light is exported, built and resolving, so
+ *     this is not a gap at all. Bound below.
+ *   - Mark colour. SPEC says color/icon/primary (#1c242f); the node binds
+ *     color/icon/brand (#3676e0). Bound below.
+ *   - Mark size. SPEC says "drawn at 12"; the node and the exported SVG both say 10.
+ *     Unbound either way, so it stays a placeholder — but at the node's 10, not 12.
+ *
+ * ---------------------------------------------------------------------------
+ * UNBOUND IN FIGMA — reported, not invented.
+ * ---------------------------------------------------------------------------
+ * Four properties carry no variable on the node. They are NOT given a semantic token
+ * here, and no near-fitting token is substituted. Each is parked in one
+ * `--hz-checkbox-*-unbound` custom property below, carrying the literal value the
+ * node itself renders, so that the day a real token is bound in Figma each becomes
+ * a one-line change and nothing else in this file moves.
+ *
+ *   1. Box size — SPEC says "Size 16", "Don't override the box size".
+ *      No variable bound. --spacing-16 exists and is exactly 16px, but the design
+ *      does not point at it, so this file does not either.
+ *   2. Corner radius — SPEC says "Radius 3 has no token. borderradius/small is 8."
+ *      No token in the build is 3px (nearest --borderradius-extra-small is 4px).
+ *      A genuine gap in the token set, not just an unbound property.
+ *   3. Stroke weight — SPEC says "stroke weight 1, aligned inside".
+ *      No variable bound. --borderwidth-1 exists and is exactly 1px and is even
+ *      described "Default outline", but the design does not bind it.
+ *   4. Check mark size — the Icon instance renders 10x10. No variable bound, and no
+ *      size token in the build is 10px. The node is followed, not the prose.
+ *
+ * Also absent from the design, and therefore absent here:
+ *   - Keyboard focus. The node's own ACCESSIBILITY note says "Keyboard focus needs its
+ *     own treatment - not yet in this set." No focus ring is invented. The UA default
+ *     focus ring is deliberately left in place rather than suppressed, so the control
+ *     is still keyboard-visible while the design catches up.
+ */
+
+.hz-checkbox {
+  /* The four unbound values. See the header. Not tokens — placeholders for tokens. */
+  --hz-checkbox-size-unbound: 16px;
+  --hz-checkbox-radius-unbound: 3px;
+  --hz-checkbox-border-width-unbound: 1px;
+  --hz-checkbox-mark-size-unbound: 10px;
+
+  /* Auto-layout: centre/centre, fixed 16x16, stroke aligned inside. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: var(--hz-checkbox-size-unbound);
+  height: var(--hz-checkbox-size-unbound);
+  box-sizing: border-box;
+  overflow: clip;
+
+  border-radius: var(--hz-checkbox-radius-unbound);
+
+  /* State=Default / State=Unchecked stroke — color/border/brand/Light.
+     Nodes 251:4 and 251:13 both bind it; the SPEC prose that called it an
+     untokenised grey is wrong, and the binding is what the design does. */
+  border: var(--hz-checkbox-border-width-unbound) solid var(--color-border-brand-light);
+
+  /* State=Default / State=Unchecked fill — color/bg/base. */
+  background: var(--color-bg-base);
+
+  /* Reset the UA button chrome; the box is drawn entirely above. */
+  padding: 0;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* ------------------------------------------------------------------ Hovered */
+/* Border shifts to brand — color/border/brand/bold. Live :hover and the forced
+   paint used to render the state in a story side by side. */
+
+.hz-checkbox:hover:not(:disabled),
+.hz-checkbox[data-state='Hovered']:not(:disabled) {
+  border-color: var(--color-border-brand-bold);     /* color/border/brand/bold */
+}
+
+/* ------------------------------------------------------------------ Checked */
+/* Border is brand and the mark is shown. The fill stays color/bg/base. */
+
+.hz-checkbox[aria-checked='true']:not(:disabled) {
+  border-color: var(--color-border-brand-bold);     /* color/border/brand/bold */
+}
+
+/* ----------------------------------------------------------------- Disabled */
+/* Fill color/bg/surfacePrimary, stroke color/border/disabled. Wins over hover
+   and checked, matching the node: State=Disabled paints no mark and no brand. */
+
+.hz-checkbox:disabled {
+  background: var(--color-bg-surfaceprimary);       /* color/bg/surfacePrimary */
+  border-color: var(--color-border-disabled);       /* color/border/disabled */
+  cursor: not-allowed;
+}
+
+/* --------------------------------------------------------------- The mark */
+/* Symbol/filled/check. The node binds this fill to color/icon/brand (#3676e0),
+   which is what the exported SVG and the rendered node both show. The node's SPEC
+   prose says color/icon/primary (#1c242f, near-black) — that is a documentation
+   error in Figma; the live binding is followed here and the mismatch is reported.
+   The SVG ships fill="currentColor" so the token, not the asset, carries the colour. */
+
+.hz-checkbox__mark {
+  display: inline-flex;
+  flex: none;
+  width: var(--hz-checkbox-mark-size-unbound);
+  height: var(--hz-checkbox-mark-size-unbound);
+  color: var(--color-icon-brand);                   /* color/icon/brand */
+}
+
+.hz-checkbox__mark > svg {
+  display: block;
+  width: var(--hz-checkbox-mark-size-unbound);
+  height: var(--hz-checkbox-mark-size-unbound);
+}
+
+/* The mark exists in the DOM on every state and is hidden unless checked, exactly
+   as the node keeps a hidden Icon instance on Default, Unchecked and Disabled. */
+
+.hz-checkbox:not([aria-checked='true']) .hz-checkbox__mark,
+.hz-checkbox:disabled .hz-checkbox__mark {
+  visibility: hidden;
+}
