@@ -226,6 +226,11 @@
     "$value": "{color-neutral-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value"
   },
+  "color-text-secondary-unique": {
+    "$type": "color",
+    "$value": "{color-neutral-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value"
+  },
   "color-text-bold": {
     "$type": "color",
     "$value": "{color-neutral-900}",

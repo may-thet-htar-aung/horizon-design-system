@@ -213,6 +213,7 @@ public class Tokens {
     public static let colorTextPositive = UIColor(red: 0.075, green: 0.424, blue: 0.204, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextPrimary = UIColor(red: 0.110, green: 0.141, blue: 0.184, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextSecondary = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
+    public static let colorTextSecondaryUnique = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
     public static let colorTextUpdate = UIColor(red: 0.298, green: 0.200, blue: 0.529, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextWarning = UIColor(red: 0.529, green: 0.341, blue: 0.024, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorViolet100 = UIColor(red: 0.859, green: 0.800, blue: 0.988, alpha: 1)
