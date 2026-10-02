@@ -1,0 +1,130 @@
+/* Horizon Pin Code Cell
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=260-6558
+ *
+ * Every COLOUR and every TYPE value in this file is bound to the Figma variable the
+ * node itself uses, by its Figma name: `color/bg/base` -> var(--color-bg-base).
+ * Resolved from build/css/tokens.css, built from Figma's core.light / semantic /
+ * layout / typography files.
+ *
+ * The component set binds nine variables and nothing else, confirmed with
+ * get_variable_defs on each of the five variant nodes individually:
+ *   260:6559 Default   color/bg/base · color/border/surfacePrimary
+ *   260:6561 Hovered   color/bg/base · color/border/brand/bold
+ *   260:6563 Typed     color/bg/base · color/border/brand/bold · color/text/primary
+ *                      · Title/Large (family/brand · weight/regular · size/title-large
+ *                      · line-height/title-large · tracking/title-large)
+ *   260:6565 Error     color/bg/base · color/border/negative/bold · color/text/primary
+ *   260:6567 Disabled  color/bg/surfacePrimary · color/border/disabled
+ *
+ * ---------------------------------------------------------------------------
+ * WHERE THE SPEC PROSE AND THE LIVE BINDING DISAGREE, THE BINDING WINS.
+ * ---------------------------------------------------------------------------
+ * The node's written SPEC contradicts its own variable bindings in two places.
+ * A description is a note; a binding is what the design does. Both follow the
+ * binding, and the prose is reported back to the designer to correct.
+ *
+ *   - Resting stroke. SPEC says "The resting stroke stays #d7dee7. That grey has no
+ *     matching token." Node 260:6559 (Default) binds its stroke to
+ *     color/border/surfacePrimary (#ebecee), confirmed by get_variable_defs on that
+ *     node alone. --color-border-surfaceprimary is exported, built and resolving at
+ *     exactly #ebecee, so this is not a gap at all. Bound below.
+ *   - The digit. SPEC says "Inter Semi Bold 22 in #1b2733. That size and colour have
+ *     no matching token." Nodes 260:6563 and 260:6565 bind the Title/Large composite
+ *     (family/brand = Roboto, weight/regular = 400, size/title-large = 22,
+ *     line-height/title-large = 28, tracking/title-large = 0) and color/text/primary
+ *     (#1c242f). All six resolve in the build. Bound below — Roboto Regular, not
+ *     Inter Semi Bold, and #1c242f, not #1b2733.
+ *
+ * ---------------------------------------------------------------------------
+ * UNBOUND IN FIGMA — reported, not invented.
+ * ---------------------------------------------------------------------------
+ * Four properties carry no variable on any of the five nodes. They are NOT given a
+ * semantic token here, and no near-fitting token is substituted. Each is parked in
+ * one `--hz-pincode-*-unbound` custom property below, carrying the literal value the
+ * node itself renders, so that the day a real token is bound in Figma each becomes a
+ * one-line change and nothing else in this file moves.
+ *
+ *   1. Cell width — SPEC says "Size 52 by 56", "Don't override the cell size".
+ *      No variable bound, and NO spacing token in the build is 52px (--spacing-48
+ *      and --spacing-56 straddle it). A genuine gap in the token set.
+ *   2. Cell height — the other half of that fixed size. No variable bound.
+ *      --spacing-56 exists and is exactly 56px, but the design does not point at it,
+ *      so this file does not either.
+ *   3. Corner radius — SPEC says "Radius 6 has no token. borderradius/small is 8."
+ *      Confirmed: no token in the build is 6px (--borderradius-extra-small is 4px,
+ *      --borderradius-small is 8px). A genuine gap in the token set, not just an
+ *      unbound property.
+ *   4. Stroke weight — SPEC says "stroke weight 1, aligned inside".
+ *      No variable bound. --borderwidth-1 exists, is exactly 1px and is even
+ *      described "Default outline", but the design does not bind it.
+ *
+ * Also absent from the design, and therefore absent here:
+ *   - A focus variant. The node's own accessibility note concedes it: "Hover is not
+ *     a substitute for focus. Keyboard focus needs its own treatment — not yet in
+ *     this set." No focus ring is invented. The browser's native focus ring is left
+ *     deliberately intact rather than reset away, so the cell stays keyboard-usable
+ *     until the design supplies the variant.
+ */
+
+.hz-pincode-cell {
+  /* Unbound in Figma — the node's literal values, parked, not tokenised. */
+  --hz-pincode-width-unbound: 52px;    /* SPEC "Size 52 by 56"; no 52px token exists */
+  --hz-pincode-height-unbound: 56px;   /* SPEC "Size 52 by 56"; --spacing-56 not bound */
+  --hz-pincode-radius-unbound: 6px;    /* SPEC "Radius 6 has no token" — confirmed */
+  --hz-pincode-stroke-unbound: 1px;    /* SPEC "stroke weight 1"; --borderwidth-1 not bound */
+
+  /* Auto-layout: centre/centre, fixed width and height. */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: var(--hz-pincode-width-unbound);
+  height: var(--hz-pincode-height-unbound);
+  box-sizing: border-box;
+
+  /* Stroke is "aligned inside" in Figma — border-box above is what makes that true. */
+  border: var(--hz-pincode-stroke-unbound) solid var(--color-border-surfaceprimary);
+  border-radius: var(--hz-pincode-radius-unbound);
+  background-color: var(--color-bg-base);         /* color/bg/base */
+
+  /* Title/Large — composite, no single token. */
+  font-family: var(--family-brand);               /* family/brand */
+  font-weight: var(--weight-regular);             /* weight/regular */
+  font-size: var(--size-title-large);             /* size/title-large */
+  line-height: var(--line-height-title-large);    /* line-height/title-large */
+  letter-spacing: var(--tracking-title-large);    /* tracking/title-large */
+  color: var(--color-text-primary);               /* color/text/primary */
+  text-align: center;
+
+  /* Reset the UA input chrome, but NOT the focus ring — see the note above. */
+  -webkit-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* State=Hovered — "pointer is over the cell. Border shifts to brand."
+   Live :hover, plus the forced data-state so the matrix can be rendered side by side. */
+.hz-pincode-cell:hover:not(:disabled),
+.hz-pincode-cell[data-state='Hovered']:not(:disabled) {
+  border-color: var(--color-border-brand-bold);   /* color/border/brand/bold */
+}
+
+/* State=Typed — "the cell holds a digit. Value is shown."
+   Keyed on the real filled state, so typing into the cell paints it. */
+.hz-pincode-cell[data-filled='true']:not(:disabled) {
+  border-color: var(--color-border-brand-bold);   /* color/border/brand/bold */
+}
+
+/* State=Error — "the code is wrong. Border shifts to negative and the digit stays
+   visible." Keyed on aria-invalid, so the painted state and the announced state
+   cannot drift apart. Beats Typed and Hovered; loses to Disabled. */
+.hz-pincode-cell[aria-invalid='true']:not(:disabled) {
+  border-color: var(--color-border-negative-bold); /* color/border/negative/bold */
+}
+
+/* State=Disabled — "the cell cannot be edited." Wins over every other state. */
+.hz-pincode-cell:disabled {
+  background-color: var(--color-bg-surfaceprimary); /* color/bg/surfacePrimary */
+  border-color: var(--color-border-disabled);       /* color/border/disabled */
+  cursor: not-allowed;
+}
