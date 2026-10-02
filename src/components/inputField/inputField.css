@@ -10,20 +10,35 @@
  * Read with get_variable_defs on each of the SIX variant nodes individually — never
  * on the set, which returns the union and hides which state owns which token:
  *
- *   227:2  Default   fill color/neutral-25 · NO BORDER · value color/text/input text
+ *   227:2  Default   fill color/neutral-25 · NO BORDER
+ *                    · value color/text/input text unique
  *                    · label + helper color/text/secondary
  *   227:9  Hovered   fill color/neutral-25 · border color/border/brand/bold
- *                    · value color/text/input text · label + helper color/text/secondary
+ *                    · value color/text/input text unique
+ *                    · label + helper color/text/secondary
  *   227:16 Typed     fill color/neutral-25 · border color/border/brand/bold
- *                    · value color/text/primary · label + helper color/text/secondary
+ *                    · value color/text/secondary · label + helper color/text/secondary
  *   227:23 Error     fill color/neutral-25 · border color/border/negative/bold
- *                    · value color/text/primary · label color/text/secondary
+ *                    · value color/text/secondary · label color/text/secondary
  *                    · helper color/text/negative
  *   227:30 Warning   fill color/neutral-25 · border color/border/warning/bold
- *                    · value color/text/primary · label color/text/secondary
+ *                    · value color/text/secondary · label color/text/secondary
  *                    · helper color/text/warning
  *   227:37 Disabled  fill color/bg/surfacePrimary · border color/border/disabled
  *                    · value + label + helper color/text/disabled
+ *
+ * REBOUND 2026-10-02 — the designer changed two bindings on this node and no token
+ * VALUE moved, so the export diff was clean and the registry ladder did not stir
+ * (registry D15). Both were re-read live, per variant node, before this file changed:
+ *
+ *   - The VALUE text on 227:16 / 227:23 / 227:30 moved color/text/primary ->
+ *     color/text/secondary. Confirmed per layer on 227:20, 227:27 and 227:34; the
+ *     name color/text/primary no longer appears anywhere on those three nodes.
+ *   - The PLACEHOLDER on 227:2 / 227:9 moved color/text/input text ->
+ *     color/text/input text unique. Confirmed per layer on 227:6 and 227:13; the
+ *     plain color/text/input text no longer appears on either node.
+ *
+ * The field FILL did not move. 227:16 still binds color/neutral-25 and is left alone.
  *
  * Shared by all six: color/bg/base (root), spacing/12 (label and helper inset),
  * borderradius/medium (field radius), Label/Medium (label), Body/Extra Small (helper).
@@ -47,9 +62,10 @@
  *     driven a raw 10px and a raw family into this file for no reason — the tokens
  *     exist and the design already points at them.
  *   - The placeholder. SPEC says "Placeholder stays a literal." Nodes 227:2 and 227:9
- *     bind the placeholder's colour to color/text/input text (#a1a8b1), and
- *     --color-text-input-text is exported, built and resolving at exactly that value.
- *     It is not a literal and it is not a gap. Bound below.
+ *     bind the placeholder's colour to color/text/input text unique (#a1a8b1), and
+ *     --color-text-input-text-unique is exported, built and resolving at exactly that
+ *     value. It is not a literal and it is not a gap. Bound below. The SPEC prose was
+ *     already wrong before the 2026-10-02 rebinding and is still wrong after it.
  *
  * ---------------------------------------------------------------------------
  * UNBOUND IN FIGMA — reported, not invented.
@@ -90,6 +106,26 @@
  * to color/neutral-25, which is a CORE ramp value, not a semantic. Every other surface
  * in this set points at a semantic (color/bg/base, color/bg/surfacePrimary). Bound as
  * the design binds it, and raised rather than silently swapped for a semantic.
+ *
+ * ---------------------------------------------------------------------------
+ * DARK-MODE CONTRAST — a design gap, REPORTED AND LEFT STANDING.
+ * ---------------------------------------------------------------------------
+ * color/neutral-25 is a core ramp value with no dark override: --color-neutral-25 is
+ * #f7f8f9 in build/css/tokens.css AND absent from build/css/tokens-dark.css, so the
+ * field fill stays near-white in dark mode. The value text now resolves to
+ * --color-text-secondary, which IS overridden in dark (#334155 -> #a1a8b1), so in dark
+ * mode the field renders #a1a8b1 on #f7f8f9 — roughly 2.4:1, well under the 4.5:1 that
+ * WCAG AA asks of body text. The placeholder states are worse still, being the same
+ * #a1a8b1 in both modes.
+ *
+ * This is NOT fixed here, on purpose, and no substitute token is reached for:
+ *   - --color-bg-primary-neutral-unique, the obvious-looking candidate, carries the
+ *     SAME #f7f8f9 in light and dark. Binding to it would change nothing at all.
+ *   - Any token that did fix the contrast would be a token this design does not bind,
+ *     which is exactly the guess this file refuses to make everywhere else.
+ * The real fix is a designer's: rebind the fill in Figma, or give color/neutral-25 a
+ * dark value. Until one of those happens the component is built as the node binds it
+ * and the gap is carried here in writing.
  */
 
 .hz-input-field {
@@ -173,8 +209,9 @@
   font-size: var(--hz-input-field-value-size-unbound);
   line-height: var(--hz-input-field-value-leading-unbound);
 
-  /* The value's COLOUR is bound on every node. 227:16 / 227:23 / 227:30. */
-  color: var(--color-text-primary);                /* color/text/primary */
+  /* The value's COLOUR is bound on every node. 227:16 / 227:23 / 227:30 — rebound
+     2026-10-02 from color/text/primary to color/text/secondary. */
+  color: var(--color-text-secondary);              /* color/text/secondary */
 
   background: none;
   border: none;
@@ -184,16 +221,17 @@
   appearance: none;
 }
 
-/* The placeholder is bound, despite the SPEC calling it a literal. 227:2 / 227:9. */
+/* The placeholder is bound, despite the SPEC calling it a literal. 227:2 / 227:9 —
+   rebound 2026-10-02 to color/text/input text unique. */
 .hz-input-field__input::placeholder {
-  color: var(--color-text-input-text);             /* color/text/input text */
+  color: var(--color-text-input-text-unique);      /* color/text/input text unique */
   opacity: 1;                                      /* Firefox dims placeholders by default */
 }
 
 /* Default and Hovered render EMPTY, so their value text is placeholder-coloured.
    Keyed on the live filled state so typing swaps it to full strength. */
 .hz-input-field:not([data-filled='true']) .hz-input-field__input {
-  color: var(--color-text-input-text);             /* color/text/input text */
+  color: var(--color-text-input-text-unique);      /* color/text/input text unique */
 }
 
 /* --------------------------------------------- Helper row — 227:7 … 227:42 */
@@ -243,7 +281,7 @@
 }
 
 .hz-input-field[data-filled='true'] .hz-input-field__input {
-  color: var(--color-text-primary);                /* color/text/primary */
+  color: var(--color-text-secondary);              /* color/text/secondary */
 }
 
 /* State=Warning — "the value can be submitted, but the helper should flag the risk."

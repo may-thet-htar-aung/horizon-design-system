@@ -61,7 +61,7 @@ export const Default = { args: { state: 'Default' } };
 export const Hovered = { args: { state: 'Hovered' } };
 
 /** 227:16 — the field holds a value. Placeholder colour is replaced by
- *  color/text/primary, border color/border/brand/bold. */
+ *  color/text/secondary, border color/border/brand/bold. */
 export const Typed = { args: { state: 'Typed', value: 'mai7@email.com' } };
 
 /** 227:23 — the value failed validation. Border color/border/negative/bold, helper
