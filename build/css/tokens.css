@@ -117,8 +117,8 @@
   --borderradius-large: 16px; /** M3 large — 16dp (was named md; 16dp is M3 large, not medium) */
   --borderradius-extra-large-increased: 32px; /** M3 extra large increased — 32dp */
   --borderradius-full: 10000px; /** Fully rounded / pill */
-  --elevation-legacy-color: rgba(51, 65, 85, 0.16); /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level1-blur: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-color: rgba(51, 65, 85, 0.16); /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level1-y: 2px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level2-y: 4px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level3-y: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
@@ -214,6 +214,7 @@
   --color-text-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
   --color-text-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-text-disabled-on-dark: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -227,6 +228,7 @@
   --color-icon-secondary: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-input: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-icon-disabled-on-dark: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -259,6 +261,10 @@
   --color-border-update-light: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-default: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-bold: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-2: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-3: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-4: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-5: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --margin-page: 24px; /** Page edge margin. M3: 16dp compact, 24dp medium and up */
   --gap-gutter: 24px; /** Gutter between grid columns */
   --gap-pane: 24px; /** M3 pane spacing between layout panes */
@@ -355,8 +361,11 @@
   --line-height-body-medium: 20px;
   --tracking-body-medium: 0.25px;
   --size-body-small: 12px;
+  --size-body-extra-small: 11px;
   --line-height-body-small: 16px;
+  --line-height-body-extra-small: 12px;
   --tracking-body-small: 0.4000000059604645px;
+  --tracking-body-extra-small: 0.20000000298023224px;
   --size-label-large: 14px;
   --line-height-label-large: 20px;
   --tracking-label-large: 0.10000000149011612px;
@@ -378,6 +387,7 @@
   --body-large: 400 16px/24px Roboto; /** M3 Body Large — Roboto Regular 16/24, tracking 0.5px */
   --body-medium: 400 14px/20px Roboto; /** M3 Body Medium — Roboto Regular 14/20, tracking 0.25px */
   --body-small: 400 12px/16px Roboto; /** M3 Body Small — Roboto Regular 12/16, tracking 0.4px */
+  --body-extra-small: 400 11px/12px Roboto; /** M3 Body Extra Small — Roboto Regular 11/12, tracking 0.2px */
   --label-large: 500 14px/20px Roboto; /** M3 Label Large — Roboto Medium 14/20, tracking 0.1px */
   --label-medium: 500 12px/16px Roboto; /** M3 Label Medium — Roboto Medium 12/16, tracking 0.5px */
   --label-small: 500 11px/16px Roboto; /** M3 Label Small — Roboto Medium 11/16, tracking 0.5px */

@@ -257,6 +257,13 @@
       "unit": "px"
     }
   },
+  "size-body-extra-small": {
+    "$type": "dimension",
+    "$value": {
+      "value": 11,
+      "unit": "px"
+    }
+  },
   "line-height-body-small": {
     "$type": "dimension",
     "$value": {
@@ -264,10 +271,24 @@
       "unit": "px"
     }
   },
+  "line-height-body-extra-small": {
+    "$type": "dimension",
+    "$value": {
+      "value": 12,
+      "unit": "px"
+    }
+  },
   "tracking-body-small": {
     "$type": "dimension",
     "$value": {
       "value": 0.4000000059604645,
+      "unit": "px"
+    }
+  },
+  "tracking-body-extra-small": {
+    "$type": "dimension",
+    "$value": {
+      "value": 0.20000000298023224,
       "unit": "px"
     }
   },
