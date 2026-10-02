@@ -910,6 +910,18 @@
       ]
     }
   },
+  "color-neutral-25": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9686274528503418,
+        0.9725490212440491,
+        0.9764705896377563
+      ]
+    },
+    "$description": "Subtle surface tint — lighter than neutral-50"
+  },
   "color-neutral-50": {
     "$type": "color",
     "$value": {
@@ -1253,17 +1265,17 @@
     },
     "$description": "Fully rounded / pill"
   },
+  "elevation-legacy-color": {
+    "$type": "color",
+    "$value": "{color-neutral-300a}",
+    "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
+  },
   "elevation-legacy-level1-blur": {
     "$type": "dimension",
     "$value": {
       "value": 8,
       "unit": "px"
     },
-    "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
-  },
-  "elevation-legacy-color": {
-    "$type": "color",
-    "$value": "{color-neutral-300a}",
     "$description": "Deprecated — superseded by the M3 elevation/level-N key and ambient tokens"
   },
   "elevation-legacy-level1-y": {
@@ -1630,18 +1642,6 @@
       "unit": "px"
     },
     "$description": "M3 level 5 ambient shadow spread"
-  },
-  "color-neutral-25": {
-    "$type": "color",
-    "$value": {
-      "colorSpace": "srgb",
-      "components": [
-        0.9686274528503418,
-        0.9725490212440491,
-        0.9764705896377563
-      ]
-    },
-    "$description": "Subtle surface tint — lighter than neutral-50"
   },
   "icon-size-20": {
     "$type": "dimension",

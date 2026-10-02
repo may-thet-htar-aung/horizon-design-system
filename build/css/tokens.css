@@ -80,6 +80,7 @@
   --color-violet-800: #4c3387;
   --color-violet-900: #3a2767;
   --color-neutral-0: #ffffff;
+  --color-neutral-25: #f7f8f9; /** Subtle surface tint — lighter than neutral-50 */
   --color-neutral-50: #ebecee;
   --color-neutral-50a: rgba(51, 65, 85, 0.04);
   --neutral-50-a-2: #334155;
@@ -117,8 +118,8 @@
   --borderradius-large: 16px; /** M3 large — 16dp (was named md; 16dp is M3 large, not medium) */
   --borderradius-extra-large-increased: 32px; /** M3 extra large increased — 32dp */
   --borderradius-full: 10000px; /** Fully rounded / pill */
-  --elevation-legacy-level1-blur: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-color: rgba(51, 65, 85, 0.16); /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
+  --elevation-legacy-level1-blur: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level1-y: 2px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level2-y: 4px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
   --elevation-legacy-level3-y: 8px; /** Deprecated — superseded by the M3 elevation/level-N key and ambient tokens */
@@ -164,7 +165,6 @@
   --elevation-level-5-ambient-y: 8px; /** M3 level 5 ambient shadow Y offset */
   --elevation-level-5-ambient-blur: 12px; /** M3 level 5 ambient shadow blur */
   --elevation-level-5-ambient-spread: 6px; /** M3 level 5 ambient shadow spread */
-  --color-neutral-25: #f7f8f9; /** Subtle surface tint — lighter than neutral-50 */
   --icon-size-20: 20px; /** M3 optical size 20 — dense UI, inline with body text */
   --icon-size-24: 24px; /** M3 default icon size — buttons, list items, nav */
   --icon-size-40: 40px; /** M3 optical size 40 — prominent actions, FAB */
@@ -173,6 +173,7 @@
   --color-bg-base: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-surfaceprimary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-surfacesecondary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-overlay: rgba(51, 65, 85, 0.12); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-light: #ebf3fe; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -186,6 +187,7 @@
   --color-bg-primary-neutral-idle: #151b24;
   --color-bg-primary-neutral-hovered: #151b24;
   --color-bg-primary-neutral-focused: #1c242f;
+  --color-bg-primary-neutral-unique: #f7f8f9;
   --color-bg-positive-light: #e9f9ef; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-positive-idle: #188c43; /** White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill. */
   --color-bg-positive-hovered: #136c34; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -215,6 +217,9 @@
   --color-text-bold: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-disabled: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-2: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-3: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-unique: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse-secondary: #ebecee; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-text-disabled-on-dark: #c0c4ca; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -261,8 +266,6 @@
   --color-border-update-light: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-default: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-bold: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-input-text-2: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-input-text-3: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text-4: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text-5: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --margin-page: 24px; /** Page edge margin. M3: 16dp compact, 24dp medium and up */
