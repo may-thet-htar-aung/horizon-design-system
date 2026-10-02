@@ -359,7 +359,7 @@
   },
   "color-border-surfaceprimary": {
     "$type": "color",
-    "$value": "{color-neutral-900}",
+    "$value": "{color-neutral-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-border-overlay": {

@@ -23,8 +23,8 @@
   box-sizing: border-box;
   border-radius: var(--borderradius-small);         /* borderradius/small */
 
-  /* Reset the UA button chrome. Figma's rest variants of Outline and Ghost have an
-     empty fills array and no stroke — nothing is painted until a variant says so. */
+  /* Reset the UA button chrome. Ghost's rest variant (65:4) has an empty fills array
+     and no stroke; every other variant paints its own fill and border. */
   border: none;
   background: none;
 
@@ -91,14 +91,14 @@
    1px line inside the border-box, above the fill and below the label. */
 
 .hz-button--outline {
-  /* No fill at rest — 64:53 binds none. */
+  background: var(--color-bg-base);                  /* color/bg/base — 64:53 */
   box-shadow: inset 0 0 0 var(--borderwidth-1) var(--color-border-brand-default); /* borderwidth/1, color/border/brand/default */
   color: var(--color-text-brand);                   /* color/text/brand */
 }
 
 .hz-button--outline:hover:not(:disabled),
 .hz-button--outline[data-state='Hover']:not(:disabled) {
-  background: var(--color-bg-base);                 /* color/bg/base — hover only */
+  background: var(--color-bg-primary-light);        /* color/bg/primary/Light — 64:59 */
   box-shadow: inset 0 0 0 var(--borderwidth-1) var(--color-border-brand-bold);    /* color/border/brand/bold */
 }
 

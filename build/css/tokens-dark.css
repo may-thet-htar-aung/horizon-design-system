@@ -70,7 +70,7 @@
   --color-icon-update: #b192f9; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-base: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-inverse: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-border-surfaceprimary: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-border-surfaceprimary: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-overlay: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-disabled: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-brand-light: #3676e0; /** Background for most UI surfaces, creating a neutral canvas. */
