@@ -151,6 +151,7 @@
   <color name="color_text_secondary">#ff334155</color>
   <color name="color_text_bold">#ff151b24</color>
   <color name="color_text_disabled">#ffa1a8b1</color>
+  <color name="color_text_input_text">#ffa1a8b1</color>
   <color name="color_text_inverse">#ffffffff</color>
   <color name="color_text_inverse_secondary">#ffebecee</color>
   <color name="color_text_disabled_on_dark">#ffc0c4ca</color>
@@ -164,6 +165,7 @@
   <color name="color_icon_secondary">#ff334155</color>
   <color name="color_icon_bold">#ff151b24</color>
   <color name="color_icon_disabled">#ff5c6777</color>
+  <color name="color_icon_input">#ffa1a8b1</color>
   <color name="color_icon_inverse">#ffffffff</color>
   <color name="color_icon_inverse_secondary">#ffebecee</color>
   <color name="color_icon_disabled_on_dark">#ffa1a8b1</color>
@@ -196,4 +198,8 @@
   <color name="color_border_update_light">#ffb192f9</color>
   <color name="color_border_update_default">#ffa27df8</color>
   <color name="color_border_update_bold">#ff8b5cf6</color>
+  <color name="color_text_input_text_2">#ffa1a8b1</color>
+  <color name="color_text_input_text_3">#ffa1a8b1</color>
+  <color name="color_text_input_text_4">#ffa1a8b1</color>
+  <color name="color_text_input_text_5">#ffa1a8b1</color>
 </resources>

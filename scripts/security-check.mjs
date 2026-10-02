@@ -32,6 +32,7 @@ const expectMode = getFlag('expect');
 
 const findings = [];
 const inconclusive = [];
+const notes = [];
 
 // ---------- filesystem helpers ----------
 
@@ -64,6 +65,27 @@ function lineOf(content, index) {
   return content.slice(0, index).split('\n').length;
 }
 
+// ---------- shape filters ----------
+
+// Airtable IDs and legacy keys are a 3-letter prefix plus 14 random characters. Minified
+// JavaScript is full of camelCase names with the same shape — keySeparatorIndex,
+// applyRegistration, reconcilerVersion — which read as prefix + 14 letters. A real ID's tail
+// is random and almost always contains a digit; a code name's tail is letters only, in
+// camelCase words. Skip only a tail that is letters-only AND reads as camelCase words.
+// Our own real IDs are checked separately by exact match, so this filter can never hide them.
+function looksLikeCodeIdentifier(tail) {
+  return /^[A-Za-z][a-z]*(?:[A-Z][a-z]+)*$/.test(tail);
+}
+
+// Storybook's precompiled manager UI, copied verbatim from node_modules/storybook/dist/manager.
+// Nothing in it is compiled from this repo, so a process.env reference there cannot be one of
+// our variables leaking. Only the env *reference* check skips it; every other check scans it.
+const PRECOMPILED_VENDOR_DIRS = ['sb-manager'];
+function isPrecompiledVendor(file) {
+  const rel = relative(dir, file).split(/[\\/]/);
+  return PRECOMPILED_VENDOR_DIRS.includes(rel[0]);
+}
+
 // ---------- 1. credentials — provider-specific shapes, not entropy ----------
 
 const CREDENTIAL_PATTERNS = [
@@ -79,23 +101,50 @@ const CREDENTIAL_PATTERNS = [
   { name: 'npm token', regex: /npm_[A-Za-z0-9]{36}/g, severity: 'critical' },
   { name: 'Figma personal access token', regex: /figd_[A-Za-z0-9_-]{20,}/g, severity: 'critical' },
   { name: 'Airtable personal access token', regex: /pat[A-Za-z0-9]{14}\.[A-Za-z0-9]{64}/g, severity: 'critical' },
-  { name: 'Airtable legacy API key', regex: /\bkey[A-Za-z0-9]{14}\b/g, severity: 'high' },
+  { name: 'Airtable legacy API key', regex: /\bkey([A-Za-z0-9]{14})\b/g, severity: 'high', exclude: looksLikeCodeIdentifier },
   { name: 'Private key block', regex: /-----BEGIN (RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----/g, severity: 'critical' },
 ];
 
 // ---------- 2. private identifiers ----------
 
 const PRIVATE_ID_PATTERNS = [
-  { name: 'Airtable base ID', regex: /\bapp[A-Za-z0-9]{14}\b/g, severity: 'high' },
-  { name: 'Airtable table ID', regex: /\btbl[A-Za-z0-9]{14}\b/g, severity: 'high' },
-  { name: 'Airtable record ID', regex: /\brec[A-Za-z0-9]{14}\b/g, severity: 'medium' },
-  { name: 'Airtable field ID', regex: /\bfld[A-Za-z0-9]{14}\b/g, severity: 'medium' },
-  { name: 'Airtable view ID', regex: /\bviw[A-Za-z0-9]{14}\b/g, severity: 'medium' },
+  { name: 'Airtable base ID', regex: /\bapp([A-Za-z0-9]{14})\b/g, severity: 'high', exclude: looksLikeCodeIdentifier },
+  { name: 'Airtable table ID', regex: /\btbl([A-Za-z0-9]{14})\b/g, severity: 'high', exclude: looksLikeCodeIdentifier },
+  { name: 'Airtable record ID', regex: /\brec([A-Za-z0-9]{14})\b/g, severity: 'medium', exclude: looksLikeCodeIdentifier },
+  { name: 'Airtable field ID', regex: /\bfld([A-Za-z0-9]{14})\b/g, severity: 'medium', exclude: looksLikeCodeIdentifier },
+  { name: 'Airtable view ID', regex: /\bviw([A-Za-z0-9]{14})\b/g, severity: 'medium', exclude: looksLikeCodeIdentifier },
   { name: 'Private IPv4 (10.x)', regex: /\b10\.\d{1,3}\.\d{1,3}\.\d{1,3}\b/g, severity: 'medium' },
   { name: 'Private IPv4 (192.168.x)', regex: /\b192\.168\.\d{1,3}\.\d{1,3}\b/g, severity: 'medium' },
   { name: 'Private IPv4 (172.16-31.x)', regex: /\b172\.(1[6-9]|2\d|3[0-1])\.\d{1,3}\.\d{1,3}\b/g, severity: 'medium' },
-  { name: 'Internal hostname', regex: /\b[a-z0-9-]+\.(internal|corp|lan)\b/gi, severity: 'medium' },
+  // A hostname only counts where a host can actually be: after a scheme's //, after user@, or at
+  // the start of a quoted string — and the name must end there (port, path, quote, space, end).
+  // That excludes property access like link.internal and names like `storybook.internal.foo`.
+  { name: 'Internal hostname', regex: /(?<=\/\/|@|["'`])(?:[a-z0-9-]+\.)+(?:internal|corp|lan)(?=[:/"'`\s]|$)/gi, severity: 'medium' },
 ];
+
+// The real base and table IDs, read from the gitignored registry file. Exact match, no shape
+// filter — these are the IDs the registry contract says must never be hardcoded, so they are
+// caught however they happen to be spelled.
+function registryIdPatterns() {
+  const path = join(process.cwd(), '.claude', 'registry.local.json');
+  if (!existsSync(path)) {
+    notes.push('private-ids: .claude/registry.local.json not found — exact check for the real registry IDs was skipped; shape checks still ran');
+    return [];
+  }
+  let reg;
+  try {
+    reg = JSON.parse(readFileSync(path, 'utf8'));
+  } catch {
+    inconclusive.push({ check: 'private-ids', reason: '.claude/registry.local.json is not valid JSON' });
+    return [];
+  }
+  const ids = [reg.baseId, ...Object.values(reg.tables || {})].filter((v) => typeof v === 'string' && v.length > 0);
+  return ids.map((id) => ({
+    name: 'Registry ID from .claude/registry.local.json',
+    regex: new RegExp(id.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g'),
+    severity: 'critical',
+  }));
+}
 
 function runPatternCheck(checkName, patterns) {
   const files = walk(dir).filter(isTextFile);
@@ -106,10 +155,14 @@ function runPatternCheck(checkName, patterns) {
     } catch {
       continue;
     }
-    for (const { name, regex, severity } of patterns) {
+    for (const { name, regex, severity, exclude } of patterns) {
       const re = new RegExp(regex.source, regex.flags);
       let m;
       while ((m = re.exec(content)) !== null) {
+        if (exclude && m[1] !== undefined && exclude(m[1])) {
+          if (m[0].length === 0) re.lastIndex++;
+          continue;
+        }
         findings.push({
           check: checkName,
           severity,
@@ -137,6 +190,10 @@ function runEnvLeakCheck() {
     } catch {
       continue;
     }
+
+    // The reference checks below skip Storybook's precompiled manager; the verbatim .env value
+    // check further down still scans every file, including that one.
+    if (isPrecompiledVendor(file)) continue;
 
     const importMetaRe = /import\.meta\.env\.([A-Za-z_][A-Za-z0-9_]*)/g;
     let m;
@@ -308,17 +365,19 @@ async function main() {
     await runLiveCheck(liveUrl, expectMode);
   } else {
     if (checksToRun.includes('credentials')) runPatternCheck('credentials', CREDENTIAL_PATTERNS);
-    if (checksToRun.includes('private-ids')) runPatternCheck('private-ids', PRIVATE_ID_PATTERNS);
+    if (checksToRun.includes('private-ids')) runPatternCheck('private-ids', [...PRIVATE_ID_PATTERNS, ...registryIdPatterns()]);
     if (checksToRun.includes('env-leak')) runEnvLeakCheck();
     if (checksToRun.includes('advisories')) runAdvisoriesCheck();
     if (checksToRun.includes('dirty-tree')) runDirtyTreeCheck();
   }
 
   if (jsonOut) {
-    console.log(JSON.stringify({ findings, inconclusive }, null, 2));
+    console.log(JSON.stringify({ findings, inconclusive, notes }, null, 2));
   } else if (findings.length === 0 && inconclusive.length === 0) {
     console.log('security-check: clean — no known-shape credential, private ID, env leak, advisory, or dirty-tree finding.');
+    for (const n of notes) console.log(`[NOTE] ${n}`);
   } else {
+    for (const n of notes) console.log(`[NOTE] ${n}`);
     for (const f of findings) {
       const loc = f.file ? `${f.file}${f.line ? ':' + f.line : ''}` : '(n/a)';
       console.log(`[${f.severity.toUpperCase()}] ${f.check} — ${f.pattern} — ${loc}${f.match ? ' — ' + f.match : ''}`);

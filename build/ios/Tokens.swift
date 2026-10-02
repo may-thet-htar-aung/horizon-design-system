@@ -9,6 +9,7 @@
 import UIKit
 
 public class Tokens {
+    public static let bodyExtraSmall = [object Object] /** M3 Body Extra Small — Roboto Regular 11/12, tracking 0.2px */
     public static let bodyLarge = [object Object] /** M3 Body Large — Roboto Regular 16/24, tracking 0.5px */
     public static let bodyMedium = [object Object] /** M3 Body Medium — Roboto Regular 14/20, tracking 0.25px */
     public static let bodySmall = [object Object] /** M3 Body Small — Roboto Regular 12/16, tracking 0.4px */
@@ -136,6 +137,7 @@ public class Tokens {
     public static let colorIconDisabled = UIColor(red: 0.361, green: 0.404, blue: 0.467, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconDisabledOnDark = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconInfo = UIColor(red: 0.039, green: 0.459, blue: 0.647, alpha: 1) /** Darkened to clear 3:1 on bg/surfacePrimary */
+    public static let colorIconInput = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconInverse = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconInverseSecondary = UIColor(red: 0.922, green: 0.925, blue: 0.933, alpha: 1) /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
     public static let colorIconNegative = UIColor(red: 0.851, green: 0.243, blue: 0.243, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
@@ -197,6 +199,11 @@ public class Tokens {
     public static let colorTextDisabled = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextDisabledOnDark = UIColor(red: 0.753, green: 0.769, blue: 0.792, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInfo = UIColor(red: 0.031, green: 0.357, blue: 0.502, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputText = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputText2 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputText3 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputText4 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputText5 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInverse = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInverseSecondary = UIColor(red: 0.922, green: 0.925, blue: 0.933, alpha: 1) /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
     public static let colorTextNegative = UIColor(red: 0.514, green: 0.145, blue: 0.145, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
@@ -277,6 +284,7 @@ public class Tokens {
     public static let labelLarge = [object Object] /** M3 Label Large — Roboto Medium 14/20, tracking 0.1px */
     public static let labelMedium = [object Object] /** M3 Label Medium — Roboto Medium 12/16, tracking 0.5px */
     public static let labelSmall = [object Object] /** M3 Label Small — Roboto Medium 11/16, tracking 0.5px */
+    public static let lineHeightBodyExtraSmall = CGFloat(192.00)
     public static let lineHeightBodyLarge = CGFloat(384.00)
     public static let lineHeightBodyMedium = CGFloat(320.00)
     public static let lineHeightBodySmall = CGFloat(256.00)
@@ -313,6 +321,7 @@ public class Tokens {
     public static let paddingCard = CGFloat(256.00) /** Inner padding of a card or surface */
     public static let paddingContainer = CGFloat(256.00) /** Inner padding of a page-level container */
     public static let paddingListItem = CGFloat(256.00) /** Inner padding of a list item row */
+    public static let sizeBodyExtraSmall = CGFloat(176.00)
     public static let sizeBodyLarge = CGFloat(256.00)
     public static let sizeBodyLg = CGFloat(256.00) /** Material 3 body large size. Web and mobile share the comfortable value; back office is compact. */
     public static let sizeBodyMd = CGFloat(224.00) /** Material 3 body medium size. Web and mobile share the comfortable value; back office is compact. */
@@ -363,6 +372,7 @@ public class Tokens {
     public static let titleLarge = [object Object] /** M3 Title Large — Roboto Regular 22/28, tracking 0px */
     public static let titleMedium = [object Object] /** M3 Title Medium — Roboto Medium 16/24, tracking 0.15px */
     public static let titleSmall = [object Object] /** M3 Title Small — Roboto Medium 14/20, tracking 0.1px */
+    public static let trackingBodyExtraSmall = CGFloat(3.20)
     public static let trackingBodyLarge = CGFloat(8.00)
     public static let trackingBodyLg = CGFloat(8.00) /** Material 3 body large tracking. Web and mobile share the comfortable value; back office is compact. */
     public static let trackingBodyMd = CGFloat(4.00) /** Material 3 body medium tracking. Web and mobile share the comfortable value; back office is compact. */

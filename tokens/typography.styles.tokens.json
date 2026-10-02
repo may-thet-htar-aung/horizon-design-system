@@ -131,6 +131,17 @@
       "letterSpacing": "{tracking-body-small}"
     }
   },
+  "body-extra-small": {
+    "$type": "typography",
+    "$description": "M3 Body Extra Small — Roboto Regular 11/12, tracking 0.2px",
+    "$value": {
+      "fontFamily": "{family-plain}",
+      "fontWeight": "Regular",
+      "fontSize": "{size-body-extra-small}",
+      "lineHeight": "{line-height-body-extra-small}",
+      "letterSpacing": "{tracking-body-extra-small}"
+    }
+  },
   "label-large": {
     "$type": "typography",
     "$description": "M3 Label Large — Roboto Medium 14/20, tracking 0.1px",

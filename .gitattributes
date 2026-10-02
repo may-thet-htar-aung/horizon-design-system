@@ -1,0 +1,4 @@
+# Generated token output is written with LF by build-tokens.js on every platform.
+# Pin it to LF so a Windows checkout (core.autocrlf=true) does not show the
+# tree as dirty after a rebuild that changed nothing but line endings.
+build/** text eol=lf
