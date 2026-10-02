@@ -1,6 +1,6 @@
 ---
 name: sweep
-description: The registry audit procedure — read every row, reconcile status against evidence, open every link, and hunt the three shapes of contradiction. Report in a fixed order — what changed, counts, what's owed, contradictions, dead links.
+description: The registry audit procedure — read every row, reconcile status against evidence, open every link, and hunt the four shapes of contradiction. Report in a fixed order — what changed, counts, what's owed, contradictions, dead links.
 ---
 
 # Sweep the registry
@@ -51,7 +51,7 @@ redirect to something unrelated, not a page for the wrong commit.
 sweep opened them.
 
 ### 4 · Hunt contradictions
-Beyond the status-versus-evidence mismatches from step 2, look for three specific shapes:
+Beyond the status-versus-evidence mismatches from step 2, look for four specific shapes:
 
 1. **A row that contradicts itself.** Not status-vs-evidence — internal disagreement within the
    row's own cells. A `Release Verdict` of `Cleared` sitting beside a `Release Review` link that
@@ -64,12 +64,20 @@ Beyond the status-versus-evidence mismatches from step 2, look for three specifi
    in `components`; every row claiming `Staging Storybook` or `Production Storybook` should have
    code behind it in the repo. A row with no folder describes something that doesn't exist. A
    folder with no row is invisible to the entire pipeline.
+4. **A finished component that has drifted from its design.** For every row reading
+   `To be deployed`, `Completed` or `Released`, re-read the Figma node's bound variables **per variant
+   node** — never on the set, which returns the union and hides which state owns which token — and
+   compare the state-to-token mapping against the component's CSS. A changed *binding* produces no
+   token-export diff when both tokens already exist, so a clean `tokens/` and `build/` diff proves
+   nothing (D15). Passing `stagingTesting` rows prove nothing either: they were true for the design
+   as it stood when they were written. This is the only check that catches a component that was
+   correct and silently stopped being correct.
 
 Check known trouble spots against `.claude/skills/registry/SKILL.md`'s flagged discrepancies
 (D1–D13) too — a sweep is exactly where a fourteenth would turn up, and where a fixed one would be
 noticed as no longer reproducing.
 
-**Check:** all three contradiction shapes were checked on every applicable row, not just the ones
+**Check:** all four contradiction shapes were checked on every applicable row, not just the ones
 that looked suspicious on first read.
 
 ## Report structure
@@ -96,6 +104,8 @@ interesting this sweep:
 - [ ] Every table was read in full, not through a filtered or saved view
 - [ ] Every status was traced to its underlying evidence, not taken at face value
 - [ ] Every link was opened this sweep, not assumed good from a previous one
-- [ ] All three contradiction shapes were checked, not just the obvious ones
+- [ ] All four contradiction shapes were checked, not just the obvious ones
+- [ ] Every row reading `To be deployed`, `Completed` or `Released` was re-checked against its
+      Figma node's current bindings, not against its passing test rows
 - [ ] The report follows the fixed order: changed, counts, waiting-on, contradictions, dead links
 - [ ] Every count has the actual rows listed behind it
