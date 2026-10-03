@@ -151,6 +151,7 @@
   <color name="color_bg_accent_violet">#fff3effe</color>
   <color name="color_text_primary">#ff1c242f</color>
   <color name="color_text_secondary">#ff334155</color>
+  <color name="color_text_secondary_unique">#ff334155</color>
   <color name="color_text_bold">#ff151b24</color>
   <color name="color_text_disabled">#ffa1a8b1</color>
   <color name="color_text_input_text">#ffa1a8b1</color>
