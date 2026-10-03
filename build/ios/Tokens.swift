@@ -70,7 +70,9 @@ public class Tokens {
     public static let colorBgPrimaryNeutralFocused = UIColor(red: 0.110, green: 0.141, blue: 0.184, alpha: 1)
     public static let colorBgPrimaryNeutralHovered = UIColor(red: 0.082, green: 0.106, blue: 0.141, alpha: 1)
     public static let colorBgPrimaryNeutralIdle = UIColor(red: 0.082, green: 0.106, blue: 0.141, alpha: 1)
+    public static let colorBgPrimaryNeutralUnique = UIColor(red: 0.969, green: 0.973, blue: 0.976, alpha: 1)
     public static let colorBgSurfaceprimary = UIColor(red: 0.922, green: 0.925, blue: 0.933, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorBgSurfacesecondary = UIColor(red: 0.922, green: 0.925, blue: 0.933, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorBgUpdateFocused = UIColor(red: 0.298, green: 0.200, blue: 0.529, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorBgUpdateHovered = UIColor(red: 0.298, green: 0.200, blue: 0.529, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorBgUpdateIdle = UIColor(red: 0.388, green: 0.255, blue: 0.686, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
@@ -204,12 +206,14 @@ public class Tokens {
     public static let colorTextInputText3 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInputText4 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInputText5 = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorTextInputTextUnique = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInverse = UIColor(red: 1.000, green: 1.000, blue: 1.000, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextInverseSecondary = UIColor(red: 0.922, green: 0.925, blue: 0.933, alpha: 1) /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
     public static let colorTextNegative = UIColor(red: 0.514, green: 0.145, blue: 0.145, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextPositive = UIColor(red: 0.075, green: 0.424, blue: 0.204, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextPrimary = UIColor(red: 0.110, green: 0.141, blue: 0.184, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextSecondary = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
+    public static let colorTextSecondaryUnique = UIColor(red: 0.200, green: 0.255, blue: 0.333, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
     public static let colorTextUpdate = UIColor(red: 0.298, green: 0.200, blue: 0.529, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorTextWarning = UIColor(red: 0.529, green: 0.341, blue: 0.024, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorViolet100 = UIColor(red: 0.859, green: 0.800, blue: 0.988, alpha: 1)

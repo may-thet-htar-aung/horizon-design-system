@@ -25,6 +25,11 @@
     "$value": "{color-neutral-50}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
+  "color-bg-surfacesecondary": {
+    "$type": "color",
+    "$value": "{color-neutral-50}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
   "color-bg-overlay": {
     "$type": "color",
     "$value": "{color-neutral-200a}",
@@ -86,6 +91,10 @@
   "color-bg-primary-neutral-focused": {
     "$type": "color",
     "$value": "{color-neutral-800}"
+  },
+  "color-bg-primary-neutral-unique": {
+    "$type": "color",
+    "$value": "{color-neutral-25}"
   },
   "color-bg-positive-light": {
     "$type": "color",
@@ -217,6 +226,11 @@
     "$value": "{color-neutral-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value"
   },
+  "color-text-secondary-unique": {
+    "$type": "color",
+    "$value": "{color-neutral-600}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value"
+  },
   "color-text-bold": {
     "$type": "color",
     "$value": "{color-neutral-900}",
@@ -228,6 +242,21 @@
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-text-input-text": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-2": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-3": {
+    "$type": "color",
+    "$value": "{color-neutral-200}",
+    "$description": "Background for most UI surfaces, creating a neutral canvas."
+  },
+  "color-text-input-text-unique": {
     "$type": "color",
     "$value": "{color-neutral-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
@@ -460,16 +489,6 @@
   "color-border-update-bold": {
     "$type": "color",
     "$value": "{color-violet-500}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
-  },
-  "color-text-input-text-2": {
-    "$type": "color",
-    "$value": "{color-neutral-200}",
-    "$description": "Background for most UI surfaces, creating a neutral canvas."
-  },
-  "color-text-input-text-3": {
-    "$type": "color",
-    "$value": "{color-neutral-200}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-text-input-text-4": {

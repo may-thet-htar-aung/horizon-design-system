@@ -3,6 +3,7 @@
   --color-bg-base: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-inverse: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-surfaceprimary: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-bg-surfacesecondary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-overlay: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-disabled: rgba(51, 65, 85, 0.2); /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-primary-light: #193767; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -16,6 +17,7 @@
   --color-bg-primary-neutral-idle: #ffffff;
   --color-bg-primary-neutral-hovered: #ebecee;
   --color-bg-primary-neutral-focused: #c0c4ca;
+  --color-bg-primary-neutral-unique: #f7f8f9;
   --color-bg-positive-light: #0e5327; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-bg-positive-idle: #99e4b5; /** White text reaches 4.31:1 — passes AA for large text (3:1). Darkening further pushes green toward black; use large or bold labels on this fill. */
   --color-bg-positive-hovered: #baedcd; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -42,9 +44,13 @@
   --color-bg-accent-violet: #3a2767; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-primary: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-secondary: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
+  --color-text-secondary-unique: #334155; /** Background for most UI surfaces, creating a neutral canvas. · Raised for WCAG AA on bg/base; also matches the mirror of its Light value */
   --color-text-bold: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-disabled: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-2: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-3: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-text-input-text-unique: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-inverse-secondary: #151b24; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
   --color-text-disabled-on-dark: #1c242f; /** Background for most UI surfaces, creating a neutral canvas. */
@@ -91,8 +97,6 @@
   --color-border-update-light: #7e54e0; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-default: #8b5cf6; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-border-update-bold: #a27df8; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-input-text-2: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-text-input-text-3: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text-4: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-text-input-text-5: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
 }

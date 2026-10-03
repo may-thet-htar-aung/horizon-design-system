@@ -1,0 +1,365 @@
+/* Horizon Input Field / Mobile
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=227-44
+ *
+ * Every COLOUR and every TYPE value in this file that the design binds is bound here
+ * to the same Figma variable, by its Figma name: `color/bg/base` -> var(--color-bg-base).
+ * Resolved from build/css/tokens.css, built from Figma's core.light / semantic /
+ * layout / typography files. Every name below was confirmed present in that generated
+ * file by name AND by value before it was written here.
+ *
+ * Read with get_variable_defs on each of the SIX variant nodes individually — never
+ * on the set, which returns the union and hides which state owns which token:
+ *
+ *   227:2  Default   fill color/neutral-25 · NO BORDER
+ *                    · value color/text/input text unique
+ *                    · label + helper color/text/secondary
+ *   227:9  Hovered   fill color/neutral-25 · border color/border/brand/bold
+ *                    · value color/text/input text unique
+ *                    · label + helper color/text/secondary
+ *   227:16 Typed     fill color/neutral-25 · border color/border/brand/bold
+ *                    · value color/text/secondary unique
+ *                    · label + helper color/text/secondary
+ *   227:23 Error     fill color/neutral-25 · border color/border/negative/bold
+ *                    · value color/text/secondary unique · label color/text/secondary
+ *                    · helper color/text/negative
+ *   227:30 Warning   fill color/neutral-25 · border color/border/warning/bold
+ *                    · value color/text/secondary unique · label color/text/secondary
+ *                    · helper color/text/warning
+ *   227:37 Disabled  fill color/bg/surfacePrimary · border color/border/disabled
+ *                    · value + label + helper color/text/disabled
+ *
+ * REBOUND 2026-10-02 — the designer changed two bindings on this node and no token
+ * VALUE moved, so the export diff was clean and the registry ladder did not stir
+ * (registry D15). Both were re-read live, per variant node, before this file changed:
+ *
+ *   - The VALUE text on 227:16 / 227:23 / 227:30 moved color/text/primary ->
+ *     color/text/secondary. Confirmed per layer on 227:20, 227:27 and 227:34; the
+ *     name color/text/primary no longer appears anywhere on those three nodes.
+ *   - The PLACEHOLDER on 227:2 / 227:9 moved color/text/input text ->
+ *     color/text/input text unique. Confirmed per layer on 227:6 and 227:13; the
+ *     plain color/text/input text no longer appears on either node.
+ *
+ * REBOUND AGAIN 2026-10-03 — same D15 shape, same silence: the designer moved the
+ * VALUE text one step further, to a token that ALREADY EXISTED, so again no token
+ * value moved, the export diff was byte-clean, and nothing in the ladder stirred.
+ *
+ *   - The VALUE text moved color/text/secondary -> color/text/secondary unique.
+ *     Confirmed per LAYER, live, on 227:20 (Typed), 227:27 (Error) and 227:34
+ *     (Warning): each returns color/text/secondary unique and nothing else. Plain
+ *     color/text/secondary no longer appears on any of the three value layers.
+ *
+ * THE TRAP, written down so the next reader does not undo this by eye: BOTH tokens
+ * resolve to #334155 in light mode. --color-text-secondary and
+ * --color-text-secondary-unique are pixel-identical on screen, before and after this
+ * change. A screenshot cannot distinguish them and neither can a visual diff. The
+ * ONLY way to verify this binding — here, in review, or in the deployed stylesheet —
+ * is to read the authored var() name per layer. Do not "confirm" it by looking.
+ *
+ * Reading the PARENT variant node is also not enough: get_variable_defs on 227:16
+ * returns BOTH color/text/secondary and color/text/secondary unique, because it
+ * unions the value layer with the label and helper layers. Only the per-layer read
+ * tells you which name belongs to which layer.
+ *
+ * The LABEL and HELPER layers did NOT move and are deliberately left alone. Confirmed
+ * per layer on 227:4 / 227:11 / 227:18 / 227:25 / 227:32 (labels) and 227:8 / 227:15 /
+ * 227:22 (helpers): all still bind plain color/text/secondary. Error and Warning
+ * helpers remain color/text/negative (227:29) and color/text/warning (227:36).
+ *
+ * The field FILL did not move. 227:16 still binds color/neutral-25 and is left alone.
+ *
+ * Shared by all six: color/bg/base (root), spacing/12 (label and helper inset),
+ * borderradius/medium (field radius), Label/Medium (label), Body/Extra Small (helper).
+ *
+ * Default is the one state with NO stroke bound at all — that asymmetry is the
+ * design's, confirmed on 227:2 alone. It is held here as a transparent border of the
+ * same parked width so the field does not change height between states.
+ *
+ * ---------------------------------------------------------------------------
+ * WHERE THE SPEC PROSE AND THE LIVE BINDING DISAGREE, THE BINDING WINS.
+ * ---------------------------------------------------------------------------
+ * The node's written SPEC contradicts its own variable bindings in two places. A
+ * description is a note; a binding is what the design does. Both follow the binding,
+ * and the prose is reported back to the designer to correct.
+ *
+ *   - The helper. SPEC says "helper stays Inter Regular 10." All six helper nodes bind
+ *     the Body/Extra Small composite instead — family/plain (Roboto), weight/regular
+ *     (400), size/body-extra small (11), line-height/body-extra small (12),
+ *     tracking/body-extra small (0.2). All five resolve in the build. Bound below as
+ *     Roboto Regular 11/12, NOT Inter Regular 10. Following the prose here would have
+ *     driven a raw 10px and a raw family into this file for no reason — the tokens
+ *     exist and the design already points at them.
+ *   - The placeholder. SPEC says "Placeholder stays a literal." Nodes 227:2 and 227:9
+ *     bind the placeholder's colour to color/text/input text unique (#a1a8b1), and
+ *     --color-text-input-text-unique is exported, built and resolving at exactly that
+ *     value. It is not a literal and it is not a gap. Bound below. The SPEC prose was
+ *     already wrong before the 2026-10-02 rebinding and is still wrong after it.
+ *
+ * ---------------------------------------------------------------------------
+ * UNBOUND IN FIGMA — reported, not invented.
+ * ---------------------------------------------------------------------------
+ * Six properties carry no variable on any of the six nodes. None is given a semantic
+ * token here, and no near-fitting token is substituted. Each is parked in one
+ * `--hz-input-field-*-unbound` custom property below, carrying the literal value the
+ * node itself renders, so that the day a real token is bound in Figma each becomes a
+ * one-line change and nothing else in this file moves.
+ *
+ *   1. Field padding — SPEC says "Field padding stays 14. That inset is off the 4px
+ *      grid and has no token." Confirmed: no spacing token in the build is 14px (the
+ *      only 14px values are type SIZE tokens — size/title-small, size/body-medium,
+ *      size/label-large — which carry a different meaning entirely).
+ *   2. Row gap — SPEC says "The gap between label, field, and helper stays 5. Off the
+ *      grid, and no token matches it." Confirmed: no token in the build is 5px.
+ *   3. Field height — SPEC says "Field height 52". No variable bound, and no size or
+ *      spacing token is 52px (the only 52px values are line-height/display-medium and
+ *      lineheight/display-md, again a different meaning).
+ *   4. Field width — SPEC says "width 342". No variable bound and no token is 342px.
+ *   5. Value typography — SPEC says "Value stays Inter Regular 15". Confirmed unbound:
+ *      no family, size or line-height variable is attached to the value text on any of
+ *      the six nodes, and no token in the build is 15px or 18px. NOTE: --family-default
+ *      IS Inter and resolves exactly, but the design does not bind it, so this file
+ *      does not either. The value's COLOUR is bound on all six nodes and is used below.
+ *   6. Stroke weight — the five bordered states render a 1px inside stroke with no
+ *      variable attached. --borderwidth-1 exists, is exactly 1px and is even described
+ *      "Default outline", but the design does not bind it.
+ *
+ * Also absent from the design, and therefore absent here:
+ *   - A focus variant. The node's own accessibility note concedes it: "Hover is not a
+ *     substitute for focus. Keyboard focus needs its own treatment — not yet in this
+ *     set." No focus ring is invented. The browser's native focus ring is left
+ *     deliberately intact rather than reset away, so the field stays keyboard-usable
+ *     until the design supplies the variant.
+ *
+ * One further note for the designer, not a gap in this file: the field fill is bound
+ * to color/neutral-25, which is a CORE ramp value, not a semantic. Every other surface
+ * in this set points at a semantic (color/bg/base, color/bg/surfacePrimary). Bound as
+ * the design binds it, and raised rather than silently swapped for a semantic.
+ *
+ * ---------------------------------------------------------------------------
+ * DARK-MODE CONTRAST — a design gap, REPORTED AND LEFT STANDING.
+ * ---------------------------------------------------------------------------
+ * color/neutral-25 is a core ramp value with no dark override: --color-neutral-25 is
+ * #f7f8f9 in build/css/tokens.css AND absent from build/css/tokens-dark.css, so the
+ * field fill stays near-white in dark mode. The field therefore still renders as a
+ * light box in dark mode, because NEITHER the fill nor the value is mode-aware.
+ * STILL A GAP, still the designer's to close.
+ *
+ * The 2026-10-03 rebinding incidentally changed the value text's dark behaviour, and
+ * that was NOT the reason for the change and must not be read as one. For the record:
+ * --color-text-secondary flips to #a1a8b1 in dark; --color-text-secondary-unique is
+ * #334155 in BOTH modes. The value text is consequently now mode-stable. That is a
+ * side effect of binding what the node binds — not a contrast fix, not a goal, and
+ * not a justification. If a contrast outcome and a live binding ever disagree, the
+ * BINDING wins and the contrast gap gets reported, exactly as below.
+ *
+ * TWO GAPS STILL OPEN, reported and left standing:
+ *   1. The PLACEHOLDER is --color-text-input-text-unique = #a1a8b1 on a #f7f8f9 fill
+ *      in BOTH modes: ~2.26:1, far under the 4.5:1 WCAG AA asks of body text. Default
+ *      and Hovered render empty, so this is what those two states actually show.
+ *   2. The FIELD renders as a light box in dark mode — color/neutral-25 has no dark
+ *      value, so the surface never darkens.
+ *
+ * Neither is fixed here, on purpose, and no substitute token is reached for:
+ *   - --color-bg-primary-neutral-unique, the obvious-looking candidate for the fill,
+ *     carries the SAME #f7f8f9 in light and dark. Binding to it would change nothing.
+ *   - Any token that did fix either gap would be a token this design does not bind,
+ *     which is exactly the guess this file refuses to make everywhere else.
+ * The real fix is a designer's: rebind the fill and the placeholder in Figma, or give
+ * color/neutral-25 a dark value. Until one of those happens the component is built as
+ * the node binds it and both gaps are carried here in writing.
+ */
+
+.hz-input-field {
+  /* Unbound in Figma — the node's literal values, parked, not tokenised. */
+  --hz-input-field-width-unbound: 342px;    /* SPEC "width 342"; no 342px token exists */
+  --hz-input-field-height-unbound: 52px;    /* SPEC "Field height 52"; no 52px size token */
+  --hz-input-field-padding-unbound: 14px;   /* SPEC "Field padding stays 14 … has no token" */
+  --hz-input-field-gap-unbound: 5px;        /* SPEC "gap … stays 5 … no token matches it" */
+  --hz-input-field-stroke-unbound: 1px;     /* 1px inside stroke; --borderwidth-1 not bound */
+  --hz-input-field-value-size-unbound: 15px;      /* SPEC "Value stays Inter Regular 15" */
+  --hz-input-field-value-leading-unbound: 18px;   /* the value's line height; unbound */
+  --hz-input-field-value-family-unbound: Inter;   /* --family-default is Inter but unbound */
+  --hz-input-field-value-weight-unbound: 400;     /* "Regular"; --weight-regular not bound here */
+
+  /* Auto-layout: vertical, items stretched to the full width. */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--hz-input-field-gap-unbound);
+  width: var(--hz-input-field-width-unbound);
+  box-sizing: border-box;
+
+  background-color: var(--color-bg-base);          /* color/bg/base */
+}
+
+/* ------------------------------------------------- Label row — 227:3 … 227:38 */
+
+.hz-input-field__label-row,
+.hz-input-field__helper-row {
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  padding-inline: var(--spacing-12);               /* spacing/12 */
+}
+
+/* Label/Medium — composite, no single token. */
+.hz-input-field__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  word-break: break-word;
+
+  font-family: var(--family-plain);                /* family/plain */
+  font-weight: var(--weight-medium);               /* weight/medium */
+  font-size: var(--size-label-medium);             /* size/label-medium */
+  line-height: var(--line-height-label-medium);    /* line-height/label-medium */
+  letter-spacing: var(--tracking-label-medium);    /* tracking/label-medium */
+  color: var(--color-text-secondary);              /* color/text/secondary */
+}
+
+/* ----------------------------------------------------- Field — 227:5 … 227:40 */
+
+.hz-input-field__field {
+  display: flex;
+  align-items: center;
+  overflow: clip;
+
+  /* "Don't override the field height. It is fixed at 52 so inputs align in a row." */
+  height: var(--hz-input-field-height-unbound);
+  padding-inline: var(--hz-input-field-padding-unbound);
+  box-sizing: border-box;
+
+  background-color: var(--color-neutral-25);       /* color/neutral-25 */
+  border-radius: var(--borderradius-medium);       /* borderradius/medium */
+
+  /* 227:2 Default binds NO stroke. Held transparent at the same width so the field
+     keeps one height across every state; the stroke is "aligned inside" in Figma,
+     which border-box above is what makes true. */
+  border: var(--hz-input-field-stroke-unbound) solid transparent;
+}
+
+.hz-input-field__input {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  /* Value type is unbound in Figma — parked literals, see the header. */
+  font-family: var(--hz-input-field-value-family-unbound);
+  font-weight: var(--hz-input-field-value-weight-unbound);
+  font-size: var(--hz-input-field-value-size-unbound);
+  line-height: var(--hz-input-field-value-leading-unbound);
+
+  /* The value's COLOUR is bound on every node. Value layers 227:20 / 227:27 / 227:34 —
+     rebound 2026-10-03 from color/text/secondary to color/text/secondary unique. */
+  color: var(--color-text-secondary-unique);       /* color/text/secondary unique */
+
+  background: none;
+  border: none;
+
+  /* Reset the UA input chrome, but NOT the focus ring — see the note in the header. */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The placeholder is bound, despite the SPEC calling it a literal. 227:2 / 227:9 —
+   rebound 2026-10-02 to color/text/input text unique. */
+.hz-input-field__input::placeholder {
+  color: var(--color-text-input-text-unique);      /* color/text/input text unique */
+  opacity: 1;                                      /* Firefox dims placeholders by default */
+}
+
+/* Default and Hovered render EMPTY, so their value text is placeholder-coloured.
+   Keyed on the live filled state so typing swaps it to full strength. */
+.hz-input-field:not([data-filled='true']) .hz-input-field__input {
+  color: var(--color-text-input-text-unique);      /* color/text/input text unique */
+}
+
+/* --------------------------------------------- Helper row — 227:7 … 227:42 */
+
+/* Body/Extra Small — composite, no single token. The SPEC calls this "Inter Regular
+   10"; all six nodes bind Body/Extra Small. The binding wins. */
+.hz-input-field__helper {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  word-break: break-word;
+
+  font-family: var(--family-plain);                     /* family/plain */
+  font-weight: var(--weight-regular);                   /* weight/regular */
+  font-size: var(--size-body-extra-small);              /* size/body-extra small */
+  line-height: var(--line-height-body-extra-small);     /* line-height/body-extra small */
+  letter-spacing: var(--tracking-body-extra-small);     /* tracking/body-extra small */
+  color: var(--color-text-secondary);                   /* color/text/secondary */
+}
+
+/* ===========================================================================
+   STATES — precedence, weakest to strongest:
+   Default < Hovered < Typed < Warning < Error < Disabled
+   =========================================================================== */
+
+/* The states that own the field border outright. Hover and Typed must not repaint a
+   field in one of these — a hovered Error field stays negative, and an Error field
+   with a value in it stays negative rather than going brand-blue the moment it is
+   filled. Both are written as explicit exclusions rather than left to source order,
+   because relying on source order here is what lets a state-assignment bug render
+   correctly in the one story that happens to be checked and wrongly everywhere else. */
+
+/* State=Hovered — "pointer is over the field. Border shifts to brand." 227:9.
+   Live :hover, plus the forced data-state so the matrix can be rendered side by
+   side, as Button, Check Box and Pin Code do. */
+.hz-input-field:not([data-state='Disabled']):not([data-state='Error']):not([data-state='Warning'])
+  .hz-input-field__field:hover,
+.hz-input-field[data-state='Hovered'] .hz-input-field__field {
+  border-color: var(--color-border-brand-bold);    /* color/border/brand/bold */
+}
+
+/* State=Typed — "the field holds a value. Placeholder colour is replaced." 227:16.
+   Keyed on the real filled state, so typing into the field paints it. */
+.hz-input-field[data-filled='true']:not([data-state='Disabled']):not([data-state='Error']):not([data-state='Warning'])
+  .hz-input-field__field {
+  border-color: var(--color-border-brand-bold);    /* color/border/brand/bold */
+}
+
+.hz-input-field[data-filled='true'] .hz-input-field__input {
+  color: var(--color-text-secondary-unique);       /* color/text/secondary unique */
+}
+
+/* State=Warning — "the value can be submitted, but the helper should flag the risk."
+   227:30. Beats Typed and Hovered; loses to Error and Disabled. */
+.hz-input-field[data-state='Warning'] .hz-input-field__field {
+  border-color: var(--color-border-warning-bold);  /* color/border/warning/bold */
+}
+
+.hz-input-field[data-state='Warning'] .hz-input-field__helper {
+  color: var(--color-text-warning);                /* color/text/warning */
+}
+
+/* State=Error — "the value failed validation. Say why in the helper." 227:23.
+   Beats Warning, Typed and Hovered; loses to Disabled. The DOM carries aria-invalid
+   alongside this, set in inputField.js, so the painted state and the announced state
+   are written from the same prop and cannot drift apart. */
+.hz-input-field[data-state='Error'] .hz-input-field__field {
+  border-color: var(--color-border-negative-bold); /* color/border/negative/bold */
+}
+
+.hz-input-field[data-state='Error'] .hz-input-field__helper {
+  color: var(--color-text-negative);               /* color/text/negative */
+}
+
+/* State=Disabled — "the field cannot be edited." Wins over every other state. 227:37.
+   Label, value and helper all move to color/text/disabled together. */
+.hz-input-field[data-state='Disabled'] .hz-input-field__field {
+  background-color: var(--color-bg-surfaceprimary); /* color/bg/surfacePrimary */
+  border-color: var(--color-border-disabled);       /* color/border/disabled */
+}
+
+.hz-input-field[data-state='Disabled'] .hz-input-field__label,
+.hz-input-field[data-state='Disabled'] .hz-input-field__helper,
+.hz-input-field[data-state='Disabled'] .hz-input-field__input,
+.hz-input-field[data-state='Disabled'] .hz-input-field__input::placeholder {
+  color: var(--color-text-disabled);                /* color/text/disabled */
+}
+
+.hz-input-field__input:disabled {
+  cursor: not-allowed;
+}

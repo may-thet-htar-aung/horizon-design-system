@@ -4,21 +4,37 @@
 |---|---|
 | Component row | `recWY9nPqeCWEQCs1` · Check Box · ATOMS |
 | Figma node | `251-19` in `EupMGlgXy06FSwOr2WLZWF` (component set, property `State`) |
-| `Staging Storybook` (read off the row) | https://horizon-design-system-git-component-check-box-htar1.vercel.app |
-| `Commit` (read off the row) | `ef508248b5d61e5ff29fa62ef217f2e1b0163e10` — matches `origin/component/check-box` HEAD |
-| Pass | First test |
+| `Staging Storybook` (re-read off the row this run) | https://horizon-design-system-git-fix-check-box-resting-stroke-htar1.vercel.app |
+| `Commit` (re-read off the row this run) | `6354701dd527c4a8e1146587cd75a6b682626d48` — "Bind the Check Box resting stroke to color/border/brand/Light", head of `origin/fix/check-box-resting-stroke` |
+| Pass | **Re-test** (woken by `Development` = `Fixed`) |
 | Tested | 02/10/2026 |
-| Result | 3 passed · 2 failed |
+| Result | **5 passed · 0 failed** — both re-tested rows now pass, no regression in the three that already passed |
 
 ## Gate
 
-`Staging Storybook` was read off the component row before anything else and is set, so the test ran.
-No Vercel login was encountered; the preview served `/index.json` and every story iframe directly.
+`Staging Storybook` and `Commit` were **re-read off the component row at the start of this pass**,
+not carried over from the first run. Both had moved: the engineer closed the
+`component/check-box` PR and opened a new one for the repair.
 
-## How the matrix was built
+| | First pass | This re-test |
+|---|---|---|
+| Preview | `…-git-component-check-box-htar1…` | `…-git-fix-check-box-resting-stroke-htar1…` |
+| Commit | `ef50824` | `6354701` |
 
-From the Figma node, not the story file. `get_metadata` on `251:19` returns one property, `State`,
-with five variants, every one 16×16:
+The previous preview is superseded; nothing in this report was measured against it. The recorded
+commit was confirmed to be the head of the repair branch before testing.
+
+## Scope of this pass
+
+Woken on `Fixed`. Exactly two rows carried `Fixed (To re-test)` — **State=Default** and
+**State=Unchecked**, the two this agent failed on the first pass. Those two were re-run and
+overwritten. The other three already read `Passed`; they were re-measured on this build to check for
+regression, and left on `Passed` because the measurements held.
+
+## Matrix — rebuilt from Figma, not from the story file
+
+`get_metadata` on `251:19` again returns one property, `State`, with five variants, every one 16×16.
+Unchanged from the first pass:
 
 | Variant | Node |
 |---|---|
@@ -28,78 +44,95 @@ with five variants, every one 16×16:
 | State=Unchecked | `251:13` |
 | State=Disabled | `251:16` |
 
-There is no size axis, so `Size` is `null` on every row. Five Figma variants, five cases.
+No size axis, so `Size` is `null` on every row. `/index.json` on the new preview lists the same seven
+stories — the five matrix states plus `all-variants` and `interactive`, which are demo harnesses with
+no Figma row and are not findings.
 
-**Reconciliation with the deployed stories.** `/index.json` lists seven Check Box stories: the five
-matrix states plus `all-variants` and `interactive`, which are demo/harness stories with no Figma
-row. No Figma variant is missing a story, and no story claims a variant Figma does not have. The two
-extra stories are not findings — they render the same five states.
+## Validity checks run on this build before any value was compared
 
-## Validity checks run before any value was compared
+**Colour mode, both sides, named before comparing.** `get_variable_defs` on the five variant nodes
+returned `color/bg/base` `#ffffff`, `color/bg/surfacePrimary` `#ebecee`, `color/border/disabled`
+`#c0c4ca`, `color/border/brand/bold` `#3b82f6`, `color/border/brand/Light` `#7cabf9`,
+`color/icon/brand` `#3676e0`. Every one matches `build/css/tokens.css` `:root` at the tested commit;
+`build/css/tokens-dark.css` differs on all six. **The design side answered in light mode.** The
+rendered side carries `data-theme="light"` with `prefers-color-scheme: dark` false. Both sides light.
 
-**Colour mode, both sides, named before comparing.** `get_variable_defs` returned
-`color/bg/base` `#ffffff`, `color/bg/surfacePrimary` `#ebecee`, `color/border/disabled` `#c0c4ca`,
-`color/border/brand/bold` `#3b82f6`, `color/border/brand/Light` `#7cabf9`, `color/icon/brand`
-`#3676e0`. All six match `build/css/tokens.css` `:root` (light) exactly; the dark values for the same
-names are `#151b24`, `#151b24`, `rgba(51,65,85,0.2)`, `#629bf8`, `#3676e0`, `#7cabf9` and match none
-of them. **The design side answered in light mode.** The rendered side carries
-`data-theme="light"` on `<html>` with `prefers-color-scheme: dark` false. Both sides light — the
-colour comparisons below are valid.
+This mattered more than usual this run. In dark, `--color-border-brand-light` is `#3676e0` — which is
+the *light* value of `--color-icon-brand` — and dark `--color-icon-brand` is `#7cabf9`, the *light*
+value of `border-brand-light`. The two tokens swap values across modes, so a cross-mode comparison
+here would have produced a confident false **match**, not a false mismatch. Both sides were pinned to
+light before any colour was read.
 
-**Fonts, measured on canvas rather than asserted.** `--family-plain` / `--family-brand` (Roboto)
-measured 351.63px against 319.21px for a deliberately bogus family — genuinely loaded, not a silent
-fallback. (`--family-default` (Inter) measures identical to the bogus family and is *not* resolving,
-but nothing in this component uses it.) The decisive point: **the Check Box renders no text node at
-all** — the box is a fixed 16×16 and the mark is an inline SVG at a fixed 10×10. No dimension
-reported here depends on a font.
+**Fonts measured on canvas, not asserted.** Roboto (`--family-plain` / `--family-brand`) measured
+756.50px against 688.87px for a deliberately bogus family — genuinely loaded.
+`document.fonts.check` also returned true, but it was not relied on. `--family-default` (Inter) still
+measures identical to the bogus family and is not resolving; nothing in this component uses it. The
+decisive point stands: the Check Box renders **no text node at all**, so no dimension reported here
+is font-dependent.
 
-**Border width is renderer snapping, not a defect.** The computed border read `0.8px` against a
-declared `1px`. A control probe element with a declared `1px` border computed to `0.8px` on the same
-page, and a declared `2px` to `1.6px`, at `devicePixelRatio` 1.25. The snapping applies to every
-element equally. Declared width is `1px`, which is correct; this is not logged against any case.
+**Border width is renderer snapping, excluded not logged.** `devicePixelRatio` was 1.25 for the
+measurement run, and control probes with declared 1px / 2px / 3px borders computed 0.8px / 1.6px /
+2.4px — a uniform 1/1.25 scaling applied to every element. The checkbox's computed 0.8px is that
+artefact; its *declared* width is `1px`, confirmed in the authored rule. Not logged against any case.
+(Earlier in the session the same page at `devicePixelRatio` 1 computed a clean 1px, which is the same
+fact seen from the other side.)
+
+## What the repair actually changed
+
+The repair is genuine at source, not a coincidence of colour. On this build:
+
+- `--hz-checkbox-border-resting-unbound` is **gone from the stylesheet entirely** — undefined on both
+  the element and the root, and absent from every authored `.hz-checkbox` rule.
+- The resting rule now reads `border: var(--hz-checkbox-border-width-unbound) solid
+  var(--color-border-brand-light)`, resolving to the node's `color/border/brand/Light`.
+- The remaining `--hz-checkbox-*-unbound` placeholders (size 16, radius 3, border-width 1, mark
+  size 10) are untouched. Those are the **design gaps** listed below, correctly still parked rather
+  than substituted with a near-fitting token.
 
 ## Results
 
-| # | Variant | Size | State | Verdict | Reason |
-|---|---|---|---|---|---|
-| 1 | State=Default | null | idle | **Failed** | Resting stroke renders a local raw placeholder prop, not the `color/border/brand/Light` the node binds |
-| 2 | State=Hovered | null | hovered | **Passed** | Stroke `--color-border-brand-bold`, fill `--color-bg-base`; pinned story and a real pointer hover agree |
-| 3 | State=Checked | null | selected | **Passed** | Stroke brand/bold, fill base, mark visible 10×10 in `--color-icon-brand` |
-| 4 | State=Unchecked | null | idle | **Failed** | Same defect as State=Default |
-| 5 | State=Disabled | null | disabled | **Passed** | Fill `--color-bg-surfaceprimary`, stroke `--color-border-disabled`, genuinely inert |
+| # | Variant | Size | State | Was | Now | Reason |
+|---|---|---|---|---|---|---|
+| 1 | State=Default | null | idle | `Fixed (To re-test)` | **Passed** | Resting stroke now resolves to `--color-border-brand-light`, per node `251:4` |
+| 2 | State=Hovered | null | hovered | `Passed` | **Passed** (re-measured) | Stroke `--color-border-brand-bold`, fill `--color-bg-base`; pinned story and real pointer hover agree |
+| 3 | State=Checked | null | selected | `Passed` | **Passed** (re-measured) | Stroke brand/bold, fill base, mark visible 10×10 in `--color-icon-brand` |
+| 4 | State=Unchecked | null | idle | `Fixed (To re-test)` | **Passed** | Same single declaration as Default; one repair fixed both |
+| 5 | State=Disabled | null | disabled | `Passed` | **Passed** (re-measured) | Fill `--color-bg-surfaceprimary`, stroke `--color-border-disabled`, genuinely inert |
 
-Screenshots: `reports/CheckBox/default.jpg`, `hovered.jpg`, `checked.jpg`, `unchecked.jpg`,
-`disabled.jpg`, with the Figma render at `reports/CheckBox/figma-node-251-19.png` and
-`figma-default-251-4.png`. Each deployed capture is the live element magnified 12× for legibility;
-every number quoted was read from computed style at 1:1 before magnifying.
+Screenshots for this run: `reports/CheckBox/default.jpg`, `hovered.jpg`, `checked.jpg`,
+`unchecked.jpg`, `disabled.jpg` — all recaptured from this preview and overwriting the first-pass
+images. The Figma renders `figma-node-251-19.png` and `figma-default-251-4.png` are unchanged, as the
+design did not move. Each deployed capture is the live element magnified 12× for legibility; every
+number quoted was read from computed style at 1:1 before magnifying.
 
-### 1 · State=Default — Failed
-
-```
-Tested : 02/10/2026
-Status : first test
-Issue Type : Token binding
-Expected : border-color: var(--color-border-brand-light) — node 251:4 binds its stroke to color/border/brand/Light, confirmed by get_variable_defs on 251:4 and by get_design_context on the set, light mode on both sides
-Actual : border-color: var(--hz-checkbox-border-resting-unbound), a raw placeholder prop declared locally in checkBox.css and bound to no token
-Fix : the node's SPEC prose claims the resting stroke is an untokenised grey, but the node's live binding disagrees; drop --hz-checkbox-border-resting-unbound and bind the resting stroke to --color-border-brand-light
-```
-
-**Whose defect: the component's.** This is not a gap in the token export —
-`--color-border-brand-light` is exported, built, and resolving on the page at the moment it renders
-the wrong colour. The component was written against the node's prose instead of its binding.
-
-### 2 · State=Hovered — Passed
+### 1 · State=Default — Failed → **Passed**
 
 ```
 Tested : 02/10/2026
 Status : This Variant passed.
 ```
 
-Stroke resolved to `--color-border-brand-bold` and fill to `--color-bg-base`, matching `251:7`. Driven,
-not just rendered: a real pointer hover on the Default story matched `:hover` and produced exactly
-the same stroke as the pinned `data-state="Hovered"` story. The mark stays hidden, as the node has it.
+Resting border computed `rgb(124, 171, 249)`, resolving through `var(--color-border-brand-light)`,
+which is what node `251:4` binds. Box 16×16, radius 3px, fill `--color-bg-base`, mark hidden.
 
-### 3 · State=Checked — Passed
+Driven, not just rendered: a real pointer hover swapped the stroke to `--color-border-brand-bold` and
+`:hover` genuinely matched; moving the pointer away returned it to `--color-border-brand-light`, so
+the repaired resting value is reached through real interaction and is not an artefact of the pinned
+story. A real `Tab` reached the control and genuinely matched `:focus-visible`, with the resting
+stroke undisturbed under focus.
+
+### 2 · State=Hovered — **Passed** (re-measured, no regression)
+
+```
+Tested : 02/10/2026
+Status : This Variant passed.
+```
+
+Stroke `--color-border-brand-bold`, fill `--color-bg-base`, mark hidden, matching `251:7`. The pinned
+`data-state="Hovered"` story and the live `:hover` driven on the Default story produced identical
+values. The repair did not leak into hover.
+
+### 3 · State=Checked — **Passed** (re-measured, no regression)
 
 ```
 Tested : 02/10/2026
@@ -107,45 +140,40 @@ Status : This Variant passed.
 ```
 
 Stroke `--color-border-brand-bold`, fill `--color-bg-base`, mark visible at 10×10 carrying
-`--color-icon-brand` through `fill="currentColor"`, matching `251:10`. `aria-checked="true"` and the
-mark is `aria-hidden`. A real click toggled the control on and off again, with the mark and stroke
+`--color-icon-brand` through `fill="currentColor"`, matching `251:10`. `aria-checked="true"`, mark
+`aria-hidden`. A real click toggled it off — border correctly returned to
+`--color-border-brand-light` — and a second real click toggled it back on, with mark and stroke
 following in both directions.
 
-Worth recording: the node's SPEC prose says the mark is `color/icon/primary` drawn at 12. The node
-itself binds `color/icon/brand` and draws at 10. The component followed the binding, which is
-correct — see the design-gap section.
-
-### 4 · State=Unchecked — Failed
-
-```
-Tested : 02/10/2026
-Status : first test
-Issue Type : Token binding
-Expected : border-color: var(--color-border-brand-light) — node 251:13 binds its stroke to color/border/brand/Light, confirmed by get_variable_defs on 251:13 and by get_design_context on the set, light mode on both sides
-Actual : border-color: var(--hz-checkbox-border-resting-unbound), a raw placeholder prop declared locally in checkBox.css and bound to no token
-Fix : same single declaration as State=Default — both resting states read the one placeholder, so binding it to --color-border-brand-light fixes both
-```
-
-**Whose defect: the component's**, for the same reason as case 1.
-
-### 5 · State=Disabled — Passed
+### 4 · State=Unchecked — Failed → **Passed**
 
 ```
 Tested : 02/10/2026
 Status : This Variant passed.
 ```
 
-Fill resolved to `--color-bg-surfaceprimary` and stroke to `--color-border-disabled`, matching
-`251:16`, with the mark hidden. Driven, not inferred: a real click fired the click handler zero
-times and left `aria-checked` unchanged; the control did not take focus from the click; and under a
-real pointer hover (`:hover` matched) the fill and stroke did not move to brand, so disabled
-correctly wins over hover.
+Resting border computed `rgb(124, 171, 249)` through `var(--color-border-brand-light)`, matching node
+`251:13`. Both resting states read the one declaration, so the single repair resolved both failures,
+exactly as the first pass's fix lead predicted. Geometry unchanged and still correct: 16×16, radius
+3px, fill `--color-bg-base`, mark hidden at 10×10.
+
+### 5 · State=Disabled — **Passed** (re-measured, no regression)
+
+```
+Tested : 02/10/2026
+Status : This Variant passed.
+```
+
+Fill `--color-bg-surfaceprimary`, stroke `--color-border-disabled`, mark hidden, matching `251:16`.
+Driven, not inferred: a real click fired the click handler **zero** times, left `aria-checked`
+unchanged, and the control took no focus from the click. Under a real pointer hover (`:hover`
+matched) fill and stroke did not move to brand — disabled still wins over hover, and the repair's new
+resting token does not leak into disabled.
 
 ## Design gaps — reported as gaps, not logged against the engineer
 
-These are properties the design leaves unbound. The component parks each in a named
-`--hz-checkbox-*-unbound` placeholder rather than substituting a near-fitting token, which is the
-right call; they are listed here so they reach the design side.
+Unchanged by the repair, and still correct behaviour by the component: each is parked in a named
+`--hz-checkbox-*-unbound` placeholder rather than substituted with a near-fitting token.
 
 | Property | Status | Toward |
 |---|---|---|
@@ -156,24 +184,47 @@ right call; they are listed here so they reach the design side.
 
 ## Documentation drift in the Figma node — for the designer
 
-The node's own SPEC prose contradicts the node's live bindings in three places. The bindings were
-treated as the truth throughout this test.
+Still open. The node's SPEC prose contradicts its live bindings in three places; the bindings were
+treated as the truth throughout both passes.
 
 1. "The resting stroke stays #c8d2dd. That grey has no matching token." The node binds Default and
-   Unchecked strokes to `color/border/brand/Light`. **This one caused both failures above** — the
-   component was built from the prose.
+   Unchecked strokes to `color/border/brand/Light`. **This prose caused both original failures** —
+   the component was built from it instead of from the binding. Now repaired in code, but the prose
+   is still there to mislead the next reader.
 2. "fill bound to color/icon/primary" for the mark. The node binds `color/icon/brand`.
-3. "The check is ... drawn at 12." The node and its exported SVG are both 10.
+3. "The check is … drawn at 12." The node and its exported SVG are both 10.
 
 ## Keyboard focus
 
-Not a matrix row — the component set has no Focus variant, and the node's own accessibility note
-says keyboard focus "needs its own treatment — not yet in this set." Verified anyway: a real Tab
-reaches the control and genuinely triggers `:focus-visible` with the user-agent ring left in place,
-so the control is keyboard-visible while the design catches up. Nothing invented, nothing suppressed.
+Not a matrix row — the component set has no Focus variant, and the node's own accessibility note says
+keyboard focus "needs its own treatment — not yet in this set." Verified again anyway: a real `Tab`
+reaches the control and genuinely triggers `:focus-visible`, with the user-agent ring left in place.
+Nothing invented, nothing suppressed.
 
 ## Registry effect
 
-Two rows `Failed` and three `Passed` on `stagingTesting`, all linked to `recWY9nPqeCWEQCs1` through
-`Composed In`. `Staging Testing Results Summary` therefore contains `Failed` and no `re-test`, so
-`Development` falls to gate 2 and reads **`To be fixed`**.
+All five `stagingTesting` rows now read `Passed`, linked to `recWY9nPqeCWEQCs1` through `Composed In`.
+`Staging Testing Results Summary` contains neither `Failed` nor `re-test`, so gates 1, 2 and 3 do not
+fire; `Production Storybook` is empty so gate 5 does not fire; the summary is non-empty, so
+`Development` falls to **gate 6** and reads **`To be deployed`**. No row was left on
+`Fixed (To re-test)`.
+
+`Synchronization %` reads 100%, but per registry **D4** that field is `count / count` with no
+confirmed filter and reads 100% on every row regardless — it is not cited here as evidence. The
+5-of-5 figure above comes from the rows themselves.
+
+## Two housekeeping notes
+
+**Cell drift corrected on two passing rows.** On the first pass, `Expected Results` on the
+**State=Hovered** and **State=Disabled** rows had been left holding a stale copy of the State=Default
+*failure* block, while `Suggestion for Improvement` on those same rows correctly held the pass block.
+The two cells disagreed, and the `Expected Results` copy described a defect that was never on those
+rows. Both were overwritten with the pass block so the two cells match, exactly as
+`finding-format` requires. **No verdict was changed** — both rows were `Passed` before and after, and
+both were re-measured on this build first.
+
+**`Attachment` is still empty on all five rows — outstanding.** The first pass left it empty, and this
+pass could not fill it: Airtable attachments need a publicly reachable URL, and the only route to one
+is pushing `reports/CheckBox/` to the `qa/check-box-evidence` branch, which was not requested this
+run. The screenshots exist locally beside this report. This is a real miss against the qa self-check
+and is flagged rather than quietly skipped.

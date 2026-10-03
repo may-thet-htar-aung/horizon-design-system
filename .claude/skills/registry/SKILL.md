@@ -173,6 +173,35 @@ their mark, all at once.** `Astro Link` says devops deployed the docs. `Release 
 same evaluation; a component sitting at `Completed` with a deploy done and a review still pending is
 one cell short of `Released`, not "basically released."
 
+## The Mai Crew board, and where it disagrees with this contract
+
+The FigJam board **"Mai Crew — Evidence Loop"**
+(`figma.com/board/9g3bh4xMcMAUAoNjTl8dDU/Mai-Crew`) is the intended operating model for this
+project. Its governing rule — **"Nothing moves without a record in Airtable"** — is the same rule
+this file enforces, and its lanes map onto the crew's agents.
+
+Where the two disagree, **this contract wins and the board is stale**, for the reason the `Never`
+list already gives: the formula and the observed behavior are what actually run. The board is a
+picture of the system, not the system.
+
+**The status vocabularies are not the same.**
+
+| Board (Jira Status) | `Development` | |
+|---|---|---|
+| To Do | `To-do` | same stage |
+| Ready for QA | `Ready for Testing` | **different name, same stage** |
+| Fixed · Fixing · To be fixed · To be deployed | identical | same |
+| Done | `Completed` | **different name, same stage** |
+| Closed | — | no `Development` equivalent; it is the pm audit's conclusion |
+| — | `Released` | not on the board at all |
+
+Read a board name as its `Development` equivalent. **Never write a board name into a cell** — the
+select options are the `Development` vocabulary, and `Ready for QA` and `Done` are not among them.
+
+**The board ends at Done, and that corroborates the parking of gate 4.** It has no `Released` stage
+and no reviewer lane. `Completed` being the working finish line is therefore not only a consequence
+of D10 — it is what the intended model describes.
+
 ## The one column two agents share
 
 `Testing Results` belongs to qa — every value, on every row, is qa's to write, with a single
@@ -238,8 +267,12 @@ falls through to gate 7 and reads `Ready for Testing`, not `To be deployed`.
 
 **D6 — The spelling `re-test` is load-bearing and undocumented as such.**
 Gates 1 and 3 do a case-sensitive `FIND` for lowercase `re-test`. The choice is `Fixed (To re-test)`.
-Spelling it `Fixed (Re-test)` — capital R, as the FigJam pipeline board does — silently breaks both
-gates. No error; the component simply stops reaching `Fixing` or `Fixed`.
+Spelling it `Fixed (Re-test)` — capital R — silently breaks both gates. No error; the component
+simply stops reaching `Fixing` or `Fixed`.
+
+*Corrected 2026-10-02:* this entry used to say the Mai Crew board spells it with a capital R. It
+does not — the board reads `Fixed (To re-test)` correctly, on both conditional connectors and its
+registry node. The trap is real; the board is not an instance of it.
 
 **D7 — Two rollup aggregations are unverifiable from the API.**
 Neither `Staging Testing Results Summary` nor `Staging Passed Tests` exposes its aggregation
@@ -283,3 +316,33 @@ the repair pass isn't finished. Both agents may be acting on the same component 
 engineer finishing the repair, qa re-testing whatever's already marked `Fixed (To re-test)`. This was
 confirmed deliberately, twice — but it means qa can re-test a row before the engineer has reached it,
 and a row still reading `Failed` under `Fixing` isn't qa's to touch.
+
+**D14 — The board describes two mechanisms that don't exist, and omits two agents that do.**
+Three gaps between the Mai Crew board and this base, none of them resolved:
+- **Jira is wired to nothing.** The board makes a Jira status the thing that provokes the next actor
+  ("Dashed line = the Jira status provokes the next actor"). Here the `Development` formula does
+  that job and nothing touches Jira. Either wire it, or drop the column from the board.
+- **There is no `Brief` column.** The board's Client lane writes `Components / Brief` from a prompt
+  and acceptance criteria. `components` has no such column, so the Client lane is unimplemented and
+  the loop in practice starts at the designer. This is the one place the board is ahead of this
+  contract rather than behind it.
+- **`reviewer` and `token-runner` are not on the board.** Both exist as agent files. The board's
+  cast is Client, Designer, Developer, QA, DevOps, PM.
+
+**D15 — A design change to a finished component wakes nobody.**
+The ladder reads `Design` only at gate 8, and only for the value `Done`. The `Design` column also
+offers `To be fixed`, which currently feeds nothing at all: setting it changes no status and wakes
+no agent. A component sitting at `Completed` whose Figma node is then rebound stays at `Completed`,
+and the loop has no arrow back.
+
+Observed 2026-10-02 on Button: the Outline fills were rebound in Figma — `64:53` gained
+`color/bg/base`, `64:59` moved to `color/bg/primary/Light`. Both tokens already existed, so **no
+token value changed and the export diff was byte-clean**; nine `Passed` rows stayed `Passed`; and a
+component that was wrong in production sat at `Completed` until a human deleted its registry row by
+hand to force a rebuild. A clean token diff never proves a component is still correct.
+
+**The fix is a formula change, which no agent may make.** A gate above gate 5 — `Design` =
+`To be fixed` → `To be fixed` — would give the designer a one-cell way to send a finished
+component back to the engineer. It must be made by a human in the Airtable UI, and it changes
+precedence, so it is recorded here rather than applied. Until then drift is caught only by the pm
+sweep's fourth contradiction shape, which reports it without moving anything.

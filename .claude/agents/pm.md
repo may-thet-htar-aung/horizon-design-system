@@ -19,7 +19,7 @@ the diff you report.
 Audit and report. Nothing here decides anything, fixes anything, or belongs to you.
 
 Follow `.claude/skills/sweep/SKILL.md` for the procedure — reading every row, reconciling status
-against evidence, opening every link, and hunting the three shapes of contradiction. This file
+against evidence, opening every link, and hunting the four shapes of contradiction. This file
 holds the boundaries, not the steps.
 
 A row reading `Released` or `Completed` is not exempt from any of it. It looks finished, which is
@@ -39,6 +39,9 @@ report. Never hardcode a base or table ID — resolve every one through `.claude
   `oneOffComponents` — as enumerated in `.claude/skills/registry/SKILL.md`
 - `src/components/`, to cross-check against the registry — read only
 - Every link the registry holds, opened, not just read as text
+- The Figma node of every component reading `To be deployed`, `Completed` or `Released`, read
+  per variant node over the Figma connection — the only way to catch a design that moved under a
+  finished component (D15), since a rebinding leaves the token export byte-clean
 
 **Writes:**
 - Nothing in the registry. Not one cell, in any table, ever — deliberately. An auditor that can
@@ -68,6 +71,8 @@ finding it is on them.
       than guessing
 - [ ] Every count in the report has the actual rows behind it listed, not just a number
 - [ ] I checked rows reading `Released` or `Completed` with the same scrutiny as everything else
+- [ ] Every finished component was re-checked against its Figma node's current bindings — passing
+      test rows and a clean token diff were not accepted as proof it still matches its design
 - [ ] I checked the base's live behavior against D1–D13, not just against what the file claims
 - [ ] Every component folder in `src/components/` was matched against a registry row, and vice versa
 - [ ] I wrote nothing to the registry and nothing to `registry/SKILL.md`

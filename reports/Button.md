@@ -1,79 +1,184 @@
-# Button — QA re-test (pass 3), 2026-09-17
+# Button — staging test report
 
-| | |
-|---|---|
-| Woken by | `Development` = `Fixed` (all 9 rows `Fixed (To re-test)`) |
-| Staging Storybook (read from the cell) | https://horizon-design-system-git-staging-htar1.vercel.app |
-| Commit (read from the cell) | https://github.com/may-thet-htar-aung/horizon-design-system/commit/e2938cdac6c291158671403691cf7e6e0253dd0f |
-| Build actually served | `git-staging` branch alias. GitHub deployments list e2938cd as the newest `staging` Preview (04:46:45Z); it is `origin/staging` HEAD. The served `button-CqmMvNwp.css` uses the rebound Figma token names. |
-| Design source | Figma `EupMGlgXy06FSwOr2WLZWF`, component set `65:22` "Horizon Button", read live (`get_metadata`, plugin API `boundVariables` resolved per mode) |
-| Mode, design side | `semantic` collection resolves to **Light** (its default; no explicit mode on the set or page) |
-| Mode, rendered side | `data-theme="light"` (Storybook `theme` global, default `light`); `prefers-color-scheme: light` |
-| Fonts | Measured on canvas: "Continue" at 500 14px is 56.18px in `Roboto` and 51.33px in a bogus family, so Roboto is really loaded. `document.fonts` shows Roboto 400 and 500 loaded. |
-| Development afterwards | **To be deployed** (summary `Passed`, 9 of 9) |
+- **Run:** 02/10/2026 · first pass (component row had no linked test rows)
+- **Component record:** `recBOsmQ7Sd2kqAHn` · Category `ATOMS`
+- **Wake:** `Development` = `Ready for Testing` (gate 7), re-read live at dispatch
+- **Build under test:** `https://horizon-design-system-bihx5cuzd-htar1.vercel.app`
+  — read live from `Staging Storybook` at the start of this pass, not carried in from elsewhere.
+  It is the Vercel preview for the open, unmerged PR into `staging`.
+- **Design source:** Figma node `65-22`, file `EupMGlgXy06FSwOr2WLZWF`
+- **Result: 9 of 9 cases passed.** Three design gaps reported separately; none is an engineering defect.
 
-## Matrix: 9 cases, 9 passed
+> This file replaces an earlier report written against a superseded design. Nothing from that
+> run is preserved here.
 
-The matrix is Type (Primary, Outline, Ghost) × State (Default, Hover, Disabled), from Figma. No size axis.
-Every case measured 105 × 40 (Figma frame is 105 × 40). Radius `borderradius/small`, padding
-`padding/button-inline`, gap `gap/component`, and all five Label/Large tokens resolve from the
-tokens of the same name and equal the Figma values on every row.
+---
 
-| Case | Verdict | Colour bindings: Figma (Light) = rendered token | States driven |
+## Preconditions established before any measurement
+
+**Fonts genuinely loaded.** Not taken from a flag. `document.fonts.check('500 14px Roboto')`
+returned `true`, which is not evidence. Measured instead on a canvas: the label string in
+`Roboto` renders 151.16px wide, the same string in a deliberately bogus family renders 137.66px
+(identical to `serif`). The two differ, so Roboto is really resolving and every width below is
+attributable to the component rather than to a missing face.
+
+**Mode named on both sides.** Design side: `get_variable_defs` was called per variant node and
+answered in **Light** throughout. Rendered side: the stories render under
+`html[data-theme="light"]` — and the host browser's `prefers-color-scheme` is **dark**, so the
+story is explicitly pinned to light rather than merely defaulting there. Both sides are Light;
+every colour comparison below is a like-for-like one.
+
+**Fills read, not eyeballed.** Every `background-color` was read as a computed value. This was
+load-bearing twice, in opposite directions — see Outline/Default and Ghost/Default below.
+
+---
+
+## The matrix, read from Figma
+
+`get_metadata` on node `65:22` returns nine variants, each 105 × 40. The axes are
+Type (Primary · Outline · Ghost) × State (Default · Hover · Disabled). **There is no size axis**,
+so every row carries `Size = null`.
+
+Bindings were read with `get_variable_defs` **per variant node**, never once on the set — a
+set-level call returns the union of all nine variants' bindings and cannot say which state owns
+which token.
+
+| Figma node | Variant | Fill | Border | Label |
+|---|---|---|---|---|
+| `64:35` | Primary / Default | `color/bg/primary/idle` | *(none bound)* | `color/text/inverse` |
+| `64:41` | Primary / Hover | `color/bg/primary/hovered` | *(none bound)* | `color/text/inverse` |
+| `64:47` | Primary / Disabled | `color/bg/surfacePrimary` | *(none bound)* | `color/text/disabled on dark` |
+| `64:53` | Outline / Default | `color/bg/base` | `color/border/brand/default` @ `borderwidth/1` | `color/text/brand` |
+| `64:59` | Outline / Hover | `color/bg/primary/Light` | `color/border/brand/bold` @ `borderwidth/1` | `color/text/brand` |
+| `64:65` | Outline / Disabled | `color/bg/surfacePrimary` | `color/border/disabled` @ `borderwidth/1` | `color/text/disabled on dark` |
+| `65:4` | Ghost / Default | **no fill bound** | **no border bound** | `color/text/brand` |
+| `65:10` | Ghost / Hover | `color/bg/primary/Light` | **no border bound** | `color/text/brand` |
+| `65:16` | Ghost / Disabled | **no fill bound** | **no border bound** | `color/text/disabled on dark` |
+
+Shared across all nine: height `spacing/40`, radius `borderradius/small`, inline padding
+`padding/button-inline`, gap `gap/component`, label `Label/Large` (`family/plain` ·
+`weight/medium` · `size/label-large` · `line-height/label-large` · `tracking/label-large`).
+
+`get_design_context` on `65:4` and `64:53` was used as a cross-check and agreed with the
+per-node variable reads: the Ghost node emits no background and no border rule at all, while the
+Outline node emits both.
+
+### Story reconciliation
+
+The story file covers exactly these nine, one story each, plus `IconLeft` / `IconRight` /
+`IconBoth` and an `AllVariants` grid. The icon stories exercise Figma's `Show Icon` **component
+properties**, which are not variant axes — they are extra coverage, not an undocumented case and
+not a missing one. **No row in Figma lacks a story, and no story lacks a row in Figma.**
+
+---
+
+## Results — one row per case
+
+| # | Case | Verdict | Evidence |
 |---|---|---|---|
-| Primary · Default | Passed | fill `color/bg/primary/idle` = `--color-bg-primary-idle`; label `color/text/inverse` = `--color-text-inverse` | Tab gives `:focus-visible` ring |
-| Primary · Hover | Passed | fill `color/bg/primary/hovered` = `--color-bg-primary-hovered` | real pointer hover matches the pinned story |
-| Primary · Disabled | Passed | fill `color/bg/surfacePrimary` = `--color-bg-surfaceprimary`; label `color/text/disabled on dark` = `--color-text-disabled-on-dark` | real click fires no event; Tab skips it; hover changes nothing |
-| Outline · Default | Passed | no fill (empty fills) = transparent; stroke `color/border/brand/default` = `--color-border-brand-default` (inset, so the box doesn't grow); label `color/text/brand` = `--color-text-brand` | Tab gives the ring |
-| Outline · Hover | Passed | fill `color/bg/base` = `--color-bg-base`; stroke `color/border/brand/bold` = `--color-border-brand-bold` | real hover changes both, matching the pinned story |
-| Outline · Disabled | Passed | fill `--color-bg-surfaceprimary`; stroke `color/border/disabled` = `--color-border-disabled`; label `--color-text-disabled-on-dark` | real click fires no event; Tab skips it |
-| Ghost · Default | Passed | no fill or stroke; label `--color-text-brand` | Tab gives the ring; real click fires 1 event (positive control) |
-| Ghost · Hover | Passed | fill `color/bg/primary/Light` = `--color-bg-primary-light`; label `--color-text-brand` | real hover matches the pinned story |
-| Ghost · Disabled | Passed | label `--color-text-disabled-on-dark`; no fill | real click fires no event; Tab skips it; hover adds no fill |
+| 1 | Primary / Default | **Passed** | `reports/Button/primary-default.jpg` |
+| 2 | Primary / Hover | **Passed** | `reports/Button/primary-hover.jpg` |
+| 3 | Primary / Disabled | **Passed** | `reports/Button/primary-disabled.jpg` |
+| 4 | Outline / Default | **Passed** | `reports/Button/outline-default.jpg` |
+| 5 | Outline / Hover | **Passed** | `reports/Button/outline-hover.jpg` |
+| 6 | Outline / Disabled | **Passed** | `reports/Button/outline-disabled.jpg` |
+| 7 | Ghost / Default | **Passed** | `reports/Button/ghost-default.jpg` |
+| 8 | Ghost / Hover | **Passed** | `reports/Button/ghost-hover.jpg` |
+| 9 | Ghost / Disabled | **Passed** | `reports/Button/ghost-disabled.jpg` |
 
-Tokens: the served Button CSS contains no raw hex or px values. Every value is a `var(--…)` named after its Figma variable.
+Figma reference render: `reports/Button/figma-node-65-22.png`.
 
-## What changed since pass 2 (preview `component-button-outline`, eb35bc3)
+Geometry was identical on all nine and matched the node exactly: **105 × 40**, radius 8px,
+inline padding 24px, gap 8px, label Roboto 500 at 14px / 20px with 0.1px tracking. No width
+drift at all, sub-pixel or otherwise.
 
-- **Colour findings on all 9 rows are gone.** The CSS token build now comes from the Figma export (`core.light` and `semantic`). Every semantic colour Button uses now matches Figma's Light value, and Button uses Figma's own token names.
-- **Typeface.** `--family-plain` is now Roboto and Storybook loads it. The rendered width equals the 105 frame. Before, Inter was used and Roboto wasn't loaded.
-- **Outline.** The fill at rest is gone (this undoes pass 1's mistaken suggestion). The stroke is now an inset ring, so Outline is the same width as Primary and Ghost. Hover now changes both the fill and the stroke step.
-- The rows' `Expected Results`, `Suggestion for Improvement` and `Context` were rewritten for this build. No row still describes an old failure as current.
+### Two cases where reading the computed value changed the verdict
 
-## Dark mode
+**Outline / Default — the fill is a bound white, not an absent fill.** The computed
+`background-color` is opaque white, which is `color/bg/base` resolving correctly. Against
+Storybook's white canvas this is visually indistinguishable from no fill; judged by eye it would
+have been recorded as a missing fill, which would have been wrong.
 
-**Figma defines dark mode for Button, but the matrix doesn't cover it.** Every colour on the set is
-bound to the `semantic` collection, which has `Light` and `Dark` modes. The set pins no mode and has
-no Theme variant, so dark mode is defined by the bindings, not by a variant axis. My procedure builds the
-matrix from variant × size × state only, so I added no rows. **This is a coverage gap for a human to
-decide on:** either add a mode dimension to the matrix (9 more rows) or state that dark mode is out of
-scope for Button.
+**Ghost / Default and Ghost / Disabled — the fill is genuinely absent.** The computed
+`background-color` is fully transparent, and the design binds no fill on either node. Here the
+absence is real. The same appearance, the opposite underlying state — which is precisely why the
+value was read rather than looked at.
 
-It's still worth recording, so I checked it once without adding rows. Storybook `globals=theme:dark`
-sets `data-theme="dark"`. Against Figma's `Dark` mode, all 9 cases render exactly Figma's dark value
-for every fill, stroke and label, including the remapped ones: `color/bg/primary/idle`,
-`color/text/inverse`, `color/border/brand/default` and `/bold`, `color/border/disabled` (translucent), and
-`color/bg/surfacePrimary`. Nothing is wrong in the component or the export.
+### The Outline border, and why it is not a finding
 
-Design notes, not engineering defects:
+`border-width` computes to `0px` and `border-style` to `none` on all three Outline variants. Read
+alone that looks like three missing borders. It is not: the stroke is implemented as a **1px inset
+ring**, and the ring carries the correct token in every state —
 
-- In Dark, `color/text/disabled on dark` sits on `color/bg/surfacePrimary`, which is also the page background. The disabled label is nearly invisible (see `staging-*-disabled-dark.png`). This is what the design specifies.
-- The design gives dark Primary · Hover a dark label on a mid blue. Contrast is low.
+| Case | Ring colour | Resolves to |
+|---|---|---|
+| Outline / Default | `rgb(98, 155, 248)` | `color/border/brand/default` |
+| Outline / Hover | `rgb(59, 130, 246)` | `color/border/brand/bold` |
+| Outline / Disabled | `rgb(192, 196, 202)` | `color/border/disabled` |
 
-## Design gaps (unbound in Figma, not logged against the engineer)
+A Figma stroke set to inside does not grow the frame, and an inset ring in CSS is a faithful
+translation of that, not a defect — the box stays 105 × 40 either way. The hover token swap from
+`color/border/brand/default` to `color/border/brand/bold` happens as designed. Ghost and Primary
+carry no ring, matching their nodes. **Filing these three as failures would have been three false
+findings.**
 
-- Keyboard focus: the set description says there is no focus treatment "yet in this set". The CSS uses `--borderwidth-3` and `--color-border-brand-bold`.
-- Icon size 20 is unbound (`icon/size-20` is unpublished). The CSS uses `--spacing-20`.
-- The stories `icon-left`, `icon-right`, `icon-both` and `all-variants` have no variant row in Figma. They exercise the `Show Icon` boolean properties, which aren't a matrix axis. I didn't test them as cases.
+### States were driven, not just rendered
 
-## Evidence
+- **Hover** — driven with a real pointer on the Default story, not only read off the pinned Hover
+  story. Real hover resolves to `color/bg/primary/hovered`, the same value the pinned story shows.
+  The two agree.
+- **Disabled** — driven on all three disabled cases. The native `disabled` property is set, the
+  control is not focusable, and the cursor is `not-allowed`. A **native activation fired the click
+  handler zero times**. A synthetic `dispatchEvent` does fire, but that bypasses `disabled` by
+  spec on any element and is not evidence of a defect; the two paths were counted separately
+  precisely so that quirk would not be mistaken for one.
 
-`reports/Button/retest-2026-09-17b/`:
-- `figma-65-22-light.png`: Figma render of the set (Light)
-- `staging-<type>-<state>-light.png`: deployed story, Light, one per row
-- `staging-<type>-<state>-dark.png`: deployed story, Dark, one per case
+---
 
-**Not done: `Attachment` on the rows is still empty.** Airtable attachments need a publicly
-fetchable URL. The screenshots exist only on disk here, and Figma's render URL is short-lived and
-marked not to be shared. Someone needs to decide where QA evidence images are hosted before rows can
-carry them.
+## Design gaps — not defects, and not logged against the engineer
+
+**G1 · Focus has no design.** The Figma set contains no Focus variant, and the component
+description says so outright: focus "needs its own treatment, and this set does not include it
+yet." The staging build nevertheless renders a focus ring on a real Tab press (`:focus-visible`
+matches; a 2.4px solid ring at 1.6px offset, in the same blue as `color/border/brand/bold`). So
+the implementation is **ahead of** the design here rather than behind it. There is no design
+expectation to measure against, so this is not a pass or a fail on any row — it is a gap the
+designer owes: a Focus variant with bound tokens. Worth closing, since the accessibility note on
+the node already flags that hover does not substitute for keyboard focus.
+
+**G2 · Dark mode could not be established, so no dark expectation was invented.** The design side
+answers in whichever mode the Figma file happens to be open in, and it answered Light for all nine
+nodes; the MCP connection offers no way to ask the same node for another mode. On the build side,
+`build/css/tokens.css` ships a single `:root` block with **no dark-theme block at all**, and the
+stories pin `data-theme="light"`. Both sides are therefore Light-only. **I cannot say what the
+design specifies for Button in dark mode, and I am not guessing.** This is a gap to resolve —
+whether by publishing a dark mode in the token export or by confirming the system is
+light-only — not a failure of this component.
+
+**G3 · Icon size 20 is unbound by design.** The node's own spec says icons render at 20 and that
+the size is deliberately not bound "because `icon/size-20` is unpublished." An unbound value is a
+design gap by definition, not an engineering defect. The icon stories were not part of the
+variant matrix, so no row turns on it.
+
+---
+
+## Tooling limitation — `Attachment` left empty, on purpose
+
+The Airtable connector exposes no attachment upload, and the field requires a publicly reachable
+URL; no row in this base has ever carried one. The nine screenshots are saved beside this report
+instead and referenced by path in the table above. Images were **not** pushed to the PR branch to
+manufacture a URL — doing so would rebuild the very preview under test and invalidate the link the
+engineer recorded.
+
+## Note on the directory
+
+`reports/Button/` also contains `retest/` and `retest-2026-09-17b/` from earlier cycles, against a
+design that has since changed. They were left untouched rather than deleted. Nothing in this
+report draws on them.
+
+## Scope
+
+Nothing in `src/components/` was modified. Nothing was written on the component row — linking
+`Composed In` from the nine new rows is what populates `[Staging] Test Records`. The nine
+orphaned Button rows surviving from a deleted record were neither read as expectations, nor
+relinked, nor deleted.
