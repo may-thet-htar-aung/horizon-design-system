@@ -170,7 +170,7 @@
   <color name="color_icon_primary">#ff1c242f</color>
   <color name="color_icon_secondary">#ff334155</color>
   <color name="color_icon_bold">#ff151b24</color>
-  <color name="color_icon_disabled">#ff5c6777</color>
+  <color name="color_icon_disabled">#ffc0c4ca</color>
   <color name="color_icon_input">#ffa1a8b1</color>
   <color name="color_icon_inverse">#ffffffff</color>
   <color name="color_icon_inverse_secondary">#ffebecee</color>
