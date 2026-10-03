@@ -17,12 +17,13 @@
  *                    · value color/text/input text unique
  *                    · label + helper color/text/secondary
  *   227:16 Typed     fill color/neutral-25 · border color/border/brand/bold
- *                    · value color/text/secondary · label + helper color/text/secondary
+ *                    · value color/text/secondary unique
+ *                    · label + helper color/text/secondary
  *   227:23 Error     fill color/neutral-25 · border color/border/negative/bold
- *                    · value color/text/secondary · label color/text/secondary
+ *                    · value color/text/secondary unique · label color/text/secondary
  *                    · helper color/text/negative
  *   227:30 Warning   fill color/neutral-25 · border color/border/warning/bold
- *                    · value color/text/secondary · label color/text/secondary
+ *                    · value color/text/secondary unique · label color/text/secondary
  *                    · helper color/text/warning
  *   227:37 Disabled  fill color/bg/surfacePrimary · border color/border/disabled
  *                    · value + label + helper color/text/disabled
@@ -37,6 +38,32 @@
  *   - The PLACEHOLDER on 227:2 / 227:9 moved color/text/input text ->
  *     color/text/input text unique. Confirmed per layer on 227:6 and 227:13; the
  *     plain color/text/input text no longer appears on either node.
+ *
+ * REBOUND AGAIN 2026-10-03 — same D15 shape, same silence: the designer moved the
+ * VALUE text one step further, to a token that ALREADY EXISTED, so again no token
+ * value moved, the export diff was byte-clean, and nothing in the ladder stirred.
+ *
+ *   - The VALUE text moved color/text/secondary -> color/text/secondary unique.
+ *     Confirmed per LAYER, live, on 227:20 (Typed), 227:27 (Error) and 227:34
+ *     (Warning): each returns color/text/secondary unique and nothing else. Plain
+ *     color/text/secondary no longer appears on any of the three value layers.
+ *
+ * THE TRAP, written down so the next reader does not undo this by eye: BOTH tokens
+ * resolve to #334155 in light mode. --color-text-secondary and
+ * --color-text-secondary-unique are pixel-identical on screen, before and after this
+ * change. A screenshot cannot distinguish them and neither can a visual diff. The
+ * ONLY way to verify this binding — here, in review, or in the deployed stylesheet —
+ * is to read the authored var() name per layer. Do not "confirm" it by looking.
+ *
+ * Reading the PARENT variant node is also not enough: get_variable_defs on 227:16
+ * returns BOTH color/text/secondary and color/text/secondary unique, because it
+ * unions the value layer with the label and helper layers. Only the per-layer read
+ * tells you which name belongs to which layer.
+ *
+ * The LABEL and HELPER layers did NOT move and are deliberately left alone. Confirmed
+ * per layer on 227:4 / 227:11 / 227:18 / 227:25 / 227:32 (labels) and 227:8 / 227:15 /
+ * 227:22 (helpers): all still bind plain color/text/secondary. Error and Warning
+ * helpers remain color/text/negative (227:29) and color/text/warning (227:36).
  *
  * The field FILL did not move. 227:16 still binds color/neutral-25 and is left alone.
  *
@@ -112,20 +139,33 @@
  * ---------------------------------------------------------------------------
  * color/neutral-25 is a core ramp value with no dark override: --color-neutral-25 is
  * #f7f8f9 in build/css/tokens.css AND absent from build/css/tokens-dark.css, so the
- * field fill stays near-white in dark mode. The value text now resolves to
- * --color-text-secondary, which IS overridden in dark (#334155 -> #a1a8b1), so in dark
- * mode the field renders #a1a8b1 on #f7f8f9 — roughly 2.4:1, well under the 4.5:1 that
- * WCAG AA asks of body text. The placeholder states are worse still, being the same
- * #a1a8b1 in both modes.
+ * field fill stays near-white in dark mode. The field therefore still renders as a
+ * light box in dark mode, because NEITHER the fill nor the value is mode-aware.
+ * STILL A GAP, still the designer's to close.
  *
- * This is NOT fixed here, on purpose, and no substitute token is reached for:
- *   - --color-bg-primary-neutral-unique, the obvious-looking candidate, carries the
- *     SAME #f7f8f9 in light and dark. Binding to it would change nothing at all.
- *   - Any token that did fix the contrast would be a token this design does not bind,
+ * The 2026-10-03 rebinding incidentally changed the value text's dark behaviour, and
+ * that was NOT the reason for the change and must not be read as one. For the record:
+ * --color-text-secondary flips to #a1a8b1 in dark; --color-text-secondary-unique is
+ * #334155 in BOTH modes. The value text is consequently now mode-stable. That is a
+ * side effect of binding what the node binds — not a contrast fix, not a goal, and
+ * not a justification. If a contrast outcome and a live binding ever disagree, the
+ * BINDING wins and the contrast gap gets reported, exactly as below.
+ *
+ * TWO GAPS STILL OPEN, reported and left standing:
+ *   1. The PLACEHOLDER is --color-text-input-text-unique = #a1a8b1 on a #f7f8f9 fill
+ *      in BOTH modes: ~2.26:1, far under the 4.5:1 WCAG AA asks of body text. Default
+ *      and Hovered render empty, so this is what those two states actually show.
+ *   2. The FIELD renders as a light box in dark mode — color/neutral-25 has no dark
+ *      value, so the surface never darkens.
+ *
+ * Neither is fixed here, on purpose, and no substitute token is reached for:
+ *   - --color-bg-primary-neutral-unique, the obvious-looking candidate for the fill,
+ *     carries the SAME #f7f8f9 in light and dark. Binding to it would change nothing.
+ *   - Any token that did fix either gap would be a token this design does not bind,
  *     which is exactly the guess this file refuses to make everywhere else.
- * The real fix is a designer's: rebind the fill in Figma, or give color/neutral-25 a
- * dark value. Until one of those happens the component is built as the node binds it
- * and the gap is carried here in writing.
+ * The real fix is a designer's: rebind the fill and the placeholder in Figma, or give
+ * color/neutral-25 a dark value. Until one of those happens the component is built as
+ * the node binds it and both gaps are carried here in writing.
  */
 
 .hz-input-field {
@@ -209,9 +249,9 @@
   font-size: var(--hz-input-field-value-size-unbound);
   line-height: var(--hz-input-field-value-leading-unbound);
 
-  /* The value's COLOUR is bound on every node. 227:16 / 227:23 / 227:30 — rebound
-     2026-10-02 from color/text/primary to color/text/secondary. */
-  color: var(--color-text-secondary);              /* color/text/secondary */
+  /* The value's COLOUR is bound on every node. Value layers 227:20 / 227:27 / 227:34 —
+     rebound 2026-10-03 from color/text/secondary to color/text/secondary unique. */
+  color: var(--color-text-secondary-unique);       /* color/text/secondary unique */
 
   background: none;
   border: none;
@@ -281,7 +321,7 @@
 }
 
 .hz-input-field[data-filled='true'] .hz-input-field__input {
-  color: var(--color-text-secondary);              /* color/text/secondary */
+  color: var(--color-text-secondary-unique);       /* color/text/secondary unique */
 }
 
 /* State=Warning — "the value can be submitted, but the helper should flag the risk."
