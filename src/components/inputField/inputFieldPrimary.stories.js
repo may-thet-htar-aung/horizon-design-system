@@ -1,0 +1,247 @@
+/**
+ * Horizon Input Field / Primary — stories.
+ *
+ * FIGMA NODE: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50
+ *
+ * One story per row of the variant matrix. The set has ONE axis — State — with six
+ * values, plus two text properties each with a Show toggle:
+ *
+ *   State            | Default · Hovered · Typed · Error · Warning · Disabled
+ *                    | 220:14 · 220:20 · 220:26 · 220:32 · 220:38 · 220:44
+ *   Label            | text property
+ *   Show Label       | boolean property
+ *   Helper text      | text property
+ *   Show Helper text | boolean property
+ *
+ * There is no size axis and no focus variant in this component set.
+ *
+ * `variant` is NOT a Figma property. Figma models Mobile (227:44) and Primary (220:50)
+ * as two component sets; they are one component here because the elements, the
+ * properties and the state machine are identical and only the bindings differ. Every
+ * story below pins variant: 'Primary'. The Mobile stories are in inputField.stories.js
+ * and are untouched by this file.
+ *
+ * The value inside the field is sample copy on each variant, not a Figma property —
+ * the node's own docs say so. `value` and `placeholder` are implementation props,
+ * documented as such in inputField.js, because a real input needs both.
+ *
+ * WHAT TO LOOK AT IN DARK MODE (the Theme toolbar): the whole set is mode-aware, unlike
+ * the Mobile set — the field surface darkens properly. Three contrast gaps are carried
+ * deliberately and are the design's to close, not this component's: the placeholder
+ * fails AA in both modes, the disabled value and helper are ~1.67:1 in dark, and the
+ * disabled LABEL is ~1.11:1 in dark because 220:45 binds `color/text/disabled on dark`
+ * where its siblings bind `color/text/disabled`. See inputFieldPrimary.css.
+ */
+
+import { createInputField, INPUT_FIELD_STATES } from './inputField.js';
+
+const FIGMA_NODE =
+  'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50';
+
+export default {
+  title: 'Components/Input Field Primary',
+  tags: ['autodocs'],
+  render: (args) => createInputField({ ...args, variant: 'Primary' }),
+  argTypes: {
+    state: { control: { type: 'inline-radio' }, options: INPUT_FIELD_STATES },
+    label: { control: 'text' },
+    showLabel: { control: 'boolean' },
+    helperText: { control: 'text' },
+    showHelperText: { control: 'boolean' },
+    value: { control: 'text' },
+    placeholder: { control: 'text' },
+  },
+  args: {
+    state: 'Default',
+    label: 'Label',
+    showLabel: true,
+    helperText: 'Helper text goes here',
+    showHelperText: true,
+    placeholder: 'Type here',
+  },
+  parameters: {
+    controls: { disable: false },
+    design: { type: 'figma', url: FIGMA_NODE },
+  },
+};
+
+/* ------------------------------------------------ the 6 rows of the matrix */
+
+/** 220:14 — empty. Shows the placeholder. Resting border color/border/surfacePrimary. */
+export const Default = { args: { state: 'Default' } };
+
+/** 220:20 — pointer is over the field. Border shifts to color/border/brand/bold. The
+ *  value is still placeholder-coloured: 220:24 binds color/text/input text, same as
+ *  Default. */
+export const Hovered = { args: { state: 'Hovered' } };
+
+/** 220:26 — the field holds a value. Value moves to color/text/primary, border to
+ *  color/border/brand/bold. */
+export const Typed = { args: { state: 'Typed', value: 'Horizon Stays' } };
+
+/** 220:32 — the value failed validation. Border color/border/negative/bold, helper
+ *  color/text/negative. The helper says why — never colour alone.
+ *
+ *  This is the one state whose VALUE text carries no typography binding (220:36), so it
+ *  renders Inter 13/16 while every other state renders Roboto 14/20. That difference is
+ *  the design's, reported, and deliberately not papered over here. */
+export const ErrorState = {
+  name: 'Error',
+  args: {
+    state: 'Error',
+    value: 'Horizon Stays',
+    helperText: 'Enter a name of at least 3 characters.',
+  },
+};
+
+/** 220:38 — the value can be submitted, but the helper flags the risk. Border
+ *  color/border/warning/bold, helper color/text/warning. */
+export const Warning = {
+  args: {
+    state: 'Warning',
+    value: 'Horizon Stays',
+    helperText: 'This name is already in use. You can still continue.',
+  },
+};
+
+/** 220:44 — the field cannot be edited. Fill color/bg/surfacePrimary, border
+ *  color/border/disabled, value and helper color/text/disabled — and the label on
+ *  color/text/disabled ON DARK, which is what the node binds. */
+export const Disabled = { args: { state: 'Disabled' } };
+
+/* ------------------------------ the two Show toggles, on the Default state */
+
+/** Show Label = false. The control keeps an accessible name via aria-label. */
+export const NoLabel = {
+  name: 'Show Label = false',
+  args: { state: 'Default', showLabel: false },
+};
+
+/** Show Helper text = false. The node's docs warn against using this to hide the helper
+ *  on Default and reveal it only on Error — the field would jump. */
+export const NoHelperText = {
+  name: 'Show Helper text = false',
+  args: { state: 'Default', showHelperText: false },
+};
+
+/* ------------------------------------------------------ the matrix, in one */
+
+const SAMPLE_VALUE = {
+  Default: '',
+  Hovered: '',
+  Typed: 'Horizon Stays',
+  Error: 'Horizon Stays',
+  Warning: 'Horizon Stays',
+  Disabled: '',
+};
+
+function column() {
+  const wrap = document.createElement('div');
+  wrap.style.display = 'flex';
+  wrap.style.flexDirection = 'column';
+  wrap.style.gap = 'var(--spacing-24)';
+  wrap.style.alignItems = 'flex-start';
+
+  for (const state of INPUT_FIELD_STATES) {
+    const row = document.createElement('div');
+
+    const name = document.createElement('span');
+    name.textContent = state;
+    name.style.display = 'block';
+    name.style.fontFamily = 'var(--family-plain)';
+    name.style.fontSize = 'var(--size-label-large)';
+    name.style.color = 'var(--color-text-primary)';
+
+    row.append(
+      name,
+      createInputField({ variant: 'Primary', state, value: SAMPLE_VALUE[state] }),
+    );
+    wrap.append(row);
+  }
+
+  return wrap;
+}
+
+export const AllVariants = {
+  render: () => column(),
+  parameters: { controls: { disable: true } },
+};
+
+/* --------------------------------------------- Primary beside Mobile, once */
+/* Not a matrix row. One place to see that the two sets really are one component with
+   different values — same elements, same states, different bindings and one extra
+   grouping level. Useful when deciding whether a change belongs to one or to both. */
+
+export const PrimaryVersusMobile = {
+  name: 'Primary vs Mobile',
+  render: () => {
+    const wrap = document.createElement('div');
+    wrap.style.display = 'flex';
+    wrap.style.gap = 'var(--spacing-24)';
+    wrap.style.alignItems = 'flex-start';
+
+    for (const variant of ['Primary', 'Mobile']) {
+      const col = document.createElement('div');
+      col.style.display = 'flex';
+      col.style.flexDirection = 'column';
+      col.style.gap = 'var(--spacing-24)';
+
+      const name = document.createElement('span');
+      name.textContent = variant;
+      name.style.fontFamily = 'var(--family-plain)';
+      name.style.fontSize = 'var(--size-label-large)';
+      name.style.color = 'var(--color-text-primary)';
+      col.append(name);
+
+      for (const state of ['Default', 'Typed', 'Error', 'Disabled']) {
+        col.append(
+          createInputField({
+            variant,
+            state,
+            value: state === 'Default' || state === 'Disabled' ? '' : undefined,
+          }),
+        );
+      }
+      wrap.append(col);
+    }
+
+    return wrap;
+  },
+  parameters: { controls: { disable: true } },
+};
+
+/* ------------------------------------------------------------ interaction */
+/* The field is a real input, not a painted state. Typing a value paints Typed and swaps
+   the value from placeholder grey to full strength; clearing it returns the field to
+   rest. The Error and Warning fields keep their status border while they are edited,
+   because the node ties those states to validation of the value rather than to the act
+   of typing. The Disabled field refuses focus and typing outright. */
+
+export const Interactive = {
+  render: () => {
+    const wrap = document.createElement('div');
+    wrap.style.display = 'flex';
+    wrap.style.flexDirection = 'column';
+    wrap.style.gap = 'var(--spacing-24)';
+    wrap.append(
+      createInputField({
+        variant: 'Primary',
+        state: 'Default',
+        helperText: 'Type here — the border and the value colour both follow.',
+      }),
+      createInputField({
+        variant: 'Primary',
+        state: 'Error',
+        value: 'Horizon Stays',
+        helperText: 'Stays negative while you edit it.',
+      }),
+      createInputField({
+        variant: 'Primary',
+        state: 'Disabled',
+        helperText: 'Cannot be focused or typed into.',
+      }),
+    );
+    return wrap;
+  },
+  parameters: { controls: { disable: true } },
+};
