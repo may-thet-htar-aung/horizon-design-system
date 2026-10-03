@@ -1,0 +1,205 @@
+/* Horizon Status Banner
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=269-18
+ *
+ * ---------------------------------------------------------------------------
+ * READ PER LAYER, NOT PER VARIANT.
+ * ---------------------------------------------------------------------------
+ * get_variable_defs on a variant node UNIONS its layers and cannot tell you which layer
+ * owns which token. Every binding below was read on the LAYER, live, with the variant
+ * reads kept only as a cross-check. Two places where that mattered here:
+ *
+ *   - WARNING binds `color/text/warning` and `color/icon/warning`, and BOTH resolve to
+ *     #875706 in light mode. The variant-level union returns the two names side by side
+ *     and cannot say which belongs to the Message and which to the Icon area. Read per
+ *     layer: Message 269:9 -> color/text/warning, Icon area 270:7 -> color/icon/warning.
+ *     Confirmed with the dark-mode trick, because the pair DIVERGES there:
+ *     color/text/warning -> amber-100 #fce1b3, color/icon/warning -> amber-300 #f8be5c.
+ *     Two genuinely distinct tokens that happen to collide in one mode.
+ *
+ *   - ERROR does not collide and makes the point by contrast: Message 269:13 ->
+ *     color/text/negative #832525, Icon area 270:8 -> color/icon/negative #d93e3e. Had
+ *     the Warning pair been read at variant level and assumed to be one token, the
+ *     Error pair would have been the only place the mistake showed.
+ *
+ * ---------------------------------------------------------------------------
+ * THE MATRIX — axis `State`, three values. Not `Property 1`, and not six states.
+ * ---------------------------------------------------------------------------
+ *   269:6  State=Warning Status Banner
+ *          root   bg color/bg/warning/Light · border color/border/warning/Light
+ *          icon   270:7  color/icon/warning · Symbol/filled/exclamation (269:7)
+ *          text   269:9  color/text/warning · NO TYPE BOUND
+ *   269:10 State=Error Status Banner
+ *          root   bg color/bg/negative/Light · border color/border/negative/Light
+ *          icon   270:8  color/icon/negative · Symbol/filled/exclamation (269:11)
+ *          text   269:13 color/text/negative · NO TYPE BOUND
+ *   269:14 State=Info Status Banner
+ *          root   bg color/bg/info/Light · border color/border/info/Light
+ *          icon   270:9  color/icon/info · Symbol/filled/info (272:25)
+ *                 plus a HIDDEN, UNBOUND second instance `Icon` (269:15) — see the JS
+ *                 header; it is why the Icon swap does not reach this variant.
+ *          text   269:17 color/text/info · NO TYPE BOUND
+ *
+ *   Shared by all three: gap/component (8) on the row, spacing/12 left and right.
+ *
+ * ---------------------------------------------------------------------------
+ * CONTRAST — checked, and for once nothing is under AA.
+ * ---------------------------------------------------------------------------
+ * The sibling components each carry text under AA, so all twelve pairings here were
+ * computed rather than assumed. Every one clears, in BOTH themes:
+ *
+ *   light  warning text 5.72:1 · icon 5.72:1    dark  7.02:1 · 5.31:1
+ *   light  error   text 8.15:1 · icon 3.90:1    dark  6.48:1 · 4.82:1
+ *   light  info    text 6.74:1 · icon 4.63:1    dark  7.51:1 · 5.18:1
+ *
+ * Worth recording WHY that needed checking: `color/icon/warning` carries the note
+ * "Darkened to clear 3:1 against bg/base" and `color/icon/info` "Darkened to clear 3:1
+ * on bg/surfacePrimary". Neither of those is the background this component actually
+ * pairs them with — here they sit on bg/warning/Light and bg/info/Light. The tuning was
+ * done against a different surface and happens to hold on this one. It is luck that
+ * held, not a guarantee that was checked by the design.
+ *
+ * ---------------------------------------------------------------------------
+ * WHAT THE DESIGN LEAVES UNBOUND.
+ * ---------------------------------------------------------------------------
+ * A property the design leaves unbound is a design gap, not this component's call to
+ * fill. Each one below is parked as an `--hz-status-banner-*-unbound` custom property
+ * carrying the literal the node itself renders, with the SPEC line beside it, so it is
+ * visible rather than disguised as a token. No value here was substituted with "the
+ * nearest token" — including the two cases where an exact-matching token EXISTS and is
+ * simply not bound, which are the most tempting and the most misleading to paper over.
+ *
+ *   radius 6px        SPEC: "Radius 6. That step has no token. borderradius/small is 8."
+ *                     No token carries 6. The scale is 0,4,8,12,16,20,28,32,48,full.
+ *                     NOTHING to bind. A real hole in the scale.
+ *   padding-block     SPEC: "Padding left and right are bound to spacing/12. Top and
+ *     11px            bottom stay 11." The scale is 0,2,4,8,12,16,24... no 11.
+ *                     Left/right ARE bound; top/bottom are not. Asymmetric on purpose
+ *                     by the SPEC's own wording, which is what makes it a gap and not
+ *                     an oversight to guess at.
+ *   border 1px        `--borderwidth-1: 1px` EXISTS and is an exact match. The node
+ *                     binds NO border-width variable at all. Parked unbound rather than
+ *                     substituted: binding it here would record a decision the design
+ *                     did not make, and the next token export would not know to keep it.
+ *   icon 16x16        The Icon area is a fixed 16x16 frame with no size variable bound.
+ *   type              SPEC: "Message is Inter Regular 13. That size is unpublished."
+ *     family Inter    `--family-default: Inter` EXISTS. Not bound.
+ *     weight 400      `--weight-regular: 400` EXISTS. Not bound.
+ *     size 13px       NO token carries 13. Sizes run 11,12,14,16,22,24,28,32,36,45,57.
+ *     leading normal  Nothing bound.
+ *                     This is the recurring shape — a text layer binding COLOUR and no
+ *                     typography — and here it is on ALL THREE Message layers, not one.
+ *                     Unlike Input Field/Password, it does not change behaviour: all
+ *                     three are unbound identically, so no variant renders a different
+ *                     face from its neighbour. It is a uniform gap, not a divergence.
+ *
+ * Width is deliberately NOT in this list. See the JS header: the node is authored at a
+ * fixed 400px, but the SPEC, the DO and the DON'T all say width follows the container
+ * and height hugs the message. 400px is the authoring canvas, not a binding.
+ */
+
+.hz-status-banner {
+  /* ---- unbound: no token carries these; the node's own literals, parked ---- */
+  --hz-status-banner-radius-unbound: 6px;        /* SPEC: "Radius 6. That step has no token." */
+  --hz-status-banner-padding-block-unbound: 11px;/* SPEC: "Top and bottom stay 11." no 11 step */
+  --hz-status-banner-stroke-unbound: 1px;        /* 1px border; --borderwidth-1 exists, NOT bound */
+  --hz-status-banner-icon-size-unbound: 16px;    /* Icon area 16x16; no size token bound */
+
+  --hz-status-banner-message-family-unbound: Inter;  /* --family-default exists, NOT bound */
+  --hz-status-banner-message-weight-unbound: 400;    /* --weight-regular exists, NOT bound */
+  --hz-status-banner-message-size-unbound: 13px;     /* SPEC: "That size is unpublished." */
+  --hz-status-banner-message-leading-unbound: normal;
+
+  /* Auto-layout: horizontal, items centred, gap bound. */
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: var(--gap-component);
+
+  /* SPEC: "Width follows the container. Height hugs the message." */
+  width: 100%;
+  box-sizing: border-box;
+
+  /* Left/right bound to spacing/12. Top/bottom unbound at 11. */
+  padding-block: var(--hz-status-banner-padding-block-unbound);
+  padding-inline: var(--spacing-12);
+
+  border: var(--hz-status-banner-stroke-unbound) solid transparent;
+  border-radius: var(--hz-status-banner-radius-unbound);
+}
+
+/* ------------------------------------------------- State=Warning · 269:6 */
+.hz-status-banner[data-state='Warning'] {
+  background-color: var(--color-bg-warning-light);
+  border-color: var(--color-border-warning-light);
+}
+
+.hz-status-banner[data-state='Warning'] .hz-status-banner__icon-area {
+  color: var(--color-icon-warning);
+}
+
+.hz-status-banner[data-state='Warning'] .hz-status-banner__message {
+  color: var(--color-text-warning);
+}
+
+/* --------------------------------------------------- State=Error · 269:10 */
+.hz-status-banner[data-state='Error'] {
+  background-color: var(--color-bg-negative-light);
+  border-color: var(--color-border-negative-light);
+}
+
+.hz-status-banner[data-state='Error'] .hz-status-banner__icon-area {
+  color: var(--color-icon-negative);
+}
+
+.hz-status-banner[data-state='Error'] .hz-status-banner__message {
+  color: var(--color-text-negative);
+}
+
+/* ---------------------------------------------------- State=Info · 269:14 */
+.hz-status-banner[data-state='Info'] {
+  background-color: var(--color-bg-info-light);
+  border-color: var(--color-border-info-light);
+}
+
+.hz-status-banner[data-state='Info'] .hz-status-banner__icon-area {
+  color: var(--color-icon-info);
+}
+
+.hz-status-banner[data-state='Info'] .hz-status-banner__message {
+  color: var(--color-text-info);
+}
+
+/* ------------------------------------- Icon area · 270:7 / 270:8 / 270:9 */
+.hz-status-banner__icon-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+  width: var(--hz-status-banner-icon-size-unbound);
+  height: var(--hz-status-banner-icon-size-unbound);
+}
+
+.hz-status-banner__icon-area svg {
+  display: block;
+  width: var(--hz-status-banner-icon-size-unbound);
+  height: var(--hz-status-banner-icon-size-unbound);
+}
+
+/* ------------------------------------- Message · 269:9 / 269:13 / 269:17 */
+.hz-status-banner__message {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+
+  /* SPEC: "The message wraps." DON'T: "Don't fix the height." */
+  overflow-wrap: break-word;
+  word-break: break-word;
+
+  /* Every one of these four is unbound in the design. See the header. */
+  font-family: var(--hz-status-banner-message-family-unbound);
+  font-weight: var(--hz-status-banner-message-weight-unbound);
+  font-size: var(--hz-status-banner-message-size-unbound);
+  line-height: var(--hz-status-banner-message-leading-unbound);
+  font-style: normal;
+}
