@@ -1,0 +1,400 @@
+/* Horizon Input Field / Primary
+ * Figma: https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50
+ *
+ * The Primary layer of the ONE Input Field component. Every selector in this file is
+ * scoped to `[data-variant='Primary']`, so nothing here can reach a Mobile instance.
+ * inputField.css — the Mobile layer, already in production — was not edited at all.
+ *
+ * This file is a COMPLETE override layer, on purpose. It re-declares every property
+ * Mobile's unscoped base rules set, even where the two happen to agree, so that what
+ * Primary binds can be read here and only here. The alternative — letting Mobile's
+ * values fall through where they match — is exactly how two variants of one component
+ * start drifting apart without anyone noticing which one owns a value.
+ *
+ * ---------------------------------------------------------------------------
+ * READ PER LAYER, NOT PER VARIANT.
+ * ---------------------------------------------------------------------------
+ * get_variable_defs on a variant node UNIONS its layers and cannot tell you which layer
+ * owns which token. Every binding below was read on the LAYER, live, and the variant
+ * reads were kept only as a cross-check. Two places where that mattered:
+ *
+ *   - Error's VALUE layer, 220:36, returns `color/text/primary` and NOTHING ELSE. Every
+ *     other state's value layer also returns Body/Medium. Read at variant level, 220:32
+ *     looks like it is simply missing the Body/Medium entry; read at layer level it is
+ *     unmistakable that the Error value alone carries no typography binding. See the
+ *     unbound list.
+ *   - Disabled's LABEL layer, 220:45, binds `color/text/disabled on dark` while the
+ *     value (220:48) and helper (220:49) on the same variant bind `color/text/disabled`.
+ *     The variant read returns both names with no way to tell them apart. See the gaps.
+ *
+ * ---------------------------------------------------------------------------
+ * THE MATRIX — one axis, State, six values. No size axis. No focus variant.
+ * ---------------------------------------------------------------------------
+ *   220:14 Default   field 220:17  fill color/bg/base · border color/border/surfacePrimary
+ *                    value 220:18  color/text/input text        · Body/Medium
+ *                    label 220:15  color/text/secondary         · Label/Small
+ *                    helper 220:19 color/text/secondary         · Body/Extra Small
+ *   220:20 Hovered   field 220:23  fill color/bg/base · border color/border/brand/bold
+ *                    value 220:24  color/text/input text        · Body/Medium
+ *                    label 220:21  color/text/secondary · helper 220:25 color/text/secondary
+ *   220:26 Typed     field 220:29  fill color/bg/base · border color/border/brand/bold
+ *                    value 220:30  color/text/primary           · Body/Medium
+ *                    label 220:27  color/text/secondary · helper 220:31 color/text/secondary
+ *   220:32 Error     field 220:35  fill color/bg/base · border color/border/negative/bold
+ *                    value 220:36  color/text/primary           · NO TYPE BOUND
+ *                    label 220:33  color/text/secondary · helper 220:37 color/text/negative
+ *   220:38 Warning   field 220:41  fill color/bg/base · border color/border/warning/bold
+ *                    value 220:42  color/text/primary           · Body/Medium
+ *                    label 220:39  color/text/secondary · helper 220:43 color/text/warning
+ *   220:44 Disabled  field 220:47  fill color/bg/surfacePrimary · border color/border/disabled
+ *                    value 220:48  color/text/disabled          · Body/Medium
+ *                    label 220:45  color/text/DISABLED ON DARK  · helper 220:49 color/text/disabled
+ *
+ * Shared by all six: borderradius/medium (field radius), spacing/12 (field inline
+ * padding AND the label and helper row insets, confirmed on 221:197 … 221:202 and
+ * 221:187 … 221:194), gap/element (the Field group's field-to-helper gap, confirmed on
+ * 220:16 / 220:22 / 220:28 / 220:34 / 220:40 / 220:46).
+ *
+ * Every name above was confirmed present in build/css/tokens.css by NAME and by VALUE
+ * before it was written here.
+ *
+ * ---------------------------------------------------------------------------
+ * HOW PRIMARY DIFFERS FROM MOBILE — the reason this is a variant, not a fork.
+ * ---------------------------------------------------------------------------
+ * Same elements, same properties, same six states, same absent focus variant. What
+ * moved is values, plus one grouping level:
+ *
+ *   field fill        Mobile color/neutral-25 (a CORE ramp value)  ->  Primary color/bg/base
+ *   Default border    Mobile none bound at all                     ->  Primary color/border/surfacePrimary
+ *   value colour      Mobile color/text/secondary unique           ->  Primary color/text/primary
+ *   placeholder       Mobile color/text/input text unique          ->  Primary color/text/input text
+ *   label type        Mobile Label/Medium                          ->  Primary Label/Small
+ *   value type        Mobile unbound (Inter 15)                    ->  Primary Body/Medium (5 of 6 states)
+ *   disabled label    Mobile color/text/disabled                   ->  Primary color/text/disabled on dark
+ *   field padding     Mobile unbound 14                            ->  Primary spacing/12
+ *   field-helper gap  Mobile unbound 5, flat stack                 ->  Primary gap/element, inside Field group
+ *   height / width    Mobile 52 / 342                              ->  Primary 40 / 360
+ *   root fill         Mobile color/bg/base                         ->  Primary none bound
+ *
+ * Primary is the better-bound of the two: it reaches a semantic for the field fill
+ * where Mobile reaches a core ramp token, and it binds the value typography that Mobile
+ * leaves to a literal. Four of the five gaps carried in inputField.css are therefore
+ * NOT inherited here. The ones that are, and the new ones, are below.
+ *
+ * ---------------------------------------------------------------------------
+ * WHERE THE SPEC PROSE AND THE LIVE BINDINGS DISAGREE, THE BINDINGS WIN.
+ * ---------------------------------------------------------------------------
+ * Three contradictions on this node, all reported to the designer, none corrected in
+ * code. A description is a note; a binding is what the design does.
+ *
+ *   1. SPEC: "Value stays Inter Regular 13 ... Those sizes are unpublished."
+ *      FIVE of the six value layers bind the Body/Medium composite — family/plain
+ *      (Roboto), weight/regular (400), size/body-medium (14), line-height/body-medium
+ *      (20), tracking/body-medium (0.25). Confirmed per layer on 220:18, 220:24, 220:30,
+ *      220:42 and 220:48. The prose is true of 220:36 (Error) ONLY, which really does
+ *      carry no typography binding. Bound as Body/Medium on five states; parked as an
+ *      unbound literal on Error alone.
+ *   2. SPEC: "helper stays Inter Regular 10."
+ *      All six helper layers bind Body/Extra Small — Roboto Regular 11/12, tracking 0.2.
+ *      Confirmed on 220:19, 220:25, 220:31, 220:37, 220:43, 220:49. Bound as the design
+ *      binds it, not as the prose describes it. (The same prose was already wrong on the
+ *      Mobile node and was reported there too; it has not been corrected since.)
+ *   3. SPEC: "Placeholder and the resting border stay literals."
+ *      Both are bound. The placeholder colour is `color/text/input text` on 220:18 and
+ *      220:24; the resting border is `color/border/surfacePrimary` on 220:17. Both
+ *      tokens are exported, built and resolving at the values the node reports. Neither
+ *      is a literal and neither is a gap.
+ *
+ * ---------------------------------------------------------------------------
+ * UNBOUND IN FIGMA — reported, not invented.
+ * ---------------------------------------------------------------------------
+ * Five properties carry no variable anywhere in the set. None is given a token here and
+ * no near-fitting token is substituted; each is parked in one `--hz-input-field-primary-
+ * *-unbound` custom property carrying the literal the node itself renders, so that the
+ * day one is bound in Figma it is a one-line change.
+ *
+ *   1. Field height — SPEC "Field height 40", and the docs forbid overriding it. No
+ *      variable bound; no size or spacing token in the build is 40px.
+ *   2. Field width — SPEC "width 360". No variable bound; no token is 360px.
+ *   3. Label-to-field gap — SPEC says so itself: "Label-to-field gap stays 5. That step
+ *      is off the 4px grid and has no token." Confirmed: no token in the build is 5px.
+ *      (The OTHER gap, field-to-helper, IS bound — to gap/element — so only this one is
+ *      parked.)
+ *   4. Stroke weight — all six states render a 1px border with no variable attached.
+ *      --borderwidth-1 exists, is exactly 1px and is even described "Default outline",
+ *      but the design does not bind it, so this file does not either.
+ *   5. Error value typography — 220:36 alone. The node renders Inter Regular 13/16 and
+ *      binds none of it. --family-default IS Inter and resolves exactly, but it is not
+ *      bound on this layer, so it is not reached for. Parked as literals, and the fact
+ *      that the other five states bind Body/Medium is what makes this an oversight worth
+ *      reporting rather than a deliberate exception.
+ *
+ * Also absent from the design, and therefore absent here: a focus variant. The node
+ * repeats Mobile's concession word for word — "Hover is not a substitute for focus.
+ * Keyboard focus needs its own treatment — not yet in this set." No focus ring is
+ * invented; the browser's native ring is left deliberately intact rather than reset
+ * away, so the field stays keyboard-usable until the design supplies the variant.
+ *
+ * The ROOT of every Primary variant binds NO fill. Mobile's root binds color/bg/base.
+ * Primary's root is therefore held transparent here — that is the absence of a design
+ * value, not a substitute for one, and it is declared explicitly because Mobile's
+ * unscoped root rule would otherwise paint it.
+ *
+ * ---------------------------------------------------------------------------
+ * CONTRAST — three design gaps, REPORTED AND LEFT STANDING.
+ * ---------------------------------------------------------------------------
+ * Unlike Mobile, every surface and text colour in this set is mode-aware: color/bg/base
+ * is #ffffff light / #151b24 dark, color/bg/surfacePrimary #ebecee / #151b24. The field
+ * does NOT render as a light box in dark mode. That whole class of Mobile gap is gone.
+ * What is left:
+ *
+ *   1. The PLACEHOLDER fails WCAG AA in BOTH modes. color/text/input text on
+ *      color/bg/base is #a1a8b1 on #ffffff — about 2.14:1 — and #5c6777 on #151b24 —
+ *      about 3.02:1. Both are under the 4.5:1 AA asks of body text. Default and Hovered
+ *      render empty, so this is what those two states actually show.
+ *   2. DISABLED value and helper are about 1.67:1 in dark. color/text/disabled is
+ *      #334155 in dark on color/bg/surfacePrimary #151b24. This one IS inherited from
+ *      the Mobile set at almost exactly the same ratio.
+ *   3. The DISABLED LABEL is about 1.11:1 in dark and about 1.75:1 in light, and is
+ *      almost certainly a mis-binding rather than a contrast choice: 220:45 binds
+ *      `color/text/disabled on dark` (#c0c4ca light / #1c242f dark) while the value and
+ *      helper beside it bind `color/text/disabled`. A token named "on dark" used on a
+ *      light-mode label inverts in dark and all but disappears against #151b24.
+ *
+ * None is fixed here, and no substitute token is reached for, because a token this
+ * design does not bind is exactly the guess this file refuses to make everywhere else.
+ * The real fix is a designer's: rebind 220:45 to color/text/disabled, and raise the
+ * placeholder and disabled-text ramps.
+ *
+ * ---------------------------------------------------------------------------
+ * SPECIFICITY — why each selector is shaped the way it is.
+ * ---------------------------------------------------------------------------
+ * Mobile's rules are unscoped and therefore also match a Primary root. Every rule below
+ * is written to outrank the Mobile rule it replaces:
+ *   Mobile base rules are (0,1,0)/(0,2,0); the Primary base rules here are (0,3,0).
+ *   Mobile state rules are (0,3,0); the Primary state rules here are (0,4,0).
+ *   Mobile's hover rule is (0,5,0); the Primary hover rule here is (0,6,0).
+ * Nothing relies on source order across the two files.
+ */
+
+.hz-input-field[data-variant='Primary'] {
+  /* Unbound in Figma — the node's literal values, parked, not tokenised. */
+  --hz-input-field-primary-width-unbound: 360px;   /* SPEC "width 360"; no 360px token exists */
+  --hz-input-field-primary-height-unbound: 40px;   /* SPEC "Field height 40"; no 40px size token */
+  --hz-input-field-primary-gap-unbound: 5px;       /* SPEC "Label-to-field gap stays 5 ... has no token" */
+  --hz-input-field-primary-stroke-unbound: 1px;    /* 1px border; --borderwidth-1 not bound */
+  --hz-input-field-primary-error-value-size-unbound: 13px;    /* 220:36 only — SPEC "Inter Regular 13" */
+  --hz-input-field-primary-error-value-leading-unbound: 16px; /* 220:36 only — unbound */
+  --hz-input-field-primary-error-value-family-unbound: Inter; /* --family-default is Inter but unbound */
+  --hz-input-field-primary-error-value-weight-unbound: 400;   /* "Regular"; --weight-regular not bound here */
+
+  /* Auto-layout: vertical, items stretched to the full width. */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--hz-input-field-primary-gap-unbound);
+  width: var(--hz-input-field-primary-width-unbound);
+  box-sizing: border-box;
+
+  /* No root fill is bound on any of the six variants — see the header. */
+  background-color: transparent;
+}
+
+/* ------------------------- Field group — 220:16 · 220:22 · 220:28 · 220:34 · 220:40 · 220:46 */
+
+.hz-input-field[data-variant='Primary'] .hz-input-field__field-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: clip;
+  width: 100%;
+  box-sizing: border-box;
+
+  gap: var(--gap-element);                              /* gap/element */
+}
+
+/* ------------- Label row 221:197 … 221:202 · Helper row 221:187 … 221:194 */
+
+.hz-input-field[data-variant='Primary'] .hz-input-field__label-row,
+.hz-input-field[data-variant='Primary'] .hz-input-field__helper-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: clip;
+  width: 100%;
+  box-sizing: border-box;
+  padding-inline: var(--spacing-12);                    /* spacing/12 */
+}
+
+/* Label/Small — composite, no single token. 220:15 · 220:21 · 220:27 · 220:33 · 220:39 */
+.hz-input-field[data-variant='Primary'] .hz-input-field__label {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  word-break: break-word;
+
+  font-family: var(--family-plain);                     /* family/plain */
+  font-weight: var(--weight-medium);                    /* weight/medium */
+  font-size: var(--size-label-small);                   /* size/label-small */
+  line-height: var(--line-height-label-small);          /* line-height/label-small */
+  letter-spacing: var(--tracking-label-small);          /* tracking/label-small */
+  color: var(--color-text-secondary);                   /* color/text/secondary */
+}
+
+/* ------------------- Field — 220:17 · 220:23 · 220:29 · 220:35 · 220:41 · 220:47 */
+
+.hz-input-field[data-variant='Primary'] .hz-input-field__field {
+  display: flex;
+  align-items: center;
+  overflow: clip;
+  width: 100%;
+
+  /* "Don't override the field height. It is fixed at 40 so inputs align in a row." */
+  height: var(--hz-input-field-primary-height-unbound);
+  padding-inline: var(--spacing-12);                    /* spacing/12 */
+  box-sizing: border-box;
+
+  background-color: var(--color-bg-base);               /* color/bg/base */
+  border-radius: var(--borderradius-medium);            /* borderradius/medium */
+
+  /* 220:17 binds a REAL resting border, unlike Mobile's Default which binds none.
+     The stroke is "aligned inside" in Figma, which border-box above is what makes true. */
+  border: var(--hz-input-field-primary-stroke-unbound) solid
+    var(--color-border-surfaceprimary);                 /* color/border/surfacePrimary */
+}
+
+/* Body/Medium — composite, no single token. Bound on 220:18 · 220:24 · 220:30 · 220:42 ·
+   220:48. NOT bound on 220:36 (Error) — see the per-state override below. */
+.hz-input-field[data-variant='Primary'] .hz-input-field__input {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+
+  font-family: var(--family-plain);                     /* family/plain */
+  font-weight: var(--weight-regular);                   /* weight/regular */
+  font-size: var(--size-body-medium);                   /* size/body-medium */
+  line-height: var(--line-height-body-medium);          /* line-height/body-medium */
+  letter-spacing: var(--tracking-body-medium);          /* tracking/body-medium */
+
+  /* Typed, Error and Warning paint the value at full strength — 220:30 · 220:36 · 220:42. */
+  color: var(--color-text-primary);                     /* color/text/primary */
+
+  background: none;
+  border: none;
+
+  /* Reset the UA input chrome, but NOT the focus ring — see the note in the header. */
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* The placeholder is bound, despite the SPEC calling it a literal. 220:18 · 220:24. */
+.hz-input-field[data-variant='Primary'] .hz-input-field__input::placeholder {
+  color: var(--color-text-input-text);                  /* color/text/input text */
+  opacity: 1;                                           /* Firefox dims placeholders by default */
+}
+
+/* Default and Hovered render EMPTY, so their value text is placeholder-coloured.
+   Keyed on the live filled state so typing swaps it to full strength. */
+.hz-input-field[data-variant='Primary']:not([data-filled='true']) .hz-input-field__input {
+  color: var(--color-text-input-text);                  /* color/text/input text */
+}
+
+.hz-input-field[data-variant='Primary'][data-filled='true'] .hz-input-field__input {
+  color: var(--color-text-primary);                     /* color/text/primary */
+}
+
+/* Body/Extra Small — composite, no single token. The SPEC calls this "Inter Regular 10";
+   all six helper layers bind Body/Extra Small. The binding wins. */
+.hz-input-field[data-variant='Primary'] .hz-input-field__helper {
+  flex: 1 0 0;
+  min-width: 0;
+  margin: 0;
+  word-break: break-word;
+
+  font-family: var(--family-plain);                     /* family/plain */
+  font-weight: var(--weight-regular);                   /* weight/regular */
+  font-size: var(--size-body-extra-small);              /* size/body-extra small */
+  line-height: var(--line-height-body-extra-small);     /* line-height/body-extra small */
+  letter-spacing: var(--tracking-body-extra-small);     /* tracking/body-extra small */
+  color: var(--color-text-secondary);                   /* color/text/secondary */
+}
+
+/* ===========================================================================
+   STATES — precedence, weakest to strongest:
+   Default < Hovered < Typed < Warning < Error < Disabled
+
+   Hover and Typed must not repaint a field in a status state: a hovered Error field
+   stays negative, and an Error field with a value in it stays negative rather than
+   going brand-blue the moment it is filled. Written as explicit exclusions rather than
+   left to source order, exactly as the Mobile layer does.
+   =========================================================================== */
+
+/* State=Hovered — "pointer is over the field. Border shifts to brand." 220:23.
+   Live :hover, plus the forced data-state so the matrix can be rendered side by side. */
+.hz-input-field[data-variant='Primary']:not([data-state='Disabled']):not([data-state='Error']):not([data-state='Warning'])
+  .hz-input-field__field:hover,
+.hz-input-field[data-variant='Primary'][data-state='Hovered'] .hz-input-field__field {
+  border-color: var(--color-border-brand-bold);         /* color/border/brand/bold */
+}
+
+/* State=Typed — "the field holds a value. Placeholder is replaced." 220:29.
+   Keyed on the real filled state, so typing into the field paints it. */
+.hz-input-field[data-variant='Primary'][data-filled='true']:not([data-state='Disabled']):not([data-state='Error']):not([data-state='Warning'])
+  .hz-input-field__field {
+  border-color: var(--color-border-brand-bold);         /* color/border/brand/bold */
+}
+
+/* State=Warning — "the value can be submitted, but the helper should flag the risk."
+   220:41 / 220:43. Beats Typed and Hovered; loses to Error and Disabled. */
+.hz-input-field[data-variant='Primary'][data-state='Warning'] .hz-input-field__field {
+  border-color: var(--color-border-warning-bold);       /* color/border/warning/bold */
+}
+
+.hz-input-field[data-variant='Primary'][data-state='Warning'] .hz-input-field__helper {
+  color: var(--color-text-warning);                     /* color/text/warning */
+}
+
+/* State=Error — "the value failed validation. Say why in the helper." 220:35 / 220:37.
+   Beats Warning, Typed and Hovered; loses to Disabled. The DOM carries aria-invalid
+   alongside this, set in inputField.js from the same prop, so the painted state and the
+   announced state cannot drift apart. */
+.hz-input-field[data-variant='Primary'][data-state='Error'] .hz-input-field__field {
+  border-color: var(--color-border-negative-bold);      /* color/border/negative/bold */
+}
+
+.hz-input-field[data-variant='Primary'][data-state='Error'] .hz-input-field__helper {
+  color: var(--color-text-negative);                    /* color/text/negative */
+}
+
+/* 220:36 is the ONE value layer in the set with no typography bound. It renders Inter
+   Regular 13/16 and binds none of it, while the other five bind Body/Medium. Parked as
+   literals rather than guessed at a token — see the unbound list in the header. Its
+   COLOUR is bound (color/text/primary) and comes from the base rule above. */
+.hz-input-field[data-variant='Primary'][data-state='Error'] .hz-input-field__input {
+  font-family: var(--hz-input-field-primary-error-value-family-unbound);
+  font-weight: var(--hz-input-field-primary-error-value-weight-unbound);
+  font-size: var(--hz-input-field-primary-error-value-size-unbound);
+  line-height: var(--hz-input-field-primary-error-value-leading-unbound);
+  letter-spacing: normal;                               /* no tracking bound on this layer */
+}
+
+/* State=Disabled — "the field cannot be edited." Wins over every other state.
+   220:47 / 220:48 / 220:49, and the label on 220:45. */
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__field {
+  background-color: var(--color-bg-surfaceprimary);     /* color/bg/surfacePrimary */
+  border-color: var(--color-border-disabled);           /* color/border/disabled */
+}
+
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__helper,
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__input,
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__input::placeholder {
+  color: var(--color-text-disabled);                    /* color/text/disabled */
+}
+
+/* The label does NOT share the value's and helper's token. 220:45 binds
+   color/text/disabled ON DARK, on a light-mode label. Bound as the design binds it and
+   reported as a probable mis-binding — see the contrast notes in the header. */
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__label {
+  color: var(--color-text-disabled-on-dark);            /* color/text/disabled on dark */
+}
