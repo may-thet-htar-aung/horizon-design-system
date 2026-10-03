@@ -136,7 +136,7 @@ public class Tokens {
     public static let colorGreen900 = UIColor(red: 0.055, green: 0.325, blue: 0.153, alpha: 1)
     public static let colorIconBold = UIColor(red: 0.082, green: 0.106, blue: 0.141, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconBrand = UIColor(red: 0.212, green: 0.463, blue: 0.878, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
-    public static let colorIconDisabled = UIColor(red: 0.361, green: 0.404, blue: 0.467, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
+    public static let colorIconDisabled = UIColor(red: 0.753, green: 0.769, blue: 0.792, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconDisabledOnDark = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
     public static let colorIconInfo = UIColor(red: 0.039, green: 0.459, blue: 0.647, alpha: 1) /** Darkened to clear 3:1 on bg/surfacePrimary */
     public static let colorIconInput = UIColor(red: 0.631, green: 0.659, blue: 0.694, alpha: 1) /** Background for most UI surfaces, creating a neutral canvas. */
