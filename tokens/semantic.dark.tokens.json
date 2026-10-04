@@ -323,7 +323,7 @@
   },
   "color-icon-disabled": {
     "$type": "color",
-    "$value": "{color-neutral-400}",
+    "$value": "{color-neutral-600}",
     "$description": "Background for most UI surfaces, creating a neutral canvas."
   },
   "color-icon-input": {

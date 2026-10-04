@@ -63,7 +63,7 @@
   --color-icon-primary: #ebecee; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-secondary: #a1a8b1; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-bold: #ffffff; /** Background for most UI surfaces, creating a neutral canvas. */
-  --color-icon-disabled: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
+  --color-icon-disabled: #334155; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-input: #5c6777; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-inverse: #151b24; /** Background for most UI surfaces, creating a neutral canvas. */
   --color-icon-inverse-secondary: #1c242f; /** Neutral inverse surfaces only — it is a slightly grey white and falls short of AA on saturated status fills. */
