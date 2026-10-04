@@ -2,3 +2,8 @@
 # Pin it to LF so a Windows checkout (core.autocrlf=true) does not show the
 # tree as dirty after a rebuild that changed nothing but line endings.
 build/** text eol=lf
+
+# The Figma token export is written with LF by the plugin. Pin it for the same
+# reason as build/ above: a Windows checkout (core.autocrlf=true) otherwise shows
+# the tree as dirty after an export that changed no content.
+tokens/** text eol=lf
