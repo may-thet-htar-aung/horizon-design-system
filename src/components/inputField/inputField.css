@@ -60,6 +60,48 @@
  * unions the value layer with the label and helper layers. Only the per-layer read
  * tells you which name belongs to which layer.
  *
+ * REBOUND AGAIN 2026-10-04 — a third D15 pass, and the first one on this node that
+ * is an ADDITION rather than a swap. The designer attached the Body/Medium
+ * typography composite to the VALUE text, which previously carried NO type variable
+ * at all and was parked here as Inter 15/18 under gap 5 of the unbound list below.
+ *
+ *   - The VALUE text gained Body/Medium on ALL SIX variants. Confirmed per LAYER,
+ *     live, on 227:6 (Default), 227:13 (Hovered), 227:20 (Typed), 227:27 (Error),
+ *     227:34 (Warning) and 227:41 (Disabled): every one now returns family/plain
+ *     (Roboto), weight/regular (400), size/body-medium (14), line-height/body-medium
+ *     (20) and tracking/body-medium (0.25). All five resolve in the build.
+ *
+ * WHY NO TOKEN VALUE MOVED THIS TIME EITHER, so the export diff was byte-clean once
+ * more: every one of those five tokens already existed and already carried exactly
+ * those values — they were simply not pointed at from this node. Nothing in tokens/
+ * or build/ changed, and nothing in the registry ladder stirred on its own.
+ *
+ * THIS ONE IS VISIBLE, unlike the two colour rebindings above. The value text moves
+ * from Inter 15/18 with no tracking to Roboto 14/20 with 0.25 tracking: a different
+ * family, a smaller size, a looser line box and a letter-spacing where there was
+ * none. Every variant renders the value or the placeholder, so every case in the
+ * matrix shows this change. The field box itself does NOT move — height is still
+ * parked at 52 and the input is centred inside it, so the 342x90 / 342x52 geometry
+ * and the 69px / 73px no-label and no-helper compositions are all unchanged.
+ *
+ * The value's COLOUR did not move in this pass and is left exactly as the 2026-10-03
+ * entry above left it. Re-confirmed per layer: 227:6 and 227:13 still
+ * color/text/input text unique, 227:20 / 227:27 / 227:34 still
+ * color/text/secondary unique, 227:41 still color/text/disabled.
+ *
+ * The LABEL, HELPER and FIELD layers did not move in this pass either. Re-confirmed
+ * per layer: labels 227:4 / 227:11 / 227:18 / 227:25 / 227:32 on color/text/secondary
+ * with Label/Medium and 227:39 on color/text/disabled; helpers 227:8 / 227:15 /
+ * 227:22 on color/text/secondary, 227:29 color/text/negative, 227:36
+ * color/text/warning, 227:43 color/text/disabled, all on Body/Extra Small; field
+ * frames 227:5 (no stroke) / 227:12 / 227:19 brand bold / 227:26 negative bold /
+ * 227:33 warning bold / 227:40 color/bg/surfacePrimary + color/border/disabled.
+ *
+ * NOTE for whoever reads both files: Primary already bound Body/Medium on its value
+ * text. Mobile now agrees with it, which is why the two inputs finally carry the same
+ * five type tokens. That convergence is the design's doing, not a refactor — the
+ * Primary rules stay scoped under [data-variant='Primary'] and were not touched.
+ *
  * The LABEL and HELPER layers did NOT move and are deliberately left alone. Confirmed
  * per layer on 227:4 / 227:11 / 227:18 / 227:25 / 227:32 (labels) and 227:8 / 227:15 /
  * 227:22 (helpers): all still bind plain color/text/secondary. Error and Warning
@@ -77,9 +119,9 @@
  * ---------------------------------------------------------------------------
  * WHERE THE SPEC PROSE AND THE LIVE BINDING DISAGREE, THE BINDING WINS.
  * ---------------------------------------------------------------------------
- * The node's written SPEC contradicts its own variable bindings in two places. A
- * description is a note; a binding is what the design does. Both follow the binding,
- * and the prose is reported back to the designer to correct.
+ * The node's written SPEC contradicts its own variable bindings in THREE places. A
+ * description is a note; a binding is what the design does. All three follow the
+ * binding, and the prose is reported back to the designer to correct.
  *
  *   - The helper. SPEC says "helper stays Inter Regular 10." All six helper nodes bind
  *     the Body/Extra Small composite instead — family/plain (Roboto), weight/regular
@@ -93,15 +135,31 @@
  *     --color-text-input-text-unique is exported, built and resolving at exactly that
  *     value. It is not a literal and it is not a gap. Bound below. The SPEC prose was
  *     already wrong before the 2026-10-02 rebinding and is still wrong after it.
+ *   - The value. SPEC STILL says "Value stays Inter Regular 15", and as of the
+ *     2026-10-04 rebinding that is simply no longer true: all six value layers bind
+ *     the Body/Medium composite, which is Roboto Regular 14/20 at 0.25 tracking.
+ *     Read live on 227:44 the same day as the binding, so this is the current prose
+ *     disagreeing with the current binding, not a stale note from an earlier pass.
+ *     The designer moved the binding and left the sentence behind. Bound below as
+ *     Body/Medium, NOT Inter Regular 15 — and the same sentence's claim about the
+ *     helper was already wrong on the line above, so the whole SPEC type line wants
+ *     rewriting. REPORTED, not silently reconciled.
  *
  * ---------------------------------------------------------------------------
  * UNBOUND IN FIGMA — reported, not invented.
  * ---------------------------------------------------------------------------
- * Six properties carry no variable on any of the six nodes. None is given a semantic
- * token here, and no near-fitting token is substituted. Each is parked in one
- * `--hz-input-field-*-unbound` custom property below, carrying the literal value the
- * node itself renders, so that the day a real token is bound in Figma each becomes a
- * one-line change and nothing else in this file moves.
+ * FIVE properties carry no variable on any of the six nodes — it was six until
+ * 2026-10-04, when the designer bound the value typography and closed what used to be
+ * gap 5. None of the remaining five is given a semantic token here, and no near-fitting
+ * token is substituted. Each is parked in one `--hz-input-field-*-unbound` custom
+ * property below, carrying the literal value the node itself renders, so that the day a
+ * real token is bound in Figma each becomes a one-line change and nothing else in this
+ * file moves.
+ *
+ * That is exactly how gap 5 closed: the four parked value-type literals were DELETED
+ * rather than re-pointed, because the binding now covers all four properties plus a
+ * letter-spacing they never had. Parking a literal is a placeholder for a token, so
+ * when the token arrives the placeholder goes — it is not kept around as a fallback.
  *
  *   1. Field padding — SPEC says "Field padding stays 14. That inset is off the 4px
  *      grid and has no token." Confirmed: no spacing token in the build is 14px (the
@@ -113,14 +171,18 @@
  *      spacing token is 52px (the only 52px values are line-height/display-medium and
  *      lineheight/display-md, again a different meaning).
  *   4. Field width — SPEC says "width 342". No variable bound and no token is 342px.
- *   5. Value typography — SPEC says "Value stays Inter Regular 15". Confirmed unbound:
- *      no family, size or line-height variable is attached to the value text on any of
- *      the six nodes, and no token in the build is 15px or 18px. NOTE: --family-default
- *      IS Inter and resolves exactly, but the design does not bind it, so this file
- *      does not either. The value's COLOUR is bound on all six nodes and is used below.
- *   6. Stroke weight — the five bordered states render a 1px inside stroke with no
+ *   5. Stroke weight — the five bordered states render a 1px inside stroke with no
  *      variable attached. --borderwidth-1 exists, is exactly 1px and is even described
  *      "Default outline", but the design does not bind it.
+ *
+ * CLOSED 2026-10-04 — what used to be gap 5, kept here as a record so nobody reopens it:
+ *   - Value typography. It read "SPEC says Value stays Inter Regular 15. Confirmed
+ *     unbound: no family, size or line-height variable is attached to the value text on
+ *     any of the six nodes." That is no longer the case. All six value layers now bind
+ *     Body/Medium and the four parked literals below were deleted. The SPEC sentence
+ *     that justified the parking is still in the node and is now wrong — see the prose
+ *     section above. Note that --family-default IS Inter, and this file still does not
+ *     reach for it, for the same reason it never did: the design does not bind it.
  *
  * Also absent from the design, and therefore absent here:
  *   - A focus variant. The node's own accessibility note concedes it: "Hover is not a
@@ -155,6 +217,10 @@
  *   1. The PLACEHOLDER is --color-text-input-text-unique = #a1a8b1 on a #f7f8f9 fill
  *      in BOTH modes: ~2.26:1, far under the 4.5:1 WCAG AA asks of body text. Default
  *      and Hovered render empty, so this is what those two states actually show.
+ *      UNCHANGED by the 2026-10-04 type rebinding, and worth saying why: the value went
+ *      from 15px to 14px, and both sit under the 24px (or 18.66px bold) that would make
+ *      AA's 3:1 large-text allowance apply, so the threshold is still 4.5:1. The ratio
+ *      is a colour pair and did not move at all. Slightly smaller text, same failure.
  *   2. The FIELD renders as a light box in dark mode — color/neutral-25 has no dark
  *      value, so the surface never darkens.
  *
@@ -175,10 +241,8 @@
   --hz-input-field-padding-unbound: 14px;   /* SPEC "Field padding stays 14 … has no token" */
   --hz-input-field-gap-unbound: 5px;        /* SPEC "gap … stays 5 … no token matches it" */
   --hz-input-field-stroke-unbound: 1px;     /* 1px inside stroke; --borderwidth-1 not bound */
-  --hz-input-field-value-size-unbound: 15px;      /* SPEC "Value stays Inter Regular 15" */
-  --hz-input-field-value-leading-unbound: 18px;   /* the value's line height; unbound */
-  --hz-input-field-value-family-unbound: Inter;   /* --family-default is Inter but unbound */
-  --hz-input-field-value-weight-unbound: 400;     /* "Regular"; --weight-regular not bound here */
+  /* The four value-type literals that used to sit here were deleted 2026-10-04 when the
+     designer bound Body/Medium on all six value layers. See the header. */
 
   /* Auto-layout: vertical, items stretched to the full width. */
   display: flex;
@@ -243,11 +307,14 @@
   margin: 0;
   padding: 0;
 
-  /* Value type is unbound in Figma — parked literals, see the header. */
-  font-family: var(--hz-input-field-value-family-unbound);
-  font-weight: var(--hz-input-field-value-weight-unbound);
-  font-size: var(--hz-input-field-value-size-unbound);
-  line-height: var(--hz-input-field-value-leading-unbound);
+  /* Body/Medium — composite, no single token. Bound 2026-10-04 on all six value
+     layers: 227:6 · 227:13 · 227:20 · 227:27 · 227:34 · 227:41. Replaced the parked
+     Inter 15/18 literals; the tracking below is new, the value never had one. */
+  font-family: var(--family-plain);                /* family/plain */
+  font-weight: var(--weight-regular);              /* weight/regular */
+  font-size: var(--size-body-medium);              /* size/body-medium */
+  line-height: var(--line-height-body-medium);     /* line-height/body-medium */
+  letter-spacing: var(--tracking-body-medium);     /* tracking/body-medium */
 
   /* The value's COLOUR is bound on every node. Value layers 227:20 / 227:27 / 227:34 —
      rebound 2026-10-03 from color/text/secondary to color/text/secondary unique. */
