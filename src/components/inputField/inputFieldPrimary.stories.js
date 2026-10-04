@@ -26,11 +26,18 @@
  * documented as such in inputField.js, because a real input needs both.
  *
  * WHAT TO LOOK AT IN DARK MODE (the Theme toolbar): the whole set is mode-aware, unlike
- * the Mobile set — the field surface darkens properly. Three contrast gaps are carried
+ * the Mobile set — the field surface darkens properly. TWO contrast gaps are carried
  * deliberately and are the design's to close, not this component's: the placeholder
- * fails AA in both modes, the disabled value and helper are ~1.67:1 in dark, and the
- * disabled LABEL is ~1.11:1 in dark because 220:45 binds `color/text/disabled on dark`
- * where its siblings bind `color/text/disabled`. See inputFieldPrimary.css.
+ * fails AA in both modes, and the disabled value, helper and label are ~1.67:1 in dark.
+ * See inputFieldPrimary.css.
+ *
+ * REBOUND 2026-10-04, and worth checking in dark specifically: the disabled LABEL used
+ * to read ~1.11:1 in dark because 220:45 bound `color/text/disabled on dark` where its
+ * siblings bound `color/text/disabled`. The designer rebound it, so the label should now
+ * be INDISTINGUISHABLE from the disabled value and helper beside it, in both modes. The
+ * two tokens are identical-looking in light (#a1a8b1 vs #c0c4ca is subtle) and obviously
+ * different in dark (#334155 vs #1c242f), so dark mode is where this one is verifiable
+ * by eye at all.
  */
 
 import { createInputField, INPUT_FIELD_STATES } from './inputField.js';
@@ -82,9 +89,12 @@ export const Typed = { args: { state: 'Typed', value: 'Horizon Stays' } };
 /** 220:32 — the value failed validation. Border color/border/negative/bold, helper
  *  color/text/negative. The helper says why — never colour alone.
  *
- *  This is the one state whose VALUE text carries no typography binding (220:36), so it
- *  renders Inter 13/16 while every other state renders Roboto 14/20. That difference is
- *  the design's, reported, and deliberately not papered over here. */
+ *  REBOUND 2026-10-04: this used to be the one state whose VALUE text carried no
+ *  typography binding, so it rendered Inter 13/16 against every other state's Roboto
+ *  14/20 — a difference carried deliberately rather than papered over. 220:36 now binds
+ *  Body/Medium, so the Error value should render Roboto 14/20 like the rest. The visible
+ *  check is that Error's value text is now the SAME SIZE as Typed's and Warning's; it
+ *  was conspicuously smaller before. */
 export const ErrorState = {
   name: 'Error',
   args: {
@@ -105,8 +115,8 @@ export const Warning = {
 };
 
 /** 220:44 — the field cannot be edited. Fill color/bg/surfacePrimary, border
- *  color/border/disabled, value and helper color/text/disabled — and the label on
- *  color/text/disabled ON DARK, which is what the node binds. */
+ *  color/border/disabled, and label, value and helper ALL on color/text/disabled.
+ *  The label used to bind color/text/disabled ON DARK; 220:45 was rebound 2026-10-04. */
 export const Disabled = { args: { state: 'Disabled' } };
 
 /* ------------------------------ the two Show toggles, on the Default state */
