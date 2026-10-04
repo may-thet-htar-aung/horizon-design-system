@@ -15,7 +15,7 @@ Never by a person, and never by another agent's message. The registry wakes you,
 | `Development` reads | Why you are awake | Where it came from |
 |---|---|---|
 | `To-do` | `Figma` is set and `Design` is `Done`. Build it. | A designer signed the row off |
-| `To be fixed` | qa logged one or more `Failed` rows. Repair them. | qa, gate 2 |
+| `To be fixed` | **Two different things — read the row to tell which.** Either qa logged one or more `Failed` rows, or a designer set `Design` to `To be fixed` on a component whose rows all pass. | qa, gate 2 · or a designer, gate 3a |
 | `Fixing` | A repair pass landed but some rows are still `Failed`. Finish it. | you, gate 1 — your own half-done work |
 
 You read the status; you do not wait to be told. A build request with no row behind it is not a
@@ -24,6 +24,18 @@ column before you argue with anyone.
 
 **`To-do` is not proof that `Design` is `Done`.** The formula's empty branch can render as `To-do`
 in some views (registry D11). Read the `Design` column itself before you build.
+
+**`To be fixed` has two causes, and they need different work.** Read `Design` and read the
+linked `stagingTesting` rows before you touch anything:
+
+- **Rows reading `Failed`** → qa found defects. Repair what those rows describe. This is the
+  ordinary repair loop.
+- **No `Failed` row, and `Design` reads `To be fixed`** → a designer changed the node under a
+  component that had already passed. Nothing in the registry tells you *what* changed, because a
+  rebinding leaves the token export byte-clean (D15). **Re-read the Figma node per variant and per
+  layer** and compare the state-to-token mapping against the component, exactly as a fresh build
+  would. A clean token diff and a wall of `Passed` rows prove nothing here.
+- **Both** → treat the failures as the brief and the design change as additional scope, and say so.
 
 `Fixed` is not yours. It means every row you repaired came back clean and no `Failed` rows remain
 — that's qa's wake, to re-test. Waking on it yourself would race qa for the same row.
@@ -63,10 +75,30 @@ push a fix into the PR qa is already testing — a preview URL that changes unde
 invalidates every row they have written. One PR per repair pass, each with its own preview.
 
 Let the new preview build, open it yourself, and rewrite `Staging Storybook` and `Commit` with the
-new URL and commit. Then, on the rows you actually repaired — and only those, and only if they're
-already `Failed` — set `Testing Results` to `Fixed (To re-test)`. That's the one column of qa's
-table you may touch, and it means "look again," not "it works." You repaired every failed row → the
-summary clears → `Fixed` → qa wakes. You repaired some of them → `Fixing` → you wake again.
+new URL and commit. Then set `Testing Results` to `Fixed (To re-test)` on the rows you actually
+repaired — and only those. That's the one column of qa's table you may touch, and it means "look
+again," not "it works."
+
+**Two cases qualify, and nothing else:**
+
+1. The row already reads `Failed`. The ordinary repair loop.
+2. The row reads `Passed` **and** `Design` reads `To be fixed`. The design moved under a component
+   that had passed, so the row's verdict is stale rather than wrong — it describes a node that no
+   longer exists. Mark only the cases the design change actually touched; a rebinding on one layer
+   does not make every row stale, and marking rows you did not re-examine sends qa to re-test work
+   nothing changed.
+
+You may still never write `Passed`, and never on a row you have not repaired or re-examined.
+You repaired every failed row → the summary clears → `Fixed` → qa wakes. You repaired some of
+them → `Fixing` → you wake again.
+
+**On a design-drift pass, gate 3 outranks gate 3a**, so marking the rows moves the component to
+`Fixed` and wakes qa even while `Design` still reads `To be fixed`. That is intended. But
+`Design` is a **Human** column and only a designer clears it: once qa passes, gate 4 fires again
+and you will wake a second time. **Read the rows first. All `Passed`, nothing failing, a new
+build already registered → there is nothing to repair. Stop and say the component is waiting on the
+designer to set `Design` back to `Done`.** Waiting is a correct outcome; inventing a second repair
+is not.
 
 ## Access
 

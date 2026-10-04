@@ -43,7 +43,7 @@ them, ever. **Human** columns are a person's — an agent may read one and must 
 | `Design` | select | **Human** (designer) | To-do · In progress · In testing · Done · To be fixed. Only `Done` is read by the formula. Blank means design isn't signed off. |
 | `Staging Storybook` | url | **engineer** | The Vercel **preview** for the component's open PR into `staging` — not a merged-staging deploy. Written only after the deployed story has been opened and seen to render, and rewritten with a new preview on every repair pass. |
 | `Commit` | url | **engineer** | The commit the staging build came from. |
-| `Semantic Tokens` | text | **token-runner — on paper only** | The token layer the component consumes. token-runner has no Airtable tooling and cannot write this; the column is unowned in practice. Reassign it or drop it — a human decides. |
+| `Semantic Tokens` | — | **DOES NOT EXIST** | Documented here historically; a live schema read on 2026-10-04 does not return it. See D16. |
 | `GitHub Commits` | link → `githubCommits` | **Nobody** | See D12. |
 | `Composes` | link → `components` | **Nobody** | The components this one imports. See D12. |
 | `Composed Into` | link → `components` | **Derived** | Reverse of `Composes`. See D9 — Airtable allows a write here; don't. |
@@ -59,7 +59,7 @@ them, ever. **Human** columns are a person's — an agent may read one and must 
 | `Staging Passed Count` | count | **Derived** | |
 | `Staging Passed Tests` | rollup | **Derived** | See D3 — feeds nothing, despite its description. |
 | `Last Modified` | lastModifiedTime | **Derived** | |
-| `[Production] Test Records` | text | **Nobody — quarantined** | See D8. Do not write it. |
+| `[Production] Test Records` | — | **DOES NOT EXIST** | Removed from the base; see D8 and D16. |
 
 ### Table: `stagingTesting`
 
@@ -136,6 +136,7 @@ It's a first-match-wins ladder, evaluated in this order:
 | 1 | `Staging Testing Results Summary` contains **both** `Failed` and `re-test` | **Fixing** |
 | 2 | `Staging Testing Results Summary` contains `Failed` | **To be fixed** |
 | 3 | `Staging Testing Results Summary` contains `re-test` | **Fixed** |
+| **3a** | `Design` = `To be fixed` | **To be fixed** |
 | 4 | `Astro Link` set **and** `Release Review` set **and** `Release Verdict` = `Cleared` | **Released** |
 | 5 | `Production Storybook` set | **Completed** |
 | 6 | `Staging Testing Results Summary` is not empty | **To be deployed** |
@@ -145,6 +146,13 @@ It's a first-match-wins ladder, evaluated in this order:
 
 Gates 1 and 3 do a case-sensitive substring match on `re-test`, which is why `Fixed (To re-test)`
 matters spelled exactly that way — see D6.
+
+**Why the designer gate is numbered 3a rather than 4.** It was inserted on 2026-10-04 between the
+row-state gates and `Released`. Renumbering 4–9 would have invalidated roughly forty references
+across this file and the agent files — and worse, `devops.md` uses "gate 1" and "gate 2" for the
+two **human merge gates** (the component PR into `staging`, and `staging` into `main`), which
+are a different thing entirely. The letter keeps every existing reference correct. Airtable does not
+see these numbers; only the order of the nested `IF`s matters, and 3a sits fourth in the formula.
 
 ### Gate 4 is currently unreachable, and `Completed` is the working finish line
 
@@ -206,8 +214,19 @@ of D10 — it is what the intended model describes.
 
 `Testing Results` belongs to qa — every value, on every row, is qa's to write, with a single
 documented exception: **the engineer may set it to `Fixed (To re-test)`, and to no other value,
-only on rows already marked `Failed`, and only on rows it has actually repaired.** It may never
-write `Passed`. Only qa writes `Passed`.
+only on rows it has actually repaired or re-examined, and only in one of two cases:**
+
+1. **the row already reads `Failed`** — the ordinary repair loop; or
+2. **the row reads `Passed` and `Design` reads `To be fixed`** — a designer changed the node under
+   a component that had already passed, so the verdict is stale rather than wrong: it describes a
+   node that no longer exists.
+
+The second case exists because a rebinding leaves the token export byte-clean, so a passing row can
+describe a design that is gone (D15). Without it the designer-drift path dead-ends: the engineer
+repairs the code and has no way to tell qa to look again.
+
+It may never write `Passed`. Only qa writes `Passed`. And it may not mark rows the design change
+did not touch — a rebinding on one layer does not make every row stale.
 
 That one exception is what lets the repair loop close. Without it, a fix would have no way to tell
 qa "look again" except a message — and this contract runs on cells, not messages. It is also the
@@ -254,11 +273,20 @@ Same contradiction as D1, same field group: gate 4 requires it set.
 The `Synchronization %` formula references only `Staging Passed Count` and `Total Staging Tests`.
 `Staging Passed Tests` feeds nothing.
 
-**D4 — `Staging Passed Count` and `Total Staging Tests` look identical in the schema.**
-Both are `count` fields over `[Staging] Test Records` with no distinguishing filter exposed by the
-API. If `Staging Passed Count` carries no filter, `Synchronization %` is `count / count` and reads
-**100% on every row, always** — including rows where everything failed. Don't trust it alone until
-someone confirms the filter in the Airtable UI.
+**D4 — RESOLVED 2026-10-04. `Staging Passed Count` is filtered; `Synchronization %` is a real signal.**
+The two `count` fields look identical through the API because **the schema endpoint does not
+expose a count field's filter at all** — not because no filter exists. Observed directly the first
+time a component failed: Input Field/Password read `Total Staging Tests` **11**,
+`Staging Passed Count` **0**, `Synchronization %` **0%**. A `count / count` field could not have
+produced that.
+
+**The reasoning that made this entry wrong is worth keeping, because it is easy to repeat:**
+absent configuration in a schema response was read as absent behavior in the base. Every component
+until that day had passed 100% of its rows, so the two readings were indistinguishable and the
+wrong one went unchallenged through several agents.
+
+Read the rows anyway — they remain the authoritative check, and a percentage can only ever
+summarise them. But do not repeat the claim that this field carries no information.
 
 **D5 — Gate 6's description is looser than the formula.**
 The description says "any staging test rows exist → To be deployed." The formula checks the
@@ -278,9 +306,11 @@ registry node. The trap is real; the board is not an instance of it.
 Neither `Staging Testing Results Summary` nor `Staging Passed Tests` exposes its aggregation
 expression through the schema endpoint. Gates 1, 2, 3 and 6 all depend on the first one.
 
-**D8 — `[Production] Test Records` is a text field pretending to be a link.**
-`[Staging] Test Records` is a real link; `[Production] Test Records` is plain text, undescribed, and
-there's no production testing table for it to point at. Quarantined: no agent writes it.
+**D8 — NO LONGER REPRODUCES 2026-10-04. The field is gone from the base.**
+This entry quarantined `[Production] Test Records` as a text field pretending to be a link. A live
+schema read of `components` no longer returns it at all, so there is nothing left to quarantine.
+Kept as a record that it was removed rather than deleted outright, so a future reader who finds the
+field in an old view knows it was retired deliberately.
 
 **D9 — `Composed Into` says "nobody writes this directly." Airtable disagrees.**
 It's a symmetric link field; Airtable maintains it automatically and also accepts a direct write
@@ -317,6 +347,17 @@ engineer finishing the repair, qa re-testing whatever's already marked `Fixed (T
 confirmed deliberately, twice — but it means qa can re-test a row before the engineer has reached it,
 and a row still reading `Failed` under `Fixing` isn't qa's to touch.
 
+**D16 — This file documented two columns the base does not have.**
+A live schema read of `components` on 2026-10-04 returns neither `Semantic Tokens` nor
+`[Production] Test Records`. Both are now marked **DOES NOT EXIST** in the ownership table above
+rather than silently deleted, so that a reader who meets either name in an old view, an old report or
+an archived row knows what became of it.
+
+The ownership table is otherwise accurate against the live schema as of that date. The practical
+lesson is the same one D4 taught: **this contract is a description of the base, and the base can move
+underneath it.** A column documented here is not evidence the column exists — read the schema when it
+matters.
+
 **D14 — The board describes two mechanisms that don't exist, and omits two agents that do.**
 Three gaps between the Mai Crew board and this base, none of them resolved:
 - **Jira is wired to nothing.** The board makes a Jira status the thing that provokes the next actor
@@ -329,11 +370,11 @@ Three gaps between the Mai Crew board and this base, none of them resolved:
 - **`reviewer` and `token-runner` are not on the board.** Both exist as agent files. The board's
   cast is Client, Designer, Developer, QA, DevOps, PM.
 
-**D15 — A design change to a finished component wakes nobody.**
-The ladder reads `Design` only at gate 8, and only for the value `Done`. The `Design` column also
-offers `To be fixed`, which currently feeds nothing at all: setting it changes no status and wakes
-no agent. A component sitting at `Completed` whose Figma node is then rebound stays at `Completed`,
-and the loop has no arrow back.
+**D15 — RESOLVED 2026-10-04. A design change to a finished component now wakes the engineer.**
+**The problem, as it stood.** The ladder read `Design` only at gate 8, and only for the value
+`Done`. The column also offered `To be fixed`, which fed nothing at all: setting it changed no
+status and woke no agent. A component sitting at `Completed` whose Figma node was then rebound
+stayed at `Completed`, and the loop had no arrow back.
 
 Observed 2026-10-02 on Button: the Outline fills were rebound in Figma — `64:53` gained
 `color/bg/base`, `64:59` moved to `color/bg/primary/Light`. Both tokens already existed, so **no
@@ -341,8 +382,22 @@ token value changed and the export diff was byte-clean**; nine `Passed` rows sta
 component that was wrong in production sat at `Completed` until a human deleted its registry row by
 hand to force a rebuild. A clean token diff never proves a component is still correct.
 
-**The fix is a formula change, which no agent may make.** A gate above gate 5 — `Design` =
-`To be fixed` → `To be fixed` — would give the designer a one-cell way to send a finished
-component back to the engineer. It must be made by a human in the Airtable UI, and it changes
-precedence, so it is recorded here rather than applied. Until then drift is caught only by the pm
-sweep's fourth contradiction shape, which reports it without moving anything.
+**The fix was applied as gate 3a** (see the ladder above): `Design` = `To be fixed` →
+`To be fixed`. A designer now sends a finished component back with one cell. It sits below the
+row-state gates and above `Released`.
+
+**Two consequences that follow from where the gate sits, and both matter:**
+
+**Gate 3 outranks gate 3a.** Once the engineer marks rows `Fixed (To re-test)`, the component reads
+`Fixed` and qa re-tests, even though `Design` still says `To be fixed`. Row state beats the
+design flag, which is what lets the cycle finish — had the design flag been placed higher, it would
+have masked the re-test and the loop would dead-end.
+
+**Only a designer clears the flag.** `Design` is a **Human** column. After qa passes, gate 3a fires
+again and the engineer wakes a second time — correctly finding nothing to repair and stopping. To
+avoid that wasted pass, **the designer should set `Design` back to `Done` once the engineer has
+registered the new build**, not after qa finishes. The ladder then falls through gate 3 to `Fixed`,
+qa runs, and the component lands on `Completed` cleanly.
+
+The pm sweep's fourth contradiction shape still runs. It catches drift the designer has not yet
+flagged — the gate only fires once someone sets the cell.
