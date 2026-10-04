@@ -35,21 +35,26 @@
  *   Warning Open       state: 'Warning',  revealed: true
  *   Disabled           state: 'Disabled', revealed: false
  *
- * WHAT TO LOOK AT. Click the eye on any of the three Typed / Error / Warning stories:
- * the FACE AND LINE HEIGHT OF THE VALUE CHANGE, not just the masking. That is the
- * design's, not this component's — the three `hide` variants bind no typography at all
- * on their value layer while their `Open` twins bind Body/Medium in full, so the node
- * itself measures 17px tall masked and 20px revealed. It is carried as an unbound
- * literal rather than smoothed over. See inputFieldPassword.css.
+ * WHAT TO LOOK AT — and what has CHANGED since the last test pass. Clicking the eye on
+ * the three Typed / Error / Warning stories used to change the FACE AND LINE HEIGHT of
+ * the value as well as the masking, because the three `hide` variants bound no
+ * typography at all on their value layer while their `Open` twins bound Body/Medium in
+ * full. The designer bound Body/Medium on all three (234:1001, 234:1004, 234:1011) on
+ * 2026-10-04, every Icon row in the node now measures 20px, and the parked literal that
+ * carried the gap has been deleted. Masked and revealed should now be the same type and
+ * the same line box; only the masking and the glyph change.
  *
- * Three further gaps are the design's to close, not this component's:
+ * Two gaps remain the design's to close, not this component's:
  *   - no focus variant anywhere in the set, which matters more here than on the
  *     siblings because this component contains a real focusable control (the reveal
- *     button) that the design gives no focus treatment at all;
+ *     button) that the design gives no focus treatment at all. Re-read per variant on
+ *     2026-10-04: the `Property 1` axis still has exactly nine values and none of them
+ *     is a focus cell;
  *   - the placeholder is color/text/input text #a1a8b1 on color/bg/base #ffffff —
- *     about 2.4:1, under AA for body text;
- *   - disabled text is about 2.0:1 on the disabled fill (exempt from AA 1.4.3, noted
- *     rather than filed).
+ *     about 2.4:1, under AA for body text.
+ *
+ * Disabled text is about 2.0:1 on the disabled fill — exempt from AA 1.4.3, noted
+ * rather than filed.
  *
  * Unlike Input Field/Primary, the DISABLED LABEL here binds `color/text/disabled`, the
  * same token as the value and helper beside it — Primary's `color/text/disabled on dark`
@@ -114,8 +119,9 @@ export const Hovered = {
 /** 234:955 `Typed hide` — the field holds a secret and it is masked. Border
  *  color/border/brand/bold, value color/text/primary.
  *
- *  This is one of the three cells whose value layer (234:1001) carries NO typography
- *  binding. Compare it with `Typed Open` below and watch the line box change. */
+ *  234:1001 now binds Body/Medium (rebound 2026-10-04). Compare it with `Typed Open`
+ *  below: the type and the line box should be identical, and only the masking and the
+ *  glyph differ. */
 export const TypedHide = {
   name: 'Typed hide',
   args: { state: 'Typed', revealed: false, value: SECRET },
@@ -130,7 +136,7 @@ export const TypedOpen = {
 
 /** 244:171 `Error hide` — validation failed, value masked. Border
  *  color/border/negative/bold, helper color/text/negative. The helper says what is
- *  wrong — never colour alone. Value layer 234:1004 binds no typography. */
+ *  wrong — never colour alone. Value layer 234:1004 binds Body/Medium (rebound). */
 export const ErrorHide = {
   name: 'Error hide',
   args: {
@@ -155,7 +161,7 @@ export const ErrorOpen = {
 
 /** 244:194 `Warning hide` — the value can be submitted, but the helper flags the risk.
  *  Border color/border/warning/bold, helper color/text/warning. Value layer 234:1011
- *  binds no typography. */
+ *  binds Body/Medium (rebound). */
 export const WarningHide = {
   name: 'Warning hide',
   args: {
@@ -209,8 +215,9 @@ export const DefaultRevealed = {
 /* ================================ the matrix, in one ================================ */
 
 /** All nine Figma values at once, each labelled with its `Property 1` value and node id,
- *  for reading side by side against the node. The height difference between every
- *  `hide` row and its `Open` twin is the unbound-typography gap, visible in place. */
+ *  for reading side by side against the node. Every row should now stand the same height:
+ *  the `hide`-versus-`Open` difference that used to show here was the unbound-typography
+ *  gap, and the designer closed it on 2026-10-04. */
 export const FigmaMatrix = {
   name: 'The matrix — all nine',
   parameters: { controls: { disable: true } },

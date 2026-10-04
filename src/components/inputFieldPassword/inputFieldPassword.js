@@ -102,10 +102,18 @@
  * WHAT THE DESIGN LEAVES UNBOUND — reported, never invented
  * ===========================================================================
  * See the header of inputFieldPassword.css for the full list and the SPEC line beside
- * each. The one that changes behaviour: the three `hide` variants bind NO typography at
- * all on their value layer, so the masked text and the revealed text render in
- * different faces at different line heights. That is carried as an unbound literal, not
- * papered over with the nearest token.
+ * each.
+ *
+ * The one that changed behaviour is now CLOSED (2026-10-04): the three `hide` variants
+ * used to bind no typography at all on their value layer, so the masked and revealed
+ * text rendered in different faces at different line heights. The designer has bound
+ * Body/Medium on 234:1001, 234:1004 and 234:1011, and the parked literal that carried
+ * the gap has been deleted rather than re-pointed. Clicking the eye now changes the
+ * masking and nothing else.
+ *
+ * Still open, and still the design's: no focus variant anywhere in the set — which
+ * matters here because this module puts a real focusable <button> inside the field — and
+ * the placeholder's contrast. Neither is invented in code.
  */
 
 import './inputFieldPassword.css';

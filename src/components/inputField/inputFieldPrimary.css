@@ -16,16 +16,33 @@
  * ---------------------------------------------------------------------------
  * get_variable_defs on a variant node UNIONS its layers and cannot tell you which layer
  * owns which token. Every binding below was read on the LAYER, live, and the variant
- * reads were kept only as a cross-check. Two places where that mattered:
+ * reads were kept only as a cross-check.
  *
- *   - Error's VALUE layer, 220:36, returns `color/text/primary` and NOTHING ELSE. Every
- *     other state's value layer also returns Body/Medium. Read at variant level, 220:32
- *     looks like it is simply missing the Body/Medium entry; read at layer level it is
- *     unmistakable that the Error value alone carries no typography binding. See the
- *     unbound list.
- *   - Disabled's LABEL layer, 220:45, binds `color/text/disabled on dark` while the
- *     value (220:48) and helper (220:49) on the same variant bind `color/text/disabled`.
- *     The variant read returns both names with no way to tell them apart. See the gaps.
+ * ---------------------------------------------------------------------------
+ * 2026-10-04 — DESIGN DRIFT PASS. The designer rebound two layers; both of the
+ * defects this file previously carried as REPORTED-NOT-FIXED are now closed.
+ * ---------------------------------------------------------------------------
+ * `Design` was set to `To be fixed` with all eleven test rows reading `Passed`, which is
+ * the registry's designer-drift path (gate 3a). A rebinding changes no token VALUE, so
+ * the export diff was byte-clean and nothing but a fresh per-layer read of the node could
+ * have found what moved. All 24 layers across all six variants were re-read:
+ *
+ *   220:36  Error VALUE   — was `color/text/primary` and NO TYPE AT ALL
+ *                         -> now `color/text/primary` + Body/Medium.
+ *      The colour never moved; the typography binding was ADDED. The Inter 13/16 literals
+ *      this file parked are deleted, not retokenised, and Error now inherits Body/Medium
+ *      from the base rule with its five siblings.
+ *
+ *   220:45  Disabled LABEL — was `color/text/disabled on dark`
+ *                          -> now `color/text/disabled`.
+ *      Now the same token as the value (220:48) and helper (220:49) beside it. The dark
+ *      mode inversion that made the label ~1.11:1 is gone.
+ *
+ * The other 22 layers are byte-identical to the bindings recorded below — Default,
+ * Hovered, Typed and Warning did not move at all, on any layer. The matrix itself is
+ * unchanged: still one axis, State, six values, no size axis, no focus variant, and the
+ * two boolean text-property toggles. No prop, no story and no structure changed, and
+ * `inputField.js` — shared with Input Field/Mobile — was not touched.
  *
  * ---------------------------------------------------------------------------
  * THE MATRIX — one axis, State, six values. No size axis. No focus variant.
@@ -41,14 +58,15 @@
  *                    value 220:30  color/text/primary           · Body/Medium
  *                    label 220:27  color/text/secondary · helper 220:31 color/text/secondary
  *   220:32 Error     field 220:35  fill color/bg/base · border color/border/negative/bold
- *                    value 220:36  color/text/primary           · NO TYPE BOUND
+ *                    value 220:36  color/text/primary           · Body/Medium (rebound 10-04)
  *                    label 220:33  color/text/secondary · helper 220:37 color/text/negative
  *   220:38 Warning   field 220:41  fill color/bg/base · border color/border/warning/bold
  *                    value 220:42  color/text/primary           · Body/Medium
  *                    label 220:39  color/text/secondary · helper 220:43 color/text/warning
  *   220:44 Disabled  field 220:47  fill color/bg/surfacePrimary · border color/border/disabled
  *                    value 220:48  color/text/disabled          · Body/Medium
- *                    label 220:45  color/text/DISABLED ON DARK  · helper 220:49 color/text/disabled
+ *                    label 220:45  color/text/disabled (rebound 10-04) · Label/Small
+ *                    helper 220:49 color/text/disabled          · Body/Extra Small
  *
  * Shared by all six: borderradius/medium (field radius), spacing/12 (field inline
  * padding AND the label and helper row insets, confirmed on 221:197 … 221:202 and
@@ -69,8 +87,8 @@
  *   value colour      Mobile color/text/secondary unique           ->  Primary color/text/primary
  *   placeholder       Mobile color/text/input text unique          ->  Primary color/text/input text
  *   label type        Mobile Label/Medium                          ->  Primary Label/Small
- *   value type        Mobile unbound (Inter 15)                    ->  Primary Body/Medium (5 of 6 states)
- *   disabled label    Mobile color/text/disabled                   ->  Primary color/text/disabled on dark
+ *   value type        Mobile unbound (Inter 15)                    ->  Primary Body/Medium (all 6 states)
+ *   disabled label    Mobile color/text/disabled                   ->  Primary color/text/disabled (same)
  *   field padding     Mobile unbound 14                            ->  Primary spacing/12
  *   field-helper gap  Mobile unbound 5, flat stack                 ->  Primary gap/element, inside Field group
  *   height / width    Mobile 52 / 342                              ->  Primary 40 / 360
@@ -88,12 +106,12 @@
  * code. A description is a note; a binding is what the design does.
  *
  *   1. SPEC: "Value stays Inter Regular 13 ... Those sizes are unpublished."
- *      FIVE of the six value layers bind the Body/Medium composite — family/plain
- *      (Roboto), weight/regular (400), size/body-medium (14), line-height/body-medium
- *      (20), tracking/body-medium (0.25). Confirmed per layer on 220:18, 220:24, 220:30,
- *      220:42 and 220:48. The prose is true of 220:36 (Error) ONLY, which really does
- *      carry no typography binding. Bound as Body/Medium on five states; parked as an
- *      unbound literal on Error alone.
+ *      ALL SIX value layers now bind the Body/Medium composite — family/plain (Roboto),
+ *      weight/regular (400), size/body-medium (14), line-height/body-medium (20),
+ *      tracking/body-medium (0.25). Confirmed per layer on 220:18, 220:24, 220:30,
+ *      220:36, 220:42 and 220:48. The prose used to be true of 220:36 alone and is now
+ *      true of nothing in the set; it is stale prose, still uncorrected, and the
+ *      bindings win. Bound as Body/Medium everywhere, parked nowhere.
  *   2. SPEC: "helper stays Inter Regular 10."
  *      All six helper layers bind Body/Extra Small — Roboto Regular 11/12, tracking 0.2.
  *      Confirmed on 220:19, 220:25, 220:31, 220:37, 220:43, 220:49. Bound as the design
@@ -108,10 +126,16 @@
  * ---------------------------------------------------------------------------
  * UNBOUND IN FIGMA — reported, not invented.
  * ---------------------------------------------------------------------------
- * Five properties carry no variable anywhere in the set. None is given a token here and
- * no near-fitting token is substituted; each is parked in one `--hz-input-field-primary-
- * *-unbound` custom property carrying the literal the node itself renders, so that the
- * day one is bound in Figma it is a one-line change.
+ * FOUR properties carry no variable anywhere in the set — down from five. None is given a
+ * token here and no near-fitting token is substituted; each is parked in one
+ * `--hz-input-field-primary-*-unbound` custom property carrying the literal the node
+ * itself renders, so that the day one is bound in Figma it is a one-line change.
+ *
+ * That is not a claim about how this file is written — it is what just happened. The
+ * fifth entry, Error value typography, was bound in Figma on 2026-10-04 and removing it
+ * from here was deleting four custom properties and one rule. Parking an unbound value
+ * under its own name, instead of substituting the nearest token that looked close, is
+ * what made the designer's fix a deletion rather than an archaeology problem.
  *
  *   1. Field height — SPEC "Field height 40", and the docs forbid overriding it. No
  *      variable bound; no size or spacing token in the build is 40px.
@@ -123,11 +147,13 @@
  *   4. Stroke weight — all six states render a 1px border with no variable attached.
  *      --borderwidth-1 exists, is exactly 1px and is even described "Default outline",
  *      but the design does not bind it, so this file does not either.
- *   5. Error value typography — 220:36 alone. The node renders Inter Regular 13/16 and
- *      binds none of it. --family-default IS Inter and resolves exactly, but it is not
- *      bound on this layer, so it is not reached for. Parked as literals, and the fact
- *      that the other five states bind Body/Medium is what makes this an oversight worth
- *      reporting rather than a deliberate exception.
+ *   5. CLOSED 2026-10-04 — Error value typography, 220:36. Was the one value layer in the
+ *      set binding no typography at all; the node rendered Inter Regular 13/16 and bound
+ *      none of it. Reported as an oversight rather than a deliberate exception precisely
+ *      because the other five bound Body/Medium — and that is what it turned out to be.
+ *      220:36 now binds Body/Medium. Kept listed as closed, not deleted, so that a reader
+ *      meeting the old `*-error-value-*-unbound` names in git history knows why they
+ *      existed and why they stopped.
  *
  * Also absent from the design, and therefore absent here: a focus variant. The node
  * repeats Mobile's concession word for word — "Hover is not a substitute for focus.
@@ -141,7 +167,7 @@
  * unscoped root rule would otherwise paint it.
  *
  * ---------------------------------------------------------------------------
- * CONTRAST — three design gaps, REPORTED AND LEFT STANDING.
+ * CONTRAST — two design gaps still standing, one closed.
  * ---------------------------------------------------------------------------
  * Unlike Mobile, every surface and text colour in this set is mode-aware: color/bg/base
  * is #ffffff light / #151b24 dark, color/bg/surfacePrimary #ebecee / #151b24. The field
@@ -152,19 +178,25 @@
  *      color/bg/base is #a1a8b1 on #ffffff — about 2.14:1 — and #5c6777 on #151b24 —
  *      about 3.02:1. Both are under the 4.5:1 AA asks of body text. Default and Hovered
  *      render empty, so this is what those two states actually show.
- *   2. DISABLED value and helper are about 1.67:1 in dark. color/text/disabled is
- *      #334155 in dark on color/bg/surfacePrimary #151b24. This one IS inherited from
- *      the Mobile set at almost exactly the same ratio.
- *   3. The DISABLED LABEL is about 1.11:1 in dark and about 1.75:1 in light, and is
- *      almost certainly a mis-binding rather than a contrast choice: 220:45 binds
+ *   2. DISABLED value, helper AND NOW LABEL are about 1.67:1 in dark. color/text/disabled
+ *      is #334155 in dark on color/bg/surfacePrimary #151b24. This one IS inherited from
+ *      the Mobile set at almost exactly the same ratio. The label joined this gap on
+ *      2026-10-04 by being rebound into it — which is an improvement, because it was
+ *      worse before.
+ *   3. CLOSED 2026-10-04 — the DISABLED LABEL mis-binding. 220:45 bound
  *      `color/text/disabled on dark` (#c0c4ca light / #1c242f dark) while the value and
- *      helper beside it bind `color/text/disabled`. A token named "on dark" used on a
- *      light-mode label inverts in dark and all but disappears against #151b24.
+ *      helper beside it bound `color/text/disabled`; a token named "on dark" used on a
+ *      light-mode label inverted in dark and all but disappeared against #151b24, at
+ *      about 1.11:1. Called here as "almost certainly a mis-binding rather than a
+ *      contrast choice", reported, and not patched in code. The designer rebound it to
+ *      `color/text/disabled`. The label is now gap 2's ~1.67:1 rather than its own
+ *      ~1.11:1 — still short of AA, but no longer inverted.
  *
- * None is fixed here, and no substitute token is reached for, because a token this
- * design does not bind is exactly the guess this file refuses to make everywhere else.
- * The real fix is a designer's: rebind 220:45 to color/text/disabled, and raise the
- * placeholder and disabled-text ramps.
+ * Neither remaining gap is fixed here, and no substitute token is reached for, because a
+ * token this design does not bind is exactly the guess this file refuses to make
+ * everywhere else. The outstanding fix is a designer's: raise the placeholder and
+ * disabled-text ramps. The third gap is the demonstration that reporting works — it was
+ * carried here unpatched for a day and closed in Figma, where it belonged.
  *
  * ---------------------------------------------------------------------------
  * SPECIFICITY — why each selector is shaped the way it is.
@@ -183,10 +215,8 @@
   --hz-input-field-primary-height-unbound: 40px;   /* SPEC "Field height 40"; no 40px size token */
   --hz-input-field-primary-gap-unbound: 5px;       /* SPEC "Label-to-field gap stays 5 ... has no token" */
   --hz-input-field-primary-stroke-unbound: 1px;    /* 1px border; --borderwidth-1 not bound */
-  --hz-input-field-primary-error-value-size-unbound: 13px;    /* 220:36 only — SPEC "Inter Regular 13" */
-  --hz-input-field-primary-error-value-leading-unbound: 16px; /* 220:36 only — unbound */
-  --hz-input-field-primary-error-value-family-unbound: Inter; /* --family-default is Inter but unbound */
-  --hz-input-field-primary-error-value-weight-unbound: 400;   /* "Regular"; --weight-regular not bound here */
+  /* The four --*-error-value-*-unbound properties that used to sit here are gone: 220:36
+     now binds Body/Medium, so there is no unbound Error typography left to park. */
 
   /* Auto-layout: vertical, items stretched to the full width. */
   display: flex;
@@ -367,17 +397,13 @@
   color: var(--color-text-negative);                    /* color/text/negative */
 }
 
-/* 220:36 is the ONE value layer in the set with no typography bound. It renders Inter
-   Regular 13/16 and binds none of it, while the other five bind Body/Medium. Parked as
-   literals rather than guessed at a token — see the unbound list in the header. Its
-   COLOUR is bound (color/text/primary) and comes from the base rule above. */
-.hz-input-field[data-variant='Primary'][data-state='Error'] .hz-input-field__input {
-  font-family: var(--hz-input-field-primary-error-value-family-unbound);
-  font-weight: var(--hz-input-field-primary-error-value-weight-unbound);
-  font-size: var(--hz-input-field-primary-error-value-size-unbound);
-  line-height: var(--hz-input-field-primary-error-value-leading-unbound);
-  letter-spacing: normal;                               /* no tracking bound on this layer */
-}
+/* 220:36 USED TO carry no typography binding, and this file parked the Inter 13/16
+   literals it rendered in `*-unbound` custom properties. The designer rebound it on
+   2026-10-04: 220:36 now binds Body/Medium, exactly like its five siblings. The override
+   is therefore GONE rather than retokenised, and the Error value inherits Body/Medium
+   from the base `.hz-input-field__input` rule above — which is what "the whole set binds
+   one composite" should look like in the cascade. Its colour (color/text/primary) was
+   already bound and already came from that same base rule. */
 
 /* State=Disabled — "the field cannot be edited." Wins over every other state.
    220:47 / 220:48 / 220:49, and the label on 220:45. */
@@ -386,15 +412,20 @@
   border-color: var(--color-border-disabled);           /* color/border/disabled */
 }
 
+/* All four now share ONE token. The label — 220:45 — used to bind
+   `color/text/disabled on dark` while the value (220:48) and helper (220:49) beside it
+   bound `color/text/disabled`; that mis-binding inverted the label in dark mode and was
+   reported, not patched. The designer rebound 220:45 on 2026-10-04, so the label joins
+   the group it always visually belonged to.
+
+   The two tokens are NOT interchangeable and the swap is a real one: they happen to read
+   #a1a8b1 and #c0c4ca in light, but diverge to #334155 and #1c242f in dark, which is how
+   the binding was identified by name rather than by pixel. Same trap as
+   `color/text/disabled` vs `color/text/input text`, both #a1a8b1 in light and
+   #334155 vs #5c6777 in dark. */
+.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__label,
 .hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__helper,
 .hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__input,
 .hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__input::placeholder {
   color: var(--color-text-disabled);                    /* color/text/disabled */
-}
-
-/* The label does NOT share the value's and helper's token. 220:45 binds
-   color/text/disabled ON DARK, on a light-mode label. Bound as the design binds it and
-   reported as a probable mis-binding — see the contrast notes in the header. */
-.hz-input-field[data-variant='Primary'][data-state='Disabled'] .hz-input-field__label {
-  color: var(--color-text-disabled-on-dark);            /* color/text/disabled on dark */
 }
