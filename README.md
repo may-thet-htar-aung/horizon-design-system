@@ -3,6 +3,30 @@
 Design tokens exported from Figma, compiled to CSS, Swift and Android XML by
 [Style Dictionary](https://styledictionary.com), and documented in Storybook.
 
+## Install
+
+`@theproductiveschedule/horizon-design-system` — React components and the design tokens they use.
+
+```bash
+npm install @theproductiveschedule/horizon-design-system react react-dom
+```
+
+```jsx
+import { Button, InputField, StatusBanner } from '@theproductiveschedule/horizon-design-system';
+import '@theproductiveschedule/horizon-design-system/tokens.css';
+import '@theproductiveschedule/horizon-design-system/styles.css';
+
+export function Example() {
+  return <Button label="Continue" />;
+}
+```
+
+Import `tokens.css` and `styles.css` once, at the root of the app. Dark values apply under
+`<html data-theme="dark">`. `react` and `react-dom` (19) are peer dependencies.
+
+Public components: `Button`, `CheckBox`, `InputField`, `InputFieldPassword`, `PinCodeCell`,
+`StatusBanner`.
+
 ## Commands
 
 ```bash
@@ -11,6 +35,8 @@ npm run build:tokens      # platform output only  → build/css, build/ios, buil
 npm run build:token-data  # Storybook data only   → build/storybook/*.json
 npm run storybook         # dev server on :6006 (rebuilds tokens first)
 npm run build:storybook   # static site → storybook-static/
+npm run build:package     # tokens → library → CSS, into dist/
+npm test                  # smoke test: dist/ is what package.json promises, every component renders
 ```
 
 ## Layout

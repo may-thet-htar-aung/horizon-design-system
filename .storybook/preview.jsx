@@ -2,6 +2,7 @@
 import '../build/css/tokens.css';
 import '../build/css/tokens-dark.css';
 import './gallery.css';
+import '../src/styles.css';
 
 /** @type { import('@storybook/react-vite').Preview } */
 export default {

@@ -27,7 +27,6 @@
  */
 
 import { useEffect, useState } from 'react';
-import './PinCode.css';
 
 export const PIN_CODE_CELL_STATES = ['Default', 'Hovered', 'Typed', 'Error', 'Disabled'];
 
