@@ -46,7 +46,7 @@ const FIGMA_NODE =
   'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50';
 
 export default {
-  title: 'Components/Input Field Primary',
+  title: 'Components/Input Field/Primary',
   tags: ['autodocs'],
   component: InputField,
   render: (args) => <InputField {...args} variant="Primary" />,

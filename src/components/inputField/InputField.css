@@ -240,7 +240,7 @@
   --hz-input-field-height-unbound: 52px;    /* SPEC "Field height 52"; no 52px size token */
   --hz-input-field-padding-unbound: 14px;   /* SPEC "Field padding stays 14 … has no token" */
   --hz-input-field-gap-unbound: 5px;        /* SPEC "gap … stays 5 … no token matches it" */
-  --hz-input-field-stroke-unbound: 1px;     /* 1px inside stroke; --borderwidth-1 not bound */
+  --hz-input-field-stroke: var(--borderwidth-1);   /* was raw 1px; token exists (release review R2) */
   /* The four value-type literals that used to sit here were deleted 2026-10-04 when the
      designer bound Body/Medium on all six value layers. See the header. */
 
@@ -298,7 +298,7 @@
   /* 227:2 Default binds NO stroke. Held transparent at the same width so the field
      keeps one height across every state; the stroke is "aligned inside" in Figma,
      which border-box above is what makes true. */
-  border: var(--hz-input-field-stroke-unbound) solid transparent;
+  border: var(--hz-input-field-stroke) solid transparent;
 }
 
 .hz-input-field__input {

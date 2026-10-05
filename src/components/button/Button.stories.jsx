@@ -51,6 +51,21 @@ export const GhostDefault = { args: { type: 'Ghost', state: 'Default' } };
 export const GhostHover = { args: { type: 'Ghost', state: 'Hover' } };
 export const GhostDisabled = { args: { type: 'Ghost', state: 'Disabled' } };
 
+/* ------------------------------------------------------- keyboard focus ring */
+
+/**
+ * Keyboard focus. The ring (.hz-button:focus-visible) is kept by designer decision
+ * although Figma has no focus cell. The play function focuses the button
+ * programmatically with no prior pointer input, so the browser matches
+ * :focus-visible and paints the ring - the same state a Tab key press produces.
+ */
+export const Focus = {
+  args: { type: 'Primary', state: 'Default', label: 'Continue' },
+  play: async ({ canvasElement }) => {
+    canvasElement.querySelector('button')?.focus();
+  },
+};
+
 /* --------------------------------------------------------- the icon toggles */
 
 export const IconLeft = {
