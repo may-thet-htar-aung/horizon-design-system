@@ -44,21 +44,19 @@
     {
       "when": "Do not drop the label unless the screen already names the value.",
       "instead": null
-    },
-    {
-      "when": "Do not use the placeholder as the label.",
-      "instead": null
     }
   ],
   "variant_intent": {
     "variant=Primary": "Use it when a person must enter one piece of information, such as an email or a check-in date.",
     "variant=Mobile": "Use it on phone screens, where the 52px field is the touch target.",
-    "State=Default": "",
-    "State=Hovered": "",
-    "State=Typed": "",
+    "State=Default": "Default — empty. Shows the placeholder.",
+    "State=Hovered": "Hovered — pointer is over the field. Border shifts to brand.",
+    "State=Typed": "Typed — the field holds a value.",
     "State=Error": "Use Error when the value has to change. Use Warning when it can be submitted and the risk should be called out.",
     "State=Warning": "Use Error when the value has to change. Use Warning when it can be submitted and the risk should be called out.",
-    "State=Disabled": "Implement Disabled in code, not just visually. Color alone is not enough."
+    "State=Disabled": "Implement Disabled in code, not just visually. Color alone is not enough.",
+    "Show Label": "Label and Helper text are text properties, each with a Show toggle. Turn either off when that line is not needed.",
+    "Show Helper text": "Label and Helper text are text properties, each with a Show toggle. Turn either off when that line is not needed."
   },
   "placement": [
     "Stacked in a form, one field per row with its label above: 'Full Name', 'Email' and 'Password' in the Figma 'Component Appearance' examples, with a Primary button below.",

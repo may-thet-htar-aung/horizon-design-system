@@ -39,8 +39,8 @@
     "Type=Primary": "Use it for the one main action in a view or dialog. Keep to one Primary per screen.",
     "Type=Outline": "Use it beside a Primary for a secondary action, such as Cancel next to a Primary Save.",
     "Type=Ghost": "Use it for a low-emphasis action, such as a toolbar command, a dismissal, or an inline action in a card.",
-    "State=Default": "",
-    "State=Hover": "",
+    "State=Default": "Primary — Fill is color/bg/primary/idle. Outline — Fill is color/bg/base. Border is color/border/brand/default. Ghost — No fill and no border at rest.",
+    "State=Hover": "Primary — color/bg/primary/hovered on hover. Outline — Hover fills color/bg/primary/Light and moves the border to color/border/brand/bold. Ghost — hover fill color/bg/primary/Light. Hover does not replace keyboard focus.",
     "State=Disabled": "Implement Disabled in code, not just visually — color alone shouldn't signal state.",
     "Show Icon Left": "Use the leading icon to clarify the action and the trailing icon for forward movement. Both Show Icon toggles start off.",
     "Show Icon Right": "Use the leading icon to clarify the action and the trailing icon for forward movement. Both Show Icon toggles start off."
@@ -100,6 +100,10 @@
     {
       "fact": "Keyboard focus is not in this set yet. Do not treat hover as a substitute.",
       "source": "Figma 198:528, Best Practice"
+    },
+    {
+      "fact": "Keyboard focus shows a ring (outline width borderwidth-3, colour color-border-brand-bold, offset spacing-2) on :focus-visible. The ring is not in Figma; it is kept by designer decision and shown in the Focus story (components-button--focus).",
+      "source": "src/components/button/Button.css:49 (code; not in Figma). Story: src/components/button/Button.stories.jsx Focus"
     }
   ]
 }
