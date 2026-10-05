@@ -27,6 +27,11 @@ only means *the seven gates passed*. It is not permission to publish. It tells a
 component is fit to carry a version number; choosing the number, and standing behind what it
 promises, stays with the human.
 
+**Who does what.** The human approves the version and is the only one who edits `package.json` and
+tags. The `release` agent *performs the publish* once the human has approved the version, through
+`npm run release:publish`, which refuses unless `package.json` already says that version. An agent
+never picks the number, edits `package.json`, or tags.
+
 Similarly, `Released` in the registry is a **record that a release happened**, not an instruction
 to perform one. An agent reading `Released` should conclude the work is finished and published —
 never that it should now go and publish something.
@@ -35,10 +40,16 @@ never that it should now go and publish something.
 
 1. `Development` reads `Completed` — the component is live in production
 2. reviewer clears it — `Release Review` and `Release Verdict` written together
-3. devops records `Astro Link` — `Development` reads `Released`
-4. **A human** bumps `package.json`, tags, and publishes
+3. **A human approves the version.** The `release` agent proposes one and names the change that forces
+   it; the human approves it by naming it in the instruction ("release and publish 0.1.0") and by
+   putting it in `package.json` on `main`, through `staging`. No agent edits `package.json`.
+4. The `release` agent publishes the package through `npm run release:publish`, for `Cleared`
+   components only. It does not tag.
+5. The doc-generator takes the docs site live, only after the publish
+6. devops opens each docs page and records `Astro Link` — `Development` reads `Released`
+7. **A human tags the release.**
 
-Steps 2 and 3 are currently parked: the release-review skill does not exist, so gate 4 is
-unreachable and `Completed` is the working finish line. See "Gate 4 is currently unreachable" in
-`.claude/skills/registry/SKILL.md`. Until that changes, step 4 is a human's judgement call made on
-a `Completed` component, with no cleared verdict behind it.
+Steps 3 and 4 are the change from the original order, where a human did all of them. Publishing is now
+an agent's job, with the version approval and the tag still a human's. Each step waits on the one
+before it: nothing is published on a `Blocked` or empty verdict, and no docs page is recorded before
+the package it describes is on npm.
