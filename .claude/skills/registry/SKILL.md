@@ -199,16 +199,22 @@ picture of the system, not the system.
 | To Do | `To-do` | same stage |
 | Ready for QA | `Ready for Testing` | **different name, same stage** |
 | Fixed · Fixing · To be fixed · To be deployed | identical | same |
-| Done | `Completed` | **different name, same stage** |
+| Completed | `Completed` | same (renamed from `Done` on the board on 2026-10-05) |
+| Cleared · Blocked | `Release Verdict` | not `Development` values; the reviewer's verdict cells |
+| Released | `Released` | same, added to the board on 2026-10-05 |
 | Closed | — | no `Development` equivalent; it is the pm audit's conclusion |
-| — | `Released` | not on the board at all |
 
 Read a board name as its `Development` equivalent. **Never write a board name into a cell** — the
-select options are the `Development` vocabulary, and `Ready for QA` and `Done` are not among them.
+select options are the `Development` vocabulary, and `Ready for QA` is not among them. (`Done` is
+still a value of the **`Design`** column, which is the designer's; it is unrelated to the board's
+old `Done` status.)
 
-**The board ends at Done, and that corroborates the parking of gate 4.** It has no `Released` stage
-and no reviewer lane. `Completed` being the working finish line is therefore not only a consequence
-of D10 — it is what the intended model describes.
+**The board now has a release lane.** On 2026-10-05 the board gained a Release (Agent) row that ends
+in `Cleared` or `Blocked`, and a Doc-generator (Agent) row that ends
+in `Released`. The DevOps row records `Astro Link` after opening the live page, in line with the
+`devops` ownership above. This replaces the earlier reading that the board ends at `Done`, so the
+board no longer corroborates the parking of gate 4. Gate 4 is still unreachable until
+`.claude/skills/release-review/SKILL.md` exists (D10).
 
 ## The one column two agents share
 
@@ -368,7 +374,10 @@ Three gaps between the Mai Crew board and this base, none of them resolved:
   the loop in practice starts at the designer. This is the one place the board is ahead of this
   contract rather than behind it.
 - **`reviewer` and `token-runner` are not on the board.** Both exist as agent files. The board's
-  cast is Client, Designer, Developer, QA, DevOps, PM.
+  cast was Client, Designer, Developer, QA, DevOps, PM. As of 2026-10-05 it also shows a Release
+  agent and a Doc-generator; neither has an agent file yet, and `reviewer` and `token-runner` are
+  still absent. Which of Release and `reviewer` writes `Release Review` and `Release Verdict` is not
+  yet settled on the board; this contract keeps both cells with `reviewer`.
 
 **D15 — RESOLVED 2026-10-04. A design change to a finished component now wakes the engineer.**
 **The problem, as it stood.** The ladder read `Design` only at gate 8, and only for the value
