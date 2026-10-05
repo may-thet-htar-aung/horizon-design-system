@@ -101,8 +101,8 @@
   /* ---- unbound: no token carries these; the node's own literals, parked ---- */
   --hz-status-banner-radius-unbound: 6px;        /* SPEC: "Radius 6. That step has no token." */
   --hz-status-banner-padding-block-unbound: 11px;/* SPEC: "Top and bottom stay 11." no 11 step */
-  --hz-status-banner-stroke-unbound: 1px;        /* 1px border; --borderwidth-1 exists, NOT bound */
-  --hz-status-banner-icon-size-unbound: 16px;    /* Icon area 16x16; no size token bound */
+  --hz-status-banner-stroke: var(--borderwidth-1);   /* was raw 1px; token exists (release review R2) */
+  --hz-status-banner-icon-size: var(--spacing-16);   /* was raw 16px; token exists (release review R2) */
 
   --hz-status-banner-message-family-unbound: Inter;  /* --family-default exists, NOT bound */
   --hz-status-banner-message-weight-unbound: 400;    /* --weight-regular exists, NOT bound */
@@ -123,7 +123,7 @@
   padding-block: var(--hz-status-banner-padding-block-unbound);
   padding-inline: var(--spacing-12);
 
-  border: var(--hz-status-banner-stroke-unbound) solid transparent;
+  border: var(--hz-status-banner-stroke) solid transparent;
   border-radius: var(--hz-status-banner-radius-unbound);
 }
 
@@ -176,14 +176,14 @@
   justify-content: center;
   flex-shrink: 0;
   overflow: hidden;
-  width: var(--hz-status-banner-icon-size-unbound);
-  height: var(--hz-status-banner-icon-size-unbound);
+  width: var(--hz-status-banner-icon-size);
+  height: var(--hz-status-banner-icon-size);
 }
 
 .hz-status-banner__icon-area svg {
   display: block;
-  width: var(--hz-status-banner-icon-size-unbound);
-  height: var(--hz-status-banner-icon-size-unbound);
+  width: var(--hz-status-banner-icon-size);
+  height: var(--hz-status-banner-icon-size);
 }
 
 /* ------------------------------------- Message · 269:9 / 269:13 / 269:17 */

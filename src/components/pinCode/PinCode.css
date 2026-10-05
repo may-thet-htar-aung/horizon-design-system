@@ -69,20 +69,20 @@
 .hz-pincode-cell {
   /* Unbound in Figma — the node's literal values, parked, not tokenised. */
   --hz-pincode-width-unbound: 52px;    /* SPEC "Size 52 by 56"; no 52px token exists */
-  --hz-pincode-height-unbound: 56px;   /* SPEC "Size 52 by 56"; --spacing-56 not bound */
+  --hz-pincode-height: var(--spacing-56);   /* was raw 56px; token exists (release review R2) */
   --hz-pincode-radius-unbound: 6px;    /* SPEC "Radius 6 has no token" — confirmed */
-  --hz-pincode-stroke-unbound: 1px;    /* SPEC "stroke weight 1"; --borderwidth-1 not bound */
+  --hz-pincode-stroke: var(--borderwidth-1);   /* was raw 1px; token exists (release review R2) */
 
   /* Auto-layout: centre/centre, fixed width and height. */
   display: flex;
   align-items: center;
   justify-content: center;
   width: var(--hz-pincode-width-unbound);
-  height: var(--hz-pincode-height-unbound);
+  height: var(--hz-pincode-height);
   box-sizing: border-box;
 
   /* Stroke is "aligned inside" in Figma — border-box above is what makes that true. */
-  border: var(--hz-pincode-stroke-unbound) solid var(--color-border-surfaceprimary);
+  border: var(--hz-pincode-stroke) solid var(--color-border-surfaceprimary);
   border-radius: var(--hz-pincode-radius-unbound);
   background-color: var(--color-bg-base);         /* color/bg/base */
 

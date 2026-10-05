@@ -204,4 +204,38 @@ Version: <bump> — forced by <named change>
 
 Findings that are not defects get ruled on here, with **what it means for an agent that hits it** and
 **what is not ruled** — a narrow ruling with no boundary gets stretched to cover things nobody
-decided. Empty until a human rules.
+decided.
+
+### Ruling 1 · Documented-unbound px lengths pass R2 (ruled 2026-10-05 by the designer)
+
+- **Rule.** A raw `px` length in a component's CSS is not an R2 finding when **all three** hold: the
+  design leaves that value unbound (the Figma node has no variable on it), the CSS names it as such
+  (an `--hz-<component>-…-unbound` custom property, with the reason in the file header), and the
+  exported tokens have no token with that value that fits the property.
+- **What it means for the agent.** Do not report those literals. Still report any `px` length that has
+  a token available (at ruling time: 1px `--borderwidth-1`, 16px `--spacing-16`, 40px `--spacing-40`,
+  56px `--spacing-56`) — that is a finding, owner engineer. List the unbound ones once in the report
+  under "Ruled, not findings", so the exception stays visible.
+- **Not ruled.** Raw hex, `rgb()` and `hsl()` colours are never covered. A px length that is not marked
+  `-unbound` is not covered. An unbound value that later gains a Figma token is a finding again.
+
+### Ruling 2 · The published name is the exported symbol (ruled 2026-10-05 by the designer)
+
+- **Rule.** The exported symbol is the component's name. For Pin Code that is `PinCodeCell`; the
+  package, the intent file and the class stay as they are. The board row is a human's to rename to
+  match, and until it is renamed R4 reports it once, owner a human, not the engineer.
+- **What it means for the agent.** Do not ask the engineer to rename `PinCodeCell`. Compare the other
+  four places against the symbol, ignoring case style and separators ("Check Box" and `CheckBox` are
+  the same word).
+- **Not ruled.** A symbol that differs from its own folder or intent file by a different word is still a
+  finding. Renaming a published symbol later is still a MAJOR bump.
+
+### Ruling 3 · Input Field is one component with two board rows (ruled 2026-10-05 by the designer)
+
+- **Rule.** `InputField` is one component with a `variant` prop. The board's `Input Field / Primary`
+  and `Input Field / Mobile` rows are its two Figma variants, kept as two rows on purpose; the code is
+  not split.
+- **What it means for the agent.** Compare R4 for both rows against `InputField`. Do not report the two
+  board rows, or the single `InputField` symbol, as a mismatch.
+- **Not ruled.** Storybook titles that do not match the symbol are still an R4 finding for the
+  engineer. A third Input Field row, or a variant with its own export, is not covered.

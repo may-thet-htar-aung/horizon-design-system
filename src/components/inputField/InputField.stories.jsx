@@ -23,7 +23,7 @@
 import { InputField, INPUT_FIELD_STATES } from './InputField.jsx';
 
 export default {
-  title: 'Components/Input Field',
+  title: 'Components/Input Field/Mobile',
   tags: ['autodocs'],
   component: InputField,
   render: (args) => <InputField {...args} />,
