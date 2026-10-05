@@ -218,3 +218,24 @@ decided.
   under "Ruled, not findings", so the exception stays visible.
 - **Not ruled.** Raw hex, `rgb()` and `hsl()` colours are never covered. A px length that is not marked
   `-unbound` is not covered. An unbound value that later gains a Figma token is a finding again.
+
+### Ruling 2 · The published name is the exported symbol (ruled 2026-10-05 by the designer)
+
+- **Rule.** The exported symbol is the component's name. For Pin Code that is `PinCodeCell`; the
+  package, the intent file and the class stay as they are. The board row is a human's to rename to
+  match, and until it is renamed R4 reports it once, owner a human, not the engineer.
+- **What it means for the agent.** Do not ask the engineer to rename `PinCodeCell`. Compare the other
+  four places against the symbol, ignoring case style and separators ("Check Box" and `CheckBox` are
+  the same word).
+- **Not ruled.** A symbol that differs from its own folder or intent file by a different word is still a
+  finding. Renaming a published symbol later is still a MAJOR bump.
+
+### Ruling 3 · Input Field is one component with two board rows (ruled 2026-10-05 by the designer)
+
+- **Rule.** `InputField` is one component with a `variant` prop. The board's `Input Field / Primary`
+  and `Input Field / Mobile` rows are its two Figma variants, kept as two rows on purpose; the code is
+  not split.
+- **What it means for the agent.** Compare R4 for both rows against `InputField`. Do not report the two
+  board rows, or the single `InputField` symbol, as a mismatch.
+- **Not ruled.** Storybook titles that do not match the symbol are still an R4 finding for the
+  engineer. A third Input Field row, or a variant with its own export, is not covered.
