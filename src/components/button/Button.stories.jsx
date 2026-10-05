@@ -7,12 +7,13 @@
  * x State (Default | Hover | Disabled), plus the Show Icon toggles.
  */
 
-import { createButton, BUTTON_TYPES, BUTTON_STATES } from './button.js';
+import { Button, BUTTON_TYPES, BUTTON_STATES } from './Button.jsx';
 
 export default {
   title: 'Components/Button',
   tags: ['autodocs'],
-  render: (args) => createButton(args),
+  component: Button,
+  render: (args) => <Button {...args} />,
   argTypes: {
     type: { control: { type: 'inline-radio' }, options: BUTTON_TYPES },
     state: { control: { type: 'inline-radio' }, options: BUTTON_STATES },
@@ -66,25 +67,28 @@ export const IconBoth = {
 
 /* -------------------------------------------- the whole set, as Figma lays it out */
 
-function grid() {
-  const wrap = document.createElement('div');
-  wrap.style.display = 'grid';
-  wrap.style.gridTemplateColumns = 'repeat(3, max-content)';
-  wrap.style.gap = 'var(--gap-section) var(--gap-gutter)';
-  wrap.style.alignItems = 'center';
-  // Width is automatic — don't let the grid stretch buttons to the column.
-  wrap.style.justifyItems = 'start';
-
-  for (const type of BUTTON_TYPES) {
-    for (const state of BUTTON_STATES) {
-      wrap.append(createButton({ type, state, label: 'Continue' }));
-    }
-  }
-
-  return wrap;
+function Grid() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'repeat(3, max-content)',
+        gap: 'var(--gap-section) var(--gap-gutter)',
+        alignItems: 'center',
+        // Width is automatic — don't let the grid stretch buttons to the column.
+        justifyItems: 'start',
+      }}
+    >
+      {BUTTON_TYPES.flatMap((type) =>
+        BUTTON_STATES.map((state) => (
+          <Button key={type + state} type={type} state={state} label="Continue" />
+        )),
+      )}
+    </div>
+  );
 }
 
 export const AllVariants = {
-  render: () => grid(),
+  render: () => <Grid />,
   parameters: { controls: { disable: true } },
 };

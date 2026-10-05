@@ -3,7 +3,7 @@ import '../build/css/tokens.css';
 import '../build/css/tokens-dark.css';
 import './gallery.css';
 
-/** @type { import('@storybook/html-vite').Preview } */
+/** @type { import('@storybook/react-vite').Preview } */
 export default {
   globalTypes: {
     theme: {
@@ -21,14 +21,14 @@ export default {
     },
   },
   decorators: [
-    (story, context) => {
+    (Story, context) => {
       // tokens-dark.css is scoped to [data-theme="dark"], so flip it on the root.
       document.documentElement.setAttribute('data-theme', context.globals.theme);
-      const wrap = document.createElement('div');
-      wrap.className = 'hz-root';
-      const result = story();
-      wrap.append(typeof result === 'string' ? document.createRange().createContextualFragment(result) : result);
-      return wrap;
+      return (
+        <div className="hz-root">
+          <Story />
+        </div>
+      );
     },
   ],
   parameters: {

@@ -1,3 +1,4 @@
+import { createElement, useEffect, useRef } from 'react';
 // Shared rendering helpers. Every story is driven by the JSON that
 // build-token-data.js emits, so nothing here hardcodes a token value.
 
@@ -202,8 +203,21 @@ export const tokenTable = (records, { showView = false } = {}) => {
 };
 
 /** Wrap a string body in the page shell and return a DOM node. */
-export const render = (html) => {
+/** React host that mounts a ready-made DOM node. */
+function NodeHost({ node }) {
+  const ref = useRef(null);
+  useEffect(() => {
+    ref.current.replaceChildren(node);
+  }, [node]);
+  return createElement('div', { ref });
+}
+
+export const mount = (node) => createElement(NodeHost, { node });
+
+export const renderDom = (html) => {
   const el = document.createElement('div');
   el.innerHTML = html;
   return el;
 };
+
+export const render = (html) => mount(renderDom(html));

@@ -17,7 +17,7 @@
  * with the designer rather than silently collapsed.
  */
 
-import { createCheckBox, CHECK_BOX_STATES } from './checkBox.js';
+import { CheckBox, CHECK_BOX_STATES } from './CheckBox.jsx';
 
 const FIGMA_URL =
   'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=251-19';
@@ -25,7 +25,8 @@ const FIGMA_URL =
 export default {
   title: 'Components/Check Box',
   tags: ['autodocs'],
-  render: (args) => createCheckBox(args),
+  component: CheckBox,
+  render: (args) => <CheckBox {...args} />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: CHECK_BOX_STATES },
     label: { control: 'text' },
@@ -50,28 +51,36 @@ export const Disabled = { args: { state: 'Disabled' } };
 
 /* ------------------------------------- the whole set, as Figma lays it out */
 
-function column() {
-  const wrap = document.createElement('div');
-  wrap.style.display = 'grid';
-  wrap.style.gridTemplateColumns = 'max-content max-content';
-  wrap.style.gap = 'var(--gap-component) var(--gap-gutter)';
-  wrap.style.alignItems = 'center';
-  wrap.style.justifyItems = 'start';
-
-  for (const state of CHECK_BOX_STATES) {
-    const name = document.createElement('span');
-    name.textContent = state;
-    name.style.fontFamily = 'var(--family-plain)';
-    name.style.fontSize = 'var(--size-label-large)';
-    name.style.color = 'var(--color-text-primary)';
-    wrap.append(createCheckBox({ state, label: state }), name);
-  }
-
-  return wrap;
+function Column() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'max-content max-content',
+        gap: 'var(--gap-component) var(--gap-gutter)',
+        alignItems: 'center',
+        justifyItems: 'start',
+      }}
+    >
+      {CHECK_BOX_STATES.flatMap((state) => [
+        <CheckBox key={state} state={state} label={state} />,
+        <span
+          key={state + '-name'}
+          style={{
+            fontFamily: 'var(--family-plain)',
+            fontSize: 'var(--size-label-large)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
+          {state}
+        </span>,
+      ])}
+    </div>
+  );
 }
 
 export const AllVariants = {
-  render: () => column(),
+  render: () => <Column />,
   parameters: { controls: { disable: true } },
 };
 
@@ -80,17 +89,12 @@ export const AllVariants = {
    toggles on click, Space and Enter. Disabled below it refuses all three. */
 
 export const Interactive = {
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.gap = 'var(--gap-gutter)';
-    wrap.style.alignItems = 'center';
-    wrap.append(
-      createCheckBox({ state: 'Unchecked', label: 'Keep me signed in' }),
-      createCheckBox({ state: 'Checked', label: 'Already on' }),
-      createCheckBox({ state: 'Disabled', label: 'Cannot be changed' }),
-    );
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--gap-gutter)', alignItems: 'center' }}>
+      <CheckBox state="Unchecked" label="Keep me signed in" />
+      <CheckBox state="Checked" label="Already on" />
+      <CheckBox state="Disabled" label="Cannot be changed" />
+    </div>
+  ),
   parameters: { controls: { disable: true } },
 };

@@ -101,7 +101,7 @@
  * ===========================================================================
  * WHAT THE DESIGN LEAVES UNBOUND — reported, never invented
  * ===========================================================================
- * See the header of inputFieldPassword.css for the full list and the SPEC line beside
+ * See the header of InputFieldPassword.css for the full list and the SPEC line beside
  * each.
  *
  * The one that changed behaviour is now CLOSED (2026-10-04): the three `hide` variants
@@ -116,7 +116,8 @@
  * the placeholder's contrast. Neither is invented in code.
  */
 
-import './inputFieldPassword.css';
+import { useEffect, useId, useState } from 'react';
+import './InputFieldPassword.css';
 import eyeCrossed from './icons/eye-crossed.svg?raw';
 import eye from './icons/eye.svg?raw';
 
@@ -168,16 +169,13 @@ const SAMPLE = {
   helperText: 'Helper text goes here',
 };
 
-let uid = 0;
-
-/** The Icon slot accepts an SVG string or a live node, as checkBox's does. */
-function renderIcon(slot, icon) {
-  slot.replaceChildren();
-  if (typeof icon === 'string') {
-    slot.innerHTML = icon;
-  } else if (icon instanceof Node) {
-    slot.append(icon);
-  }
+/** The Icon slot accepts an SVG string or any React node. */
+function Glyph({ icon }) {
+  return typeof icon === 'string' ? (
+    <span style={{ display: 'contents' }} dangerouslySetInnerHTML={{ __html: icon }} />
+  ) : (
+    icon
+  );
 }
 
 /**
@@ -187,22 +185,19 @@ function renderIcon(slot, icon) {
  * @param {boolean} [props.revealed]
  *   Whether the secret is shown. The other half of `Property 1`: false renders the
  *   `hide` cell and the crossed eye, true renders the `Open` cell and the open eye.
- *   Defaults to false, which is what every Figma cell without an `Open` suffix shows.
+ *   Starts from this value and follows it when it changes; the eye button toggles it.
  * @param {boolean} [props.showIcon]
  *   Figma: `Show icon` — boolean property. "Show icon hides the control." When false
  *   the reveal control is not rendered and the field cannot be unmasked by the user.
- * @param {string|Node} [props.icon]
+ * @param {string|import('react').ReactNode} [props.icon]
  *   Figma: `Icon` — instance-swap property. "Icon swaps the glyph." Replaces the glyph
  *   in both the hidden and revealed positions; pass `iconRevealed` to swap only the
  *   revealed one.
- * @param {string|Node} [props.iconRevealed]
- *   NOT a Figma property. Figma models the two glyphs as two instances whose visibility
- *   swaps; a single `Icon` property there would swap both. Exposed separately here so a
- *   consumer can override one without losing the other.
+ * @param {string|import('react').ReactNode} [props.iconRevealed]
+ *   NOT a Figma property. Exposed separately so a consumer can override one glyph
+ *   without losing the other.
  * @param {string} [props.label]
- *   NOT a Figma property — the node has no Label property; "Password" is fixed copy on
- *   all nine variants. A real <label> needs real text, so it is a prop with that
- *   default.
+ *   NOT a Figma property — "Password" is fixed copy on all nine variants.
  * @param {string} [props.helperText]
  *   NOT a Figma property, for the same reason. The node's helper is fixed copy.
  * @param {string} [props.value]
@@ -210,12 +205,12 @@ function renderIcon(slot, icon) {
  * @param {string} [props.placeholder]
  *   NOT a Figma property — sample copy on the variant.
  * @param {(revealed: boolean) => void} [props.onRevealChange]
- * @param {(value: string, event: Event) => void} [props.onChange]
- * @returns {HTMLDivElement}
+ * @param {(value: string, event: import('react').ChangeEvent<HTMLInputElement>) => void} [props.onChange]
+ *   Any other prop (name, required, …) goes to the <input>.
  */
-export function createInputFieldPassword({
+export function InputFieldPassword({
   state = 'Default',
-  revealed = false,
+  revealed: revealedProp = false,
   showIcon = true,
   icon,
   iconRevealed,
@@ -225,140 +220,102 @@ export function createInputFieldPassword({
   placeholder = SAMPLE.placeholder,
   onRevealChange,
   onChange,
-} = {}) {
-  const id = `hz-input-field-password-${++uid}`;
+  ...inputProps
+}) {
+  const id = useId();
   const helperId = `${id}-helper`;
-
-  const root = document.createElement('div');
-  root.className = 'hz-input-field-password';
-  root.dataset.state = state;
-  root.dataset.revealed = revealed ? 'true' : 'false';
-
-  /* ------------------------------------------- Label row (234:928 … 244:218) */
-  const labelRow = document.createElement('div');
-  labelRow.className = 'hz-input-field-password__label-row';
-
-  const labelEl = document.createElement('label');
-  labelEl.className = 'hz-input-field-password__label';
-  labelEl.htmlFor = id;
-  labelEl.textContent = label;
-
-  labelRow.append(labelEl);
-  root.append(labelRow);
-
-  /* ----------------------------------------- Field group (234:930 … 244:220) */
-  const fieldGroup = document.createElement('div');
-  fieldGroup.className = 'hz-input-field-password__field-group';
-  root.append(fieldGroup);
-
-  /* ---------------------------------------------- Field (234:931 … 244:221) */
-  const field = document.createElement('div');
-  field.className = 'hz-input-field-password__field';
-
-  /* ------------------------------------------- Icon row (234:932 … 244:222) */
-  const iconRow = document.createElement('div');
-  iconRow.className = 'hz-input-field-password__icon-row';
-
-  const input = document.createElement('input');
-  input.className = 'hz-input-field-password__input';
-  input.id = id;
-  input.placeholder = placeholder;
-  // `revealed` IS the input type. This is the real mechanism the design's two icon
-  // instances stand for, and what a password manager and a screen reader read.
-  input.type = revealed ? 'text' : 'password';
-  // Browser-managed reveal would sit on top of the design's own control.
-  input.setAttribute('autocomplete', 'current-password');
+  const disabled = state === 'Disabled';
 
   // Default, Hovered and Disabled render the placeholder — the node shows "Type here"
   // on all three. Typed, Error and Warning carry the secret.
-  input.value = value ?? (STATES_SHOWING_VALUE.includes(state) ? SAMPLE.value : '');
+  const initial = value ?? (STATES_SHOWING_VALUE.includes(state) ? SAMPLE.value : '');
+  const [text, setText] = useState(initial);
+  useEffect(() => setText(initial), [initial]);
 
-  input.disabled = state === 'Disabled';
+  const [revealed, setRevealed] = useState(revealedProp);
+  useEffect(() => setRevealed(revealedProp), [revealedProp]);
 
-  // Error is announced, not only coloured. Warning is advisory — the helper carries it.
-  if (state === 'Error') {
-    input.setAttribute('aria-invalid', 'true');
-  }
-
-  iconRow.append(input);
-
-  /* -------------------------------------- Icon area (234:934 … 244:224)
-     The trailing reveal affordance. Figma draws two instances and swaps their
-     visibility; here it is ONE real <button> whose glyph swaps, because the thing the
-     design is describing is a control the user operates, and a control needs to be
-     reachable, pressable and announced. */
-  let toggle;
-  if (showIcon) {
-    toggle = document.createElement('button');
-    toggle.className = 'hz-input-field-password__icon-area';
-    toggle.type = 'button';
-    // The field is the labelled thing; this button needs its own name.
-    toggle.setAttribute('aria-label', revealed ? 'Hide password' : 'Show password');
-    toggle.setAttribute('aria-pressed', revealed ? 'true' : 'false');
-    toggle.setAttribute('aria-controls', id);
-    // "Disabled — the field cannot be edited." A disabled field's reveal control is
-    // disabled with it, which is also why the node shows the crossed eye on Disabled.
-    toggle.disabled = state === 'Disabled';
-
-    renderIcon(toggle, revealed ? (iconRevealed ?? icon ?? eye) : (icon ?? eyeCrossed));
-
-    iconRow.append(toggle);
-  }
-
-  field.append(iconRow);
-  fieldGroup.append(field);
-
-  /* ------------------------------------------ Helper row (234:937 … 244:227) */
-  const helperRow = document.createElement('div');
-  helperRow.className = 'hz-input-field-password__helper-row';
-
-  const helperEl = document.createElement('p');
-  helperEl.className = 'hz-input-field-password__helper';
-  helperEl.id = helperId;
-  helperEl.textContent = helperText;
-
-  helperRow.append(helperEl);
-  fieldGroup.append(helperRow);
-
-  input.setAttribute('aria-describedby', helperId);
-
-  /* ------------------------------------------------------------- behaviour */
-  const paintFilled = () => {
-    root.dataset.filled = input.value.length > 0 ? 'true' : 'false';
+  const toggle = () => {
+    if (disabled) return;
+    setRevealed(!revealed);
+    if (onRevealChange) onRevealChange(!revealed);
   };
 
-  const setRevealed = (next) => {
-    if (input.disabled) return;
-    revealed = next;
-    root.dataset.revealed = revealed ? 'true' : 'false';
-    input.type = revealed ? 'text' : 'password';
-    if (toggle) {
-      toggle.setAttribute('aria-label', revealed ? 'Hide password' : 'Show password');
-      toggle.setAttribute('aria-pressed', revealed ? 'true' : 'false');
-      renderIcon(toggle, revealed ? (iconRevealed ?? icon ?? eye) : (icon ?? eyeCrossed));
-    }
-    if (onRevealChange) onRevealChange(revealed);
-  };
+  const glyph = revealed ? (iconRevealed ?? icon ?? eye) : (icon ?? eyeCrossed);
 
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      setRevealed(!revealed);
-      // The point of the control is to read the field; keep the caret where it was.
-      input.focus();
-    });
-  }
+  return (
+    <div
+      className="hz-input-field-password"
+      data-state={state}
+      data-revealed={revealed ? 'true' : 'false'}
+      data-filled={text.length > 0 ? 'true' : 'false'}
+    >
+      {/* Label row (234:928 … 244:218) */}
+      <div className="hz-input-field-password__label-row">
+        <label className="hz-input-field-password__label" htmlFor={id}>
+          {label}
+        </label>
+      </div>
 
-  input.addEventListener('input', (event) => {
-    paintFilled();
-    if (onChange) onChange(input.value, event);
-  });
+      {/* Field group (234:930 … 244:220) */}
+      <div className="hz-input-field-password__field-group">
+        <div className="hz-input-field-password__field">
+          <div className="hz-input-field-password__icon-row">
+            <input
+              autoComplete="current-password"
+              {...inputProps}
+              className="hz-input-field-password__input"
+              id={id}
+              placeholder={placeholder}
+              // `revealed` IS the input type. This is the real mechanism the design's
+              // two icon instances stand for, and what a password manager and a screen
+              // reader read.
+              type={revealed ? 'text' : 'password'}
+              value={text}
+              disabled={disabled}
+              // Error is announced, not only coloured. Warning is advisory.
+              aria-invalid={state === 'Error' ? 'true' : undefined}
+              aria-describedby={helperId}
+              onChange={(event) => {
+                setText(event.target.value);
+                if (onChange) onChange(event.target.value, event);
+              }}
+            />
 
-  paintFilled();
+            {/* Icon area (234:934 … 244:224) — ONE real <button> whose glyph swaps,
+                because the design describes a control the user operates. */}
+            {showIcon && (
+              <button
+                className="hz-input-field-password__icon-area"
+                type="button"
+                // The field is the labelled thing; this button needs its own name.
+                aria-label={revealed ? 'Hide password' : 'Show password'}
+                aria-pressed={revealed ? 'true' : 'false'}
+                aria-controls={id}
+                // "Disabled — the field cannot be edited." A disabled field's reveal
+                // control is disabled with it.
+                disabled={disabled}
+                onClick={(event) => {
+                  toggle();
+                  // The point of the control is to read the field; keep the caret.
+                  event.currentTarget.parentElement.querySelector('input')?.focus();
+                }}
+              >
+                <Glyph icon={glyph} />
+              </button>
+            )}
+          </div>
+        </div>
 
-  // Lets a story or a consumer drive the toggle without reaching into the DOM.
-  root.setRevealed = setRevealed;
-
-  return root;
+        {/* Helper row (234:937 … 244:227) */}
+        <div className="hz-input-field-password__helper-row">
+          <p className="hz-input-field-password__helper" id={helperId}>
+            {helperText}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-export default createInputFieldPassword;
+export default InputFieldPassword;

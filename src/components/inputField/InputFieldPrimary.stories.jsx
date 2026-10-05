@@ -40,7 +40,7 @@
  * by eye at all.
  */
 
-import { createInputField, INPUT_FIELD_STATES } from './inputField.js';
+import { InputField, INPUT_FIELD_STATES } from './InputField.jsx';
 
 const FIGMA_NODE =
   'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50';
@@ -48,7 +48,8 @@ const FIGMA_NODE =
 export default {
   title: 'Components/Input Field Primary',
   tags: ['autodocs'],
-  render: (args) => createInputField({ ...args, variant: 'Primary' }),
+  component: InputField,
+  render: (args) => <InputField {...args} variant="Primary" />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: INPUT_FIELD_STATES },
     label: { control: 'text' },
@@ -145,35 +146,28 @@ const SAMPLE_VALUE = {
   Disabled: '',
 };
 
-function column() {
-  const wrap = document.createElement('div');
-  wrap.style.display = 'flex';
-  wrap.style.flexDirection = 'column';
-  wrap.style.gap = 'var(--spacing-24)';
-  wrap.style.alignItems = 'flex-start';
+const stateName = {
+  display: 'block',
+  fontFamily: 'var(--family-plain)',
+  fontSize: 'var(--size-label-large)',
+  color: 'var(--color-text-primary)',
+};
 
-  for (const state of INPUT_FIELD_STATES) {
-    const row = document.createElement('div');
-
-    const name = document.createElement('span');
-    name.textContent = state;
-    name.style.display = 'block';
-    name.style.fontFamily = 'var(--family-plain)';
-    name.style.fontSize = 'var(--size-label-large)';
-    name.style.color = 'var(--color-text-primary)';
-
-    row.append(
-      name,
-      createInputField({ variant: 'Primary', state, value: SAMPLE_VALUE[state] }),
-    );
-    wrap.append(row);
-  }
-
-  return wrap;
+function Column() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+      {INPUT_FIELD_STATES.map((state) => (
+        <div key={state}>
+          <span style={stateName}>{state}</span>
+          <InputField variant="Primary" state={state} value={SAMPLE_VALUE[state]} />
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export const AllVariants = {
-  render: () => column(),
+  render: () => <Column />,
   parameters: { controls: { disable: true } },
 };
 
@@ -184,39 +178,23 @@ export const AllVariants = {
 
 export const PrimaryVersusMobile = {
   name: 'Primary vs Mobile',
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.gap = 'var(--spacing-24)';
-    wrap.style.alignItems = 'flex-start';
-
-    for (const variant of ['Primary', 'Mobile']) {
-      const col = document.createElement('div');
-      col.style.display = 'flex';
-      col.style.flexDirection = 'column';
-      col.style.gap = 'var(--spacing-24)';
-
-      const name = document.createElement('span');
-      name.textContent = variant;
-      name.style.fontFamily = 'var(--family-plain)';
-      name.style.fontSize = 'var(--size-label-large)';
-      name.style.color = 'var(--color-text-primary)';
-      col.append(name);
-
-      for (const state of ['Default', 'Typed', 'Error', 'Disabled']) {
-        col.append(
-          createInputField({
-            variant,
-            state,
-            value: state === 'Default' || state === 'Disabled' ? '' : undefined,
-          }),
-        );
-      }
-      wrap.append(col);
-    }
-
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+      {['Primary', 'Mobile'].map((variant) => (
+        <div key={variant} style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
+          <span style={{ ...stateName, display: 'inline' }}>{variant}</span>
+          {['Default', 'Typed', 'Error', 'Disabled'].map((state) => (
+            <InputField
+              key={state}
+              variant={variant}
+              state={state}
+              value={state === 'Default' || state === 'Disabled' ? '' : undefined}
+            />
+          ))}
+        </div>
+      ))}
+    </div>
+  ),
   parameters: { controls: { disable: true } },
 };
 
@@ -228,30 +206,21 @@ export const PrimaryVersusMobile = {
    of typing. The Disabled field refuses focus and typing outright. */
 
 export const Interactive = {
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.gap = 'var(--spacing-24)';
-    wrap.append(
-      createInputField({
-        variant: 'Primary',
-        state: 'Default',
-        helperText: 'Type here — the border and the value colour both follow.',
-      }),
-      createInputField({
-        variant: 'Primary',
-        state: 'Error',
-        value: 'Horizon Stays',
-        helperText: 'Stays negative while you edit it.',
-      }),
-      createInputField({
-        variant: 'Primary',
-        state: 'Disabled',
-        helperText: 'Cannot be focused or typed into.',
-      }),
-    );
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
+      <InputField
+        variant="Primary"
+        state="Default"
+        helperText="Type here — the border and the value colour both follow."
+      />
+      <InputField
+        variant="Primary"
+        state="Error"
+        value="Horizon Stays"
+        helperText="Stays negative while you edit it."
+      />
+      <InputField variant="Primary" state="Disabled" helperText="Cannot be focused or typed into." />
+    </div>
+  ),
   parameters: { controls: { disable: true } },
 };

@@ -1,4 +1,4 @@
-import { index, allTokens, page, render, section, esc, tokenTable } from './_gallery.js';
+import { index, allTokens, page, render, section, esc, tokenTable, renderDom, mount } from './_gallery.js';
 
 export default { title: 'Overview' };
 
@@ -45,12 +45,12 @@ export const Coverage = {
 export const AllTokens = {
   name: 'All tokens',
   render: () => {
-    const el = render(page({
+    const el = renderDom(page({
       title: 'All tokens',
       description: `Every token in the system — ${total} across ${views.length} collection modes. Filter by name, value, alias or description.`,
       body: '',
     }));
     el.append(tokenTable(allTokens(), { showView: true }));
-    return el;
+    return mount(el);
   },
 };

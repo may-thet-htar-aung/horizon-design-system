@@ -23,10 +23,11 @@
  * Keyboard focus has NO variant in this set — the node's accessibility note says so
  * outright ("Hover is not a substitute for focus. Keyboard focus needs its own
  * treatment — not yet in this set"). No focus style is invented here; the browser's
- * own focus ring is deliberately left intact. See pinCode.css.
+ * own focus ring is deliberately left intact. See PinCode.css.
  */
 
-import './pinCode.css';
+import { useEffect, useState } from 'react';
+import './PinCode.css';
 
 export const PIN_CODE_CELL_STATES = ['Default', 'Hovered', 'Typed', 'Error', 'Disabled'];
 
@@ -34,64 +35,58 @@ export const PIN_CODE_CELL_STATES = ['Default', 'Hovered', 'Typed', 'Error', 'Di
 const STATES_SHOWING_VALUE = ['Typed', 'Error'];
 
 /**
+ * One cell of a verification code. The design draws the single cell only; a row of
+ * cells is the consumer's layout.
+ *
  * @param {object} props
  * @param {'Default'|'Hovered'|'Typed'|'Error'|'Disabled'} [props.state] Figma: State
  * @param {string} [props.value]  Figma: Value — one character, shown on Typed and Error
  * @param {string} [props.label]  Accessible name for this one cell, e.g. "Digit 1 of 6"
- * @param {(value: string, event: Event) => void} [props.onChange]
- * @returns {HTMLInputElement}
+ * @param {(value: string, event: import('react').ChangeEvent<HTMLInputElement>) => void} [props.onChange]
+ *   Any other prop (name, ref, onKeyDown, …) goes to the <input>.
  */
-export function createPinCodeCell({
+export function PinCodeCell({
   state = 'Default',
   value = '4',
   label = 'Digit of verification code',
   onChange,
-} = {}) {
-  const el = document.createElement('input');
-  el.className = 'hz-pincode-cell';
-
-  // A real text input: the digit IS the value, per the node's accessibility note.
-  // inputmode=numeric brings up the number pad without rejecting non-digit codes.
-  el.type = 'text';
-  el.inputMode = 'numeric';
-  el.autocomplete = 'one-time-code';
-  el.maxLength = 1;
-  el.setAttribute('aria-label', label);
-
+  ...rest
+}) {
   // "Keep Value to a single character." The design's own constraint, enforced.
-  const single = String(value ?? '').slice(0, 1);
-  el.value = STATES_SHOWING_VALUE.includes(state) ? single : '';
+  const initial = STATES_SHOWING_VALUE.includes(state) ? String(value ?? '').slice(0, 1) : '';
+  const [digit, setDigit] = useState(initial);
+  useEffect(() => setDigit(initial), [initial]);
 
-  // Disabled is a real DOM state, per the node's accessibility note.
-  el.disabled = state === 'Disabled';
-
-  // Error is announced, not just coloured — "never rely on colour alone".
-  if (state === 'Error') {
-    el.setAttribute('aria-invalid', 'true');
-  }
-
-  // Hover is a live :hover. data-state forces the painted state so every row of the
-  // variant matrix can be rendered and compared side by side, as Button and Check Box do.
-  if (state === 'Hovered') {
-    el.dataset.state = 'Hovered';
-  }
-
-  // Typed is also live: entering a character paints the Typed border, clearing it
-  // returns the cell to rest. An Error cell stays Error until the consumer clears it,
-  // because the node's docs say Error means "the code is wrong", not "this cell is".
-  el.addEventListener('input', (event) => {
-    if (el.value.length > 1) el.value = el.value.slice(0, 1);
-    if (state !== 'Error') {
-      el.dataset.filled = el.value.length > 0 ? 'true' : 'false';
-    }
-    if (onChange) onChange(el.value, event);
-  });
-
-  if (el.value.length > 0 && state !== 'Error') {
-    el.dataset.filled = 'true';
-  }
-
-  return el;
+  return (
+    <input
+      {...rest}
+      className="hz-pincode-cell"
+      // A real text input: the digit IS the value, per the node's accessibility note.
+      // inputmode=numeric brings up the number pad without rejecting non-digit codes.
+      type="text"
+      inputMode="numeric"
+      autoComplete="one-time-code"
+      maxLength={1}
+      aria-label={label}
+      value={digit}
+      // Disabled is a real DOM state, per the node's accessibility note.
+      disabled={state === 'Disabled'}
+      // Error is announced, not just coloured — "never rely on colour alone".
+      aria-invalid={state === 'Error' ? 'true' : undefined}
+      // Hover is a live :hover. data-state forces the painted state so every row of the
+      // variant matrix can be rendered and compared side by side.
+      data-state={state === 'Hovered' ? 'Hovered' : undefined}
+      // Typed is also live: entering a character paints the Typed border, clearing it
+      // returns the cell to rest. An Error cell stays Error until the consumer clears
+      // it, because the node's docs say Error means "the code is wrong".
+      data-filled={state !== 'Error' ? (digit.length > 0 ? 'true' : 'false') : undefined}
+      onChange={(event) => {
+        const next = event.target.value.slice(0, 1);
+        setDigit(next);
+        if (onChange) onChange(next, event);
+      }}
+    />
+  );
 }
 
-export default createPinCodeCell;
+export default PinCodeCell;
