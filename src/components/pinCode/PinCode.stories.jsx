@@ -15,7 +15,7 @@
 import { PinCodeCell, PIN_CODE_CELL_STATES } from './PinCode.jsx';
 
 export default {
-  title: 'Components/Pin Code',
+  title: 'Components/Pin Code Cell',
   tags: ['autodocs'],
   component: PinCodeCell,
   render: (args) => <PinCodeCell {...args} />,
