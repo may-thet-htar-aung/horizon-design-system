@@ -110,7 +110,7 @@
  * disable. The absence is correct rather than missing.
  */
 
-import './statusBanner.css';
+import './StatusBanner.css';
 import exclamation from './icons/exclamation.svg?raw';
 import info from './icons/info.svg?raw';
 
@@ -154,14 +154,13 @@ const SAMPLE_MESSAGE = {
   Info: 'Your booking is held for 12 more minutes. The price and the room are locked until then.',
 };
 
-/** The Icon slot accepts an SVG string or a live node, as checkBox's and Password's do. */
-function renderIcon(slot, icon) {
-  slot.replaceChildren();
-  if (typeof icon === 'string') {
-    slot.innerHTML = icon;
-  } else if (icon instanceof Node) {
-    slot.append(icon);
-  }
+/** The Icon slot accepts an SVG string or any React node. */
+function Mark({ icon }) {
+  return typeof icon === 'string' ? (
+    <span style={{ display: 'contents' }} dangerouslySetInnerHTML={{ __html: icon }} />
+  ) : (
+    icon
+  );
 }
 
 /**
@@ -172,7 +171,7 @@ function renderIcon(slot, icon) {
  * @param {boolean} [props.showIcon]
  *   Figma: `Show icon` — boolean property. SPEC: "Show icon hides the mark." When false
  *   the Icon area is not rendered at all and the message takes the full width.
- * @param {string|Node} [props.icon]
+ * @param {string|import('react').ReactNode} [props.icon]
  *   Figma: `Icon` — instance-swap property. SPEC: "Icon swaps the mark and defaults to
  *   Symbol/filled/exclamation."
  *
@@ -190,49 +189,45 @@ function renderIcon(slot, icon) {
  *   defaults to 'alert' (assertive — the person has to act, per the USAGE line) and
  *   Warning and Info to 'status' (polite). Pass 'none' to opt out when the banner is
  *   rendered statically and announcing it would be noise.
- * @returns {HTMLDivElement}
+ * @param {import('react').ReactNode} [props.children]
+ *   NOT a Figma property. Rich content (a link, bold text) in place of `message`. Use
+ *   it only when the plain message cannot say what happened.
  */
-export function createStatusBanner({
+export function StatusBanner({
   state = 'Warning',
   showIcon = true,
   icon,
   message,
+  children,
   role,
-} = {}) {
-  const root = document.createElement('div');
-  root.className = 'hz-status-banner';
-  root.dataset.state = state;
-
+  ...rest
+}) {
   // SPEC ACCESSIBILITY: the message is what carries the meaning, so it is what gets
   // announced. 'none' renders no role at all.
   const resolvedRole = role ?? (state === 'Error' ? 'alert' : 'status');
-  if (resolvedRole !== 'none') {
-    root.setAttribute('role', resolvedRole);
-  }
 
-  /* ------------------------------- Icon area · 270:7 / 270:8 / 270:9 */
-  if (showIcon) {
-    const iconArea = document.createElement('div');
-    iconArea.className = 'hz-status-banner__icon-area';
+  // Info's mark is fixed in the node — the swap drives a hidden layer there.
+  const resolved = state === 'Info' ? DEFAULT_ICON.Info : (icon ?? DEFAULT_ICON[state]);
 
-    // SPEC ACCESSIBILITY: "The icon is a visual mark, not the accessible name."
-    iconArea.setAttribute('aria-hidden', 'true');
+  return (
+    <div
+      {...rest}
+      className="hz-status-banner"
+      data-state={state}
+      role={resolvedRole === 'none' ? undefined : resolvedRole}
+    >
+      {/* Icon area · 270:7 / 270:8 / 270:9 */}
+      {showIcon && (
+        // SPEC ACCESSIBILITY: "The icon is a visual mark, not the accessible name."
+        <div className="hz-status-banner__icon-area" aria-hidden="true">
+          <Mark icon={resolved} />
+        </div>
+      )}
 
-    // Info's mark is fixed in the node — the swap drives a hidden layer there.
-    const resolved = state === 'Info' ? DEFAULT_ICON.Info : (icon ?? DEFAULT_ICON[state]);
-    renderIcon(iconArea, resolved);
-
-    root.append(iconArea);
-  }
-
-  /* ------------------------------- Message · 269:9 / 269:13 / 269:17 */
-  const messageEl = document.createElement('p');
-  messageEl.className = 'hz-status-banner__message';
-  messageEl.textContent = message ?? SAMPLE_MESSAGE[state];
-
-  root.append(messageEl);
-
-  return root;
+      {/* Message · 269:9 / 269:13 / 269:17 */}
+      <p className="hz-status-banner__message">{children ?? message ?? SAMPLE_MESSAGE[state]}</p>
+    </div>
+  );
 }
 
-export default createStatusBanner;
+export default StatusBanner;

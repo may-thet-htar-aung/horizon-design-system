@@ -45,7 +45,8 @@
  *     that; a pixel-width comparison against the node will differ, intentionally.
  */
 
-import { createStatusBanner, STATUS_BANNER_STATES, STATUS_BANNER_STATE } from './statusBanner.js';
+import { Fragment } from 'react';
+import { StatusBanner, STATUS_BANNER_STATES, STATUS_BANNER_STATE } from './StatusBanner.jsx';
 
 const FIGMA_NODE =
   'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=269-18';
@@ -56,18 +57,15 @@ const SWAPPED_MARK = `<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.
 </svg>`;
 
 /** Renders a story inside a fixed-width box, to show width following its container. */
-function inBox(width, node) {
-  const box = document.createElement('div');
-  box.style.width = width;
-  box.style.maxWidth = '100%';
-  box.append(node);
-  return box;
+function InBox({ width, children }) {
+  return <div style={{ width, maxWidth: '100%' }}>{children}</div>;
 }
 
 export default {
   title: 'Components/Status Banner',
   tags: ['autodocs'],
-  render: (args) => createStatusBanner(args),
+  component: StatusBanner,
+  render: (args) => <StatusBanner {...args} />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: STATUS_BANNER_STATES },
     showIcon: { control: 'boolean' },
@@ -190,22 +188,25 @@ export const LongMessageGrowsTheBanner = {
  *  authoring canvas, not a binding. */
 export const WidthFollowsTheContainer = {
   name: 'Width follows the container',
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.gap = '16px';
-    for (const width of ['640px', '400px', '240px']) {
-      wrap.append(inBox(width, createStatusBanner({ state: 'Warning' })));
-    }
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {['640px', '400px', '240px'].map((width) => (
+        <InBox key={width} width={width}>
+          <StatusBanner state="Warning" />
+        </InBox>
+      ))}
+    </div>
+  ),
 };
 
 /** The narrow end of the same behaviour, on its own, so wrapping is easy to inspect. */
 export const NarrowContainer = {
   name: 'Narrow container',
-  render: () => inBox('240px', createStatusBanner({ state: 'Error' })),
+  render: () => (
+    <InBox width="240px">
+      <StatusBanner state="Error" />
+    </InBox>
+  ),
 };
 
 /* ===================== the whole matrix, side by side ===================== */
@@ -215,24 +216,15 @@ export const NarrowContainer = {
  *  fastest place to see the Warning collision separate when the theme is switched. */
 export const AllStates = {
   name: 'All states',
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.gap = '16px';
-    wrap.style.width = '400px';
-    wrap.style.maxWidth = '100%';
-
-    for (const [figmaValue, state] of Object.entries(STATUS_BANNER_STATE)) {
-      const label = document.createElement('p');
-      label.textContent = figmaValue;
-      label.style.font = '500 11px/16px Inter, sans-serif';
-      label.style.opacity = '0.6';
-      label.style.margin = '0';
-      wrap.append(label);
-      wrap.append(createStatusBanner({ state }));
-      wrap.append(createStatusBanner({ state, showIcon: false }));
-    }
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 400, maxWidth: '100%' }}>
+      {Object.entries(STATUS_BANNER_STATE).map(([figmaValue, state]) => (
+        <Fragment key={state}>
+          <p style={{ font: '500 11px/16px Inter, sans-serif', opacity: 0.6, margin: 0 }}>{figmaValue}</p>
+          <StatusBanner state={state} />
+          <StatusBanner state={state} showIcon={false} />
+        </Fragment>
+      ))}
+    </div>
+  ),
 };
