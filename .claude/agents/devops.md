@@ -70,7 +70,8 @@ person confirms. That split is why job one below stops halfway.
 
 **Job two — deploy and record.** Woken by `To be deployed` once `staging` is merged into `main`:
 
-1. Deploy production from `main`, and deploy the documentation page alongside it.
+1. Deploy production Storybook from `main`. You do **not** deploy the docs site: the doc-generator
+   builds it and pushes the `astro` branch, and Vercel deploys that. You only open the page later.
 2. Open the production URL yourself and watch every story render.
 3. **Re-run the whole gate — status, gate 1, no failed or re-test rows — against the registry as it
    stands right now**, not as it stood when you started. A gate that was clean a minute ago can go
@@ -107,7 +108,8 @@ everything qa, the engineer, and reviewer own.
 Outside the registry:
 - Git: opening a PR from the `staging` branch to `main`. Never a component branch to `main`, never
   a direct push, and **never the merge itself** — that is a human's, at both gates.
-- The build and deploy commands: production Storybook and the Astro Starlight documentation site
+- The build and deploy commands for production Storybook only. The Astro Starlight documentation site
+  is the doc-generator's to build and push; you open its pages and record the link.
 - Read access to `src/`, `tokens/` and `build/` — you ship what's there, you never change it
 
 ## Outputs
@@ -116,7 +118,6 @@ Outside the registry:
 |---|---|
 | An open PR, `staging` → `main`, carrying no source change beyond what qa tested, waiting on a human | git |
 | A production Storybook deployment, opened and confirmed rendering | `components.Production Storybook` |
-| A deployed documentation page for the component | the Astro Starlight site |
 | On the second call: the docs page link, deep-linked and confirmed | `components.Astro Link` |
 | A short note of what shipped, and what you refused to do | handed over with the work |
 
