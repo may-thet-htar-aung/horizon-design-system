@@ -154,17 +154,21 @@ two **human merge gates** (the component PR into `staging`, and `staging` into `
 are a different thing entirely. The letter keeps every existing reference correct. Airtable does not
 see these numbers; only the order of the nested `IF`s matters, and 3a sits fourth in the formula.
 
-### Gate 4 is currently unreachable, and `Completed` is the working finish line
+### Gate 4 is reachable in principle, and `Completed` is still the working finish line
 
-**As of 2026-09-12, the reviewer stage is deferred and no row can reach `Released`.** Gate 4
-requires `Release Verdict` = `Cleared`; only reviewer writes that cell; and reviewer cannot run
-until `.claude/skills/release-review/SKILL.md` exists, which it does not (D10). The gate is
-therefore unsatisfiable, and **`Completed` is the terminal state of this pipeline in practice**.
+**Un-parked 2026-10-05, but not yet reachable in practice.** The reviewer stage was deferred because
+`.claude/skills/release-review/SKILL.md` did not exist. It does now (gates R1–R7), so `reviewer` can
+run and write `Release Verdict`, and gate 4 can be satisfied. Nothing in this contract needed to
+change for that.
 
-This is a deliberate parking, not a defect. Treat `Completed` as finished work. Do not describe a
-component as "not yet `Released`" as though something were pending on it — nothing is pending;
-the stage that would move it has no definition yet. When the release-review skill is written, gate
-4 becomes reachable again with no other change to this contract.
+What still stands in the way is upstream of the review. The skill reads each component's
+`<Name>.intent.json`; the skill that writes those files (`component-intent`) and the doc-generator
+agent that runs it do not exist yet. Until a component has an intent file, `reviewer` reports
+"cannot run" and leaves the verdict empty, which is the truthful reading.
+
+So until intent files exist, treat `Completed` as finished work, and do not describe a component as
+"not yet `Released`" as though something were pending on it. From the first row that has an intent
+file, `Completed` with an empty `Release Verdict` is reviewer's cue, as `reviewer.md` says.
 
 ### Two consequences that will surprise someone
 
@@ -213,8 +217,8 @@ old `Done` status.)
 in `Cleared` or `Blocked`, and a Doc-generator (Agent) row that ends
 in `Released`. The DevOps row records `Astro Link` after opening the live page, in line with the
 `devops` ownership above. This replaces the earlier reading that the board ends at `Done`, so the
-board no longer corroborates the parking of gate 4. Gate 4 is still unreachable until
-`.claude/skills/release-review/SKILL.md` exists (D10).
+board no longer corroborates the parking of gate 4. The release-review skill now exists; gate 4 waits
+only on intent files (see "Gate 4 is reachable in principle" above, and D10).
 
 ## The one column two agents share
 
@@ -323,15 +327,16 @@ It's a symmetric link field; Airtable maintains it automatically and also accept
 from either side. The description states a policy the base doesn't enforce, so this file enforces
 it instead: write `Composes`, never `Composed Into`.
 
-**D10 — The base documents a cast that took a while to arrive, and one member still can't run.**
+**D10 — PARTLY RESOLVED 2026-10-05. The release-review skill exists; its upstream does not.**
 Field descriptions name a Release agent and a Reviewer agent, and cite
-`.claude/skills/release-review/SKILL.md` for the seven release gates. That skill file still doesn't
-exist. `reviewer` exists as an agent now, but cannot run its review until that skill is written —
-see `reviewer.md`, which stops and says so rather than inventing the gates.
+`.claude/skills/release-review/SKILL.md` for the seven release gates. That skill was written on
+2026-10-05, so `reviewer` is no longer blocked on it and the deferral recorded on 2026-09-12 is lifted.
 
-As of 2026-09-12 this was accepted rather than fixed: the reviewer stage is **deferred**, gate 4 is
-unreachable, and `Completed` is the working finish line. See "Gate 4 is currently unreachable"
-above. Writing the skill is what un-defers it; nothing else in this contract needs to change.
+Still open: the review reads each component's intent file, and `component-intent` and the
+doc-generator agent that writes those files are not written, so `reviewer` reports "cannot run" until
+they are. The Release agent named in the field descriptions has no agent file either, and the board's
+Release lane and `reviewer` both claim `Release Review` / `Release Verdict`; this contract keeps both
+cells with `reviewer`.
 
 **D11 — `Development`'s blank branch and its default choice disagree.**
 Gate 9 returns an empty string, but the field's own single-select option set carries `To-do` as its
