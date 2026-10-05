@@ -61,6 +61,16 @@ export const GhostDisabled = { args: { type: 'Ghost', state: 'Disabled' } };
  */
 export const Focus = {
   args: { type: 'Primary', state: 'Default', label: 'Continue' },
+  // Pinned: some embeds (iframes, unfocused windows) never match :focus-visible after a
+  // programmatic focus(). This wrapper paints the same ring from the same tokens as
+  // .hz-button:focus-visible, so the state is always visible; the play function also
+  // focuses the real button so the live :focus-visible rule applies where the browser allows.
+  render: (args) => (
+    <div className="hz-story-focus-pinned">
+      <style>{`.hz-story-focus-pinned .hz-button { outline: var(--borderwidth-3) solid var(--color-border-brand-bold); outline-offset: var(--spacing-2); }`}</style>
+      <Button {...args} />
+    </div>
+  ),
   play: async ({ canvasElement }) => {
     canvasElement.querySelector('button')?.focus();
   },
