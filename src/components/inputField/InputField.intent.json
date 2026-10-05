@@ -1,0 +1,139 @@
+{
+  "component": "InputField",
+  "figma": [
+    "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=220-50",
+    "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=227-44"
+  ],
+  "use_when": [
+    "Use the primary input field",
+    "Use it when a person must enter one piece of information, such as an email or a check-in date.",
+    "Use the helper for a single constraint, or for the reason a value failed.",
+    "Use Error when the value has to change. Use Warning when it can be submitted and the risk should be called out.",
+    "Use it on a phone",
+    "Use it on phone screens, where the 52px field is the touch target.",
+    "Use the same rules",
+    "Use the same Error and Warning rules as the desktop field.",
+    "Keep the helper short",
+    "Use the helper for one short rule that can be read without scrolling."
+  ],
+  "dont_use_when": [
+    {
+      "when": "Do not use the placeholder as the label. It disappears once the field is typed.",
+      "instead": null
+    },
+    {
+      "when": "Do not hide the helper until Error. The field will jump.",
+      "instead": null
+    },
+    {
+      "when": "Do not detach the instance to recolor a status border or status text.",
+      "instead": null
+    },
+    {
+      "when": "Do not override the field height. It is fixed so inputs align in a row.",
+      "instead": null
+    },
+    {
+      "when": "Do not write the label in all caps or end it with punctuation.",
+      "instead": null
+    },
+    {
+      "when": "Do not shrink this field to the 40px desktop height.",
+      "instead": null
+    },
+    {
+      "when": "Do not drop the label unless the screen already names the value.",
+      "instead": null
+    },
+    {
+      "when": "Do not use the placeholder as the label.",
+      "instead": null
+    }
+  ],
+  "variant_intent": {
+    "variant=Primary": "Use it when a person must enter one piece of information, such as an email or a check-in date.",
+    "variant=Mobile": "Use it on phone screens, where the 52px field is the touch target.",
+    "State=Default": "",
+    "State=Hovered": "",
+    "State=Typed": "",
+    "State=Error": "Use Error when the value has to change. Use Warning when it can be submitted and the risk should be called out.",
+    "State=Warning": "Use Error when the value has to change. Use Warning when it can be submitted and the risk should be called out.",
+    "State=Disabled": "Implement Disabled in code, not just visually. Color alone is not enough."
+  },
+  "placement": [
+    "Stacked in a form, one field per row with its label above: 'Full Name', 'Email' and 'Password' in the Figma 'Component Appearance' examples, with a Primary button below.",
+    "On phone screens the Mobile variant is the touch target (Figma, Input Field/Mobile)."
+  ],
+  "pairs_with": [
+    "Button",
+    "CheckBox",
+    "InputFieldPassword",
+    "StatusBanner"
+  ],
+  "required_tokens": [
+    "borderradius-medium",
+    "color-bg-base",
+    "color-bg-surfaceprimary",
+    "color-border-brand-bold",
+    "color-border-disabled",
+    "color-border-negative-bold",
+    "color-border-surfaceprimary",
+    "color-border-warning-bold",
+    "color-neutral-25",
+    "color-text-disabled",
+    "color-text-input-text",
+    "color-text-input-text-unique",
+    "color-text-negative",
+    "color-text-primary",
+    "color-text-secondary",
+    "color-text-secondary-unique",
+    "color-text-warning",
+    "family-plain",
+    "gap-element",
+    "line-height-body-extra-small",
+    "line-height-body-medium",
+    "line-height-label-medium",
+    "line-height-label-small",
+    "size-body-extra-small",
+    "size-body-medium",
+    "size-label-medium",
+    "size-label-small",
+    "spacing-12",
+    "tracking-body-extra-small",
+    "tracking-body-medium",
+    "tracking-label-medium",
+    "tracking-label-small",
+    "weight-medium",
+    "weight-regular"
+  ],
+  "a11y": [
+    {
+      "fact": "The label is a real <label> bound to the input with htmlFor and id.",
+      "source": "src/components/inputField/InputField.jsx:223"
+    },
+    {
+      "fact": "State=Error sets aria-invalid; Warning does not, because the value can still be submitted.",
+      "source": "src/components/inputField/InputField.jsx:190"
+    },
+    {
+      "fact": "With the label hidden, the input keeps an accessible name through aria-label.",
+      "source": "src/components/inputField/InputField.jsx:192"
+    },
+    {
+      "fact": "The helper is tied to the input with aria-describedby.",
+      "source": "src/components/inputField/InputField.jsx:194"
+    },
+    {
+      "fact": "State=Disabled sets the real DOM disabled attribute.",
+      "source": "src/components/inputField/InputField.jsx:187"
+    },
+    {
+      "fact": "Implement Disabled in code, not just visually. Color alone is not enough.",
+      "source": "Figma 248:1071, Best Practice"
+    },
+    {
+      "fact": "Keyboard focus is not in this set yet. Do not treat hover as a substitute.",
+      "source": "Figma 248:1071, Best Practice"
+    }
+  ]
+}
