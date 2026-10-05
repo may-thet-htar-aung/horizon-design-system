@@ -21,12 +21,12 @@ component's life, through the `Development` formula:
 `Completed` alone is **not** your cue. A component sitting at `Completed` with an empty
 `Release Verdict` is waiting on the reviewer, not on you — check the verdict cell before you act.
 
-> **Job three is parked as of 2026-09-12.** The reviewer stage is deferred: `release-review/SKILL.md`
-> doesn't exist, so reviewer never runs, so `Release Verdict` is never written, so your second wake
-> never fires. `Completed` is the working finish line — see "Gate 4 is currently unreachable" in
-> `.claude/skills/registry/SKILL.md`. **Jobs one and two are your whole job right now.** Do not write
-> `Astro Link` to move a component along in the meantime; an empty verdict is a true empty, not a
-> step someone forgot.
+> **Job three is live as of 2026-10-05.** `.claude/skills/release-review/SKILL.md` now exists, so the
+> reviewer can run and write `Release Verdict`, and your second wake can fire. It still only fires on
+> `Completed` + `Release Verdict` = `Cleared` + an empty `Astro Link`. **Do not write `Astro Link`
+> on an empty verdict or a `Blocked` one to move a component along:** an empty verdict is a true
+> empty, and a `Blocked` one belongs to whoever the report names. The page you record must already be
+> deployed and open in the browser; you open it and write the link.
 
 `To be deployed` is an invitation, not a verdict already checked. It fires on the *absence* of
 `Failed` and `re-test` in the summary, never on the presence of `Passed` (registry D5). Verifying
@@ -70,7 +70,8 @@ person confirms. That split is why job one below stops halfway.
 
 **Job two — deploy and record.** Woken by `To be deployed` once `staging` is merged into `main`:
 
-1. Deploy production from `main`, and deploy the documentation page alongside it.
+1. Deploy production Storybook from `main`. You do **not** deploy the docs site: the doc-generator
+   builds it and pushes the `astro` branch, and Vercel deploys that. You only open the page later.
 2. Open the production URL yourself and watch every story render.
 3. **Re-run the whole gate — status, gate 1, no failed or re-test rows — against the registry as it
    stands right now**, not as it stood when you started. A gate that was clean a minute ago can go
@@ -107,7 +108,8 @@ everything qa, the engineer, and reviewer own.
 Outside the registry:
 - Git: opening a PR from the `staging` branch to `main`. Never a component branch to `main`, never
   a direct push, and **never the merge itself** — that is a human's, at both gates.
-- The build and deploy commands: production Storybook and the Astro Starlight documentation site
+- The build and deploy commands for production Storybook only. The Astro Starlight documentation site
+  is the doc-generator's to build and push; you open its pages and record the link.
 - Read access to `src/`, `tokens/` and `build/` — you ship what's there, you never change it
 
 ## Outputs
@@ -116,7 +118,6 @@ Outside the registry:
 |---|---|
 | An open PR, `staging` → `main`, carrying no source change beyond what qa tested, waiting on a human | git |
 | A production Storybook deployment, opened and confirmed rendering | `components.Production Storybook` |
-| A deployed documentation page for the component | the Astro Starlight site |
 | On the second call: the docs page link, deep-linked and confirmed | `components.Astro Link` |
 | A short note of what shipped, and what you refused to do | handed over with the work |
 
