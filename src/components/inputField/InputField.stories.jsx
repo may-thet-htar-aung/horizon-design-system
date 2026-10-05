@@ -20,12 +20,13 @@
  * inputField.js, because a real input needs a real value and a real placeholder.
  */
 
-import { createInputField, INPUT_FIELD_STATES } from './inputField.js';
+import { InputField, INPUT_FIELD_STATES } from './InputField.jsx';
 
 export default {
   title: 'Components/Input Field',
   tags: ['autodocs'],
-  render: (args) => createInputField(args),
+  component: InputField,
+  render: (args) => <InputField {...args} />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: INPUT_FIELD_STATES },
     label: { control: 'text' },
@@ -106,44 +107,37 @@ export const NoHelperText = {
 
 /* ------------------------------------------------------- the matrix, in one */
 
-function column() {
-  const wrap = document.createElement('div');
-  wrap.style.display = 'flex';
-  wrap.style.flexDirection = 'column';
-  wrap.style.gap = 'var(--spacing-24)';
-  wrap.style.alignItems = 'flex-start';
+const stateName = {
+  display: 'block',
+  fontFamily: 'var(--family-plain)',
+  fontSize: 'var(--size-label-large)',
+  color: 'var(--color-text-primary)',
+};
 
-  const sample = {
-    Default: '',
-    Hovered: '',
-    Typed: 'mai7@email.com',
-    Error: 'maii7@email.com',
-    Warning: 'mai7@email.co',
-    Disabled: '',
-  };
+const sample = {
+  Default: '',
+  Hovered: '',
+  Typed: 'mai7@email.com',
+  Error: 'maii7@email.com',
+  Warning: 'mai7@email.co',
+  Disabled: '',
+};
 
-  for (const state of INPUT_FIELD_STATES) {
-    const row = document.createElement('div');
-
-    const name = document.createElement('span');
-    name.textContent = state;
-    name.style.display = 'block';
-    name.style.fontFamily = 'var(--family-plain)';
-    name.style.fontSize = 'var(--size-label-large)';
-    name.style.color = 'var(--color-text-primary)';
-
-    row.append(
-      name,
-      createInputField({ state, label: 'Email', value: sample[state] }),
-    );
-    wrap.append(row);
-  }
-
-  return wrap;
+function Column() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)', alignItems: 'flex-start' }}>
+      {INPUT_FIELD_STATES.map((state) => (
+        <div key={state}>
+          <span style={stateName}>{state}</span>
+          <InputField state={state} label="Email" value={sample[state]} />
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export const AllVariants = {
-  render: () => column(),
+  render: () => <Column />,
   parameters: { controls: { disable: true } },
 };
 
@@ -155,30 +149,21 @@ export const AllVariants = {
    than to the act of typing. The Disabled field refuses focus and typing outright. */
 
 export const Interactive = {
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.gap = 'var(--spacing-24)';
-    wrap.append(
-      createInputField({
-        state: 'Default',
-        label: 'Email',
-        helperText: 'Type here — the border and the value colour both follow.',
-      }),
-      createInputField({
-        state: 'Error',
-        label: 'Email',
-        value: 'maii7@email.com',
-        helperText: 'Stays negative while you edit it.',
-      }),
-      createInputField({
-        state: 'Disabled',
-        label: 'Email',
-        helperText: 'Cannot be focused or typed into.',
-      }),
-    );
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-24)' }}>
+      <InputField
+        state="Default"
+        label="Email"
+        helperText="Type here — the border and the value colour both follow."
+      />
+      <InputField
+        state="Error"
+        label="Email"
+        value="maii7@email.com"
+        helperText="Stays negative while you edit it."
+      />
+      <InputField state="Disabled" label="Email" helperText="Cannot be focused or typed into." />
+    </div>
+  ),
   parameters: { controls: { disable: true } },
 };
