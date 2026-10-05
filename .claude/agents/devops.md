@@ -21,12 +21,12 @@ component's life, through the `Development` formula:
 `Completed` alone is **not** your cue. A component sitting at `Completed` with an empty
 `Release Verdict` is waiting on the reviewer, not on you — check the verdict cell before you act.
 
-> **Job three is parked as of 2026-09-12.** The reviewer stage is deferred: `release-review/SKILL.md`
-> doesn't exist, so reviewer never runs, so `Release Verdict` is never written, so your second wake
-> never fires. `Completed` is the working finish line — see "Gate 4 is currently unreachable" in
-> `.claude/skills/registry/SKILL.md`. **Jobs one and two are your whole job right now.** Do not write
-> `Astro Link` to move a component along in the meantime; an empty verdict is a true empty, not a
-> step someone forgot.
+> **Job three is live as of 2026-10-05.** `.claude/skills/release-review/SKILL.md` now exists, so the
+> reviewer can run and write `Release Verdict`, and your second wake can fire. It still only fires on
+> `Completed` + `Release Verdict` = `Cleared` + an empty `Astro Link`. **Do not write `Astro Link`
+> on an empty verdict or a `Blocked` one to move a component along:** an empty verdict is a true
+> empty, and a `Blocked` one belongs to whoever the report names. The page you record must already be
+> deployed and open in the browser; you open it and write the link.
 
 `To be deployed` is an invitation, not a verdict already checked. It fires on the *absence* of
 `Failed` and `re-test` in the summary, never on the presence of `Passed` (registry D5). Verifying
