@@ -5,16 +5,16 @@ Design tokens exported from Figma, compiled to CSS, Swift and Android XML by
 
 ## Install
 
-`@theproductiveschedule/horizon-design-system` — React components and the design tokens they use.
+`@may_thet_htar_aung/horizon-design-system` — React components and the design tokens they use.
 
 ```bash
-npm install @theproductiveschedule/horizon-design-system react react-dom
+npm install @may_thet_htar_aung/horizon-design-system react react-dom
 ```
 
 ```jsx
-import { Button, InputField, StatusBanner } from '@theproductiveschedule/horizon-design-system';
-import '@theproductiveschedule/horizon-design-system/tokens.css';
-import '@theproductiveschedule/horizon-design-system/styles.css';
+import { Button, InputField, StatusBanner } from '@may_thet_htar_aung/horizon-design-system';
+import '@may_thet_htar_aung/horizon-design-system/tokens.css';
+import '@may_thet_htar_aung/horizon-design-system/styles.css';
 
 export function Example() {
   return <Button label="Continue" />;
