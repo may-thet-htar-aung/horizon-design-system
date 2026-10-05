@@ -63,10 +63,10 @@
  */
 
 import {
-  createInputFieldPassword,
+  InputFieldPassword,
   INPUT_FIELD_PASSWORD_STATES,
   INPUT_FIELD_PASSWORD_PROPERTY_1,
-} from './inputFieldPassword.js';
+} from './InputFieldPassword.jsx';
 
 const FIGMA_NODE =
   'https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=234-941';
@@ -76,7 +76,8 @@ const SECRET = 'mm245@';
 export default {
   title: 'Components/Input Field Password',
   tags: ['autodocs'],
-  render: (args) => createInputFieldPassword(args),
+  component: InputFieldPassword,
+  render: (args) => <InputFieldPassword {...args} />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: INPUT_FIELD_PASSWORD_STATES },
     revealed: { control: 'boolean' },
@@ -221,53 +222,41 @@ export const DefaultRevealed = {
 export const FigmaMatrix = {
   name: 'The matrix — all nine',
   parameters: { controls: { disable: true } },
-  render: () => {
-    const NODE_ID = {
-      'Default': '234:940',
-      'Hovered': '234:942',
-      'Typed hide': '234:955',
-      'Typed Open': '234:968',
-      'Error hide': '244:171',
-      'Error Open': '244:183',
-      'Warning hide': '244:194',
-      'Warning Open': '244:206',
-      'Disabled': '244:217',
-    };
-    const HELPER = {
-      Error: 'Use at least 8 characters, including a number.',
-      Warning: 'This password is weak. You can still continue.',
-    };
-
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.flexDirection = 'column';
-    wrap.style.gap = '24px';
-    wrap.style.alignItems = 'flex-start';
-
-    for (const [property1, { state, revealed }] of Object.entries(
-      INPUT_FIELD_PASSWORD_PROPERTY_1,
-    )) {
-      const cell = document.createElement('div');
-      cell.style.display = 'flex';
-      cell.style.flexDirection = 'column';
-      cell.style.gap = '6px';
-
-      const caption = document.createElement('code');
-      caption.textContent = `Property 1 = ${property1}   ·   ${NODE_ID[property1]}`;
-      caption.style.fontSize = '11px';
-      caption.style.opacity = '0.6';
-
-      cell.append(
-        caption,
-        createInputFieldPassword({
-          state,
-          revealed,
-          value: ['Typed', 'Error', 'Warning'].includes(state) ? SECRET : undefined,
-          helperText: HELPER[state],
-        }),
-      );
-      wrap.append(cell);
-    }
-    return wrap;
-  },
+  render: () => <Matrix />,
 };
+
+const NODE_ID = {
+  'Default': '234:940',
+  'Hovered': '234:942',
+  'Typed hide': '234:955',
+  'Typed Open': '234:968',
+  'Error hide': '244:171',
+  'Error Open': '244:183',
+  'Warning hide': '244:194',
+  'Warning Open': '244:206',
+  'Disabled': '244:217',
+};
+const HELPER = {
+  Error: 'Use at least 8 characters, including a number.',
+  Warning: 'This password is weak. You can still continue.',
+};
+
+function Matrix() {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 24, alignItems: 'flex-start' }}>
+      {Object.entries(INPUT_FIELD_PASSWORD_PROPERTY_1).map(([property1, { state, revealed }]) => (
+        <div key={property1} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+          <code style={{ fontSize: 11, opacity: 0.6 }}>
+            {`Property 1 = ${property1}   ·   ${NODE_ID[property1]}`}
+          </code>
+          <InputFieldPassword
+            state={state}
+            revealed={revealed}
+            value={['Typed', 'Error', 'Warning'].includes(state) ? SECRET : undefined}
+            helperText={HELPER[state]}
+          />
+        </div>
+      ))}
+    </div>
+  );
+}
