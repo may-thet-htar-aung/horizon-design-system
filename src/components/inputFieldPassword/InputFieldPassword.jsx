@@ -117,7 +117,6 @@
  */
 
 import { useEffect, useId, useState } from 'react';
-import './InputFieldPassword.css';
 import eyeCrossed from './icons/eye-crossed.svg?raw';
 import eye from './icons/eye.svg?raw';
 

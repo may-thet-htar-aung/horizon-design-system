@@ -1,13 +1,38 @@
 {
-  "name": "horizon-design-system",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "@theproductiveschedule/horizon-design-system",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Horizon Stays design system: React components and design tokens.",
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./tokens.css": "./dist/tokens.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node scripts/smoke-test.mjs",
     "build:tokens": "node build-tokens.js",
     "build:token-data": "node build-token-data.js",
     "tokens": "npm run build:tokens && npm run build:token-data",
+    "build:lib": "tsup && tsc -p tsconfig.types.json",
+    "build:css": "node scripts/build-css.mjs",
+    "build:package": "npm run tokens && npm run build:lib && npm run build:css",
+    "prepublishOnly": "npm run build:package && npm test",
+    "release:publish": "node scripts/release-publish.mjs",
     "prestorybook": "npm run tokens",
     "storybook": "storybook dev -p 6006",
     "prebuild:storybook": "npm run tokens",
@@ -16,13 +41,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module",
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
   "devDependencies": {
     "@storybook/react-vite": "^10.6.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "storybook": "^10.6.0",
     "style-dictionary": "^5.5.2",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
     "vite": "^8.2.2"
   }
 }

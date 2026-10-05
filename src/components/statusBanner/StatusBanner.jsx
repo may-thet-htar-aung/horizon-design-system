@@ -110,7 +110,6 @@
  * disable. The absence is correct rather than missing.
  */
 
-import './StatusBanner.css';
 import exclamation from './icons/exclamation.svg?raw';
 import info from './icons/info.svg?raw';
 

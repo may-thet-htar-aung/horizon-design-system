@@ -18,7 +18,6 @@
  */
 
 import { useEffect, useState } from 'react';
-import './CheckBox.css';
 import checkMark from './icons/check.svg?raw';
 
 export const CHECK_BOX_STATES = ['Default', 'Hovered', 'Checked', 'Unchecked', 'Disabled'];

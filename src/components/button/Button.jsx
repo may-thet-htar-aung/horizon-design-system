@@ -6,7 +6,6 @@
  * Prop names match the Figma component properties.
  */
 
-import './Button.css';
 import arrowSmallLeft from './icons/arrow-small-left.svg?raw';
 import arrowSmallRight from './icons/arrow-small-right.svg?raw';
 

@@ -98,8 +98,6 @@
  */
 
 import { useEffect, useId, useState } from 'react';
-import './InputField.css';
-import './InputFieldPrimary.css';
 
 export const INPUT_FIELD_STATES = [
   'Default',
