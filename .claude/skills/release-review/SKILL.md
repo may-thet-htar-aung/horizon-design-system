@@ -204,4 +204,17 @@ Version: <bump> — forced by <named change>
 
 Findings that are not defects get ruled on here, with **what it means for an agent that hits it** and
 **what is not ruled** — a narrow ruling with no boundary gets stretched to cover things nobody
-decided. Empty until a human rules.
+decided.
+
+### Ruling 1 · Documented-unbound px lengths pass R2 (ruled 2026-10-05 by the designer)
+
+- **Rule.** A raw `px` length in a component's CSS is not an R2 finding when **all three** hold: the
+  design leaves that value unbound (the Figma node has no variable on it), the CSS names it as such
+  (an `--hz-<component>-…-unbound` custom property, with the reason in the file header), and the
+  exported tokens have no token with that value that fits the property.
+- **What it means for the agent.** Do not report those literals. Still report any `px` length that has
+  a token available (at ruling time: 1px `--borderwidth-1`, 16px `--spacing-16`, 40px `--spacing-40`,
+  56px `--spacing-56`) — that is a finding, owner engineer. List the unbound ones once in the report
+  under "Ruled, not findings", so the exception stays visible.
+- **Not ruled.** Raw hex, `rgb()` and `hsl()` colours are never covered. A px length that is not marked
+  `-unbound` is not covered. An unbound value that later gains a Figma token is a finding again.
