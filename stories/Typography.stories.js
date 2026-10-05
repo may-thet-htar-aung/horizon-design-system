@@ -1,4 +1,4 @@
-import { view, page, render, section, specimens, tokenTable, groupBy } from './_gallery.js';
+import { view, page, render, section, specimens, tokenTable, groupBy, renderDom, mount } from './_gallery.js';
 
 export default { title: 'Typography' };
 
@@ -24,14 +24,14 @@ export const Styles = {
 };
 
 const scale = (id, mode) => () => {
-  const el = render(page({
+  const el = renderDom(page({
     title: `Type scale — ${mode}`,
     description:
       'The size, line-height, tracking, weight and family primitives that the composite styles are built from.',
     body: '',
   }));
   el.append(tokenTable(view(id)));
-  return el;
+  return mount(el);
 };
 
 export const ScaleWeb = { name: 'Scale — web', render: scale('type-web', 'web') };
@@ -41,13 +41,13 @@ export const ScaleBackOffice = { name: 'Scale — back office', render: scale('t
 export const Primitives = {
   name: 'Primitives',
   render: () => {
-    const el = render(page({
+    const el = renderDom(page({
       title: 'Typography primitives',
       description:
         'typography.value.tokens.json — the raw M3 ramp, including the brand and plain family split. Not compiled by build-tokens.js.',
       body: '',
     }));
     el.append(tokenTable(view('typography-value')));
-    return el;
+    return mount(el);
   },
 };
