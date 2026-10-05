@@ -244,8 +244,8 @@ decided.
 
 - **Rule.** A component's prop names are the names of its Figma component properties, lower-camel-cased
   (Figma `Type` becomes `type`, `State` becomes `state`, `Show Label` becomes `showLabel`). Two
-  components may therefore name the same idea differently (Button `type`, Input Field `variant`) when
-  Figma does. That is not an R3 finding.
+  components may therefore name similar ideas differently (Button `type` is a Figma property; Input Field
+  `variant` chooses between two Figma components, Primary and Mobile). That is not an R3 finding.
 - **What it means for the agent.** Do not report a prop name that differs between components. Do report
   a prop whose name does not match its Figma property (apart from the DOM-attribute props, such as
   Button's `htmlType`, which have no Figma property).
