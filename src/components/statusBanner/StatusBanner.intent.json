@@ -1,0 +1,76 @@
+{
+  "component": "StatusBanner",
+  "figma": "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=269-18",
+  "use_when": [
+    "Use the status banner",
+    "Use it for one status that sits outside a field, such as a failed sign-in or a booking hold.",
+    "Use Warning when the person can continue and should pay attention.",
+    "Use Error when something failed and they have to act. Use Info for neutral information."
+  ],
+  "dont_use_when": [
+    {
+      "when": "Do not use it as the helper under a field. A field error stays on the input.",
+      "instead": null
+    },
+    {
+      "when": "Do not put two statuses in one banner.",
+      "instead": null
+    },
+    {
+      "when": "Do not detach the instance to recolor the fill, border, or icon.",
+      "instead": null
+    },
+    {
+      "when": "Do not fix the height. A longer message has to grow the banner.",
+      "instead": null
+    },
+    {
+      "when": "Do not swap in a decorative icon. The mark should name the status.",
+      "instead": null
+    }
+  ],
+  "variant_intent": {
+    "State=Warning": "Use Warning when the person can continue and should pay attention.",
+    "State=Error": "Use Error when something failed and they have to act. Use Info for neutral information.",
+    "State=Info": "Use Error when something failed and they have to act. Use Info for neutral information.",
+    "Show icon": "Leave Show icon on unless the message already names the status."
+  },
+  "placement": [
+    "Under the heading and explanation it reports on, above the actions: in the Figma 'Component Appearance' example the Error banner sits above the buttons 'Try Google again', 'Continue with Apple' and 'Use email and password'.",
+    "Width follows its container: let the banner fill the width of its container (Figma Best Practice)."
+  ],
+  "pairs_with": [
+    "Button",
+    "InputField"
+  ],
+  "required_tokens": [
+    "color-bg-info-light",
+    "color-bg-negative-light",
+    "color-bg-warning-light",
+    "color-border-info-light",
+    "color-border-negative-light",
+    "color-border-warning-light",
+    "color-icon-info",
+    "color-icon-negative",
+    "color-icon-warning",
+    "color-text-info",
+    "color-text-negative",
+    "color-text-warning",
+    "gap-component",
+    "spacing-12"
+  ],
+  "a11y": [
+    {
+      "fact": "role=\"alert\" for Error and role=\"status\" for Warning and Info; role can be set to none to opt out.",
+      "source": "src/components/statusBanner/StatusBanner.jsx:216"
+    },
+    {
+      "fact": "The icon area is decorative (aria-hidden); the message carries the meaning.",
+      "source": "src/components/statusBanner/StatusBanner.jsx:221"
+    },
+    {
+      "fact": "Do not rely on color alone. The message has to say what happened.",
+      "source": "Figma 260:6692, Best Practice"
+    }
+  ]
+}

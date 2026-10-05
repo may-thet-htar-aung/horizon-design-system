@@ -42,8 +42,13 @@ exported symbol, the folder, the CSS prefix and the board row exactly — releas
 }
 ```
 
+- `figma` is one URL, or an array of URLs when the one coded component covers several Figma component
+  sets (for example Input Field/Primary and Input Field/Mobile). `use_when` and `dont_use_when` then merge
+  the lines of every page, in page order, with identical lines kept once.
 - `instead` is the component to use in its place. If the usage region gives none, write `null` — do not
-  guess one. (release-review treats a `null` as a warning, never a blocker.)
+  guess one. (release-review treats a `null` as a warning, never a blocker.) If the page names an
+  alternative that **is not in the library yet** (for example "Use a switch"), write the name as the page
+  gives it and list it in the gap report as "alternative not in the library".
 - Every list may be empty. **An empty field is honest; a plausible sentence is not.**
 
 ## Where each field comes from
@@ -69,7 +74,11 @@ breaks lines. Do not paraphrase it into something vaguer, do not merge two lines
 For the two fields the design cannot answer:
 
 - `required_tokens` ← every `var(--…)` the component's CSS references, extracted mechanically (a search,
-  not a read-through), deduplicated and sorted. Each must exist in `build/css/tokens.css`.
+  not a read-through), deduplicated and sorted, **keeping only names that exist in the built tokens**
+  (`build/css/tokens.css` and `tokens-dark.css`). A `var(--…)` that is not a token — a custom property the
+  component's own CSS defines, such as the `--hz-*-unbound` values parked for what the design leaves
+  unbound — is **not** a required token. Leave it out of the list and report each one in the gap report as
+  an "unbound literal"; release-review R2 will find the raw value behind it.
 - `variant_intent` ← one key per variant value the code actually has (each value of every variant prop
   and state), with what it is for **as the Figma page or the story describes it**. A variant with no
   source gets an empty string and goes in the gap report; it is never left out of the object.
@@ -100,7 +109,8 @@ Check each of these, and fix the file rather than the check:
 - [ ] Every `use_when` and `dont_use_when.when` line appears **verbatim** on the Figma page.
 - [ ] Every `required_tokens` entry exists in `build/css/tokens.css`.
 - [ ] Every variant value in the code has a key in `variant_intent`.
-- [ ] Every `pairs_with` and every non-null `instead` names a component that exists in the library.
+- [ ] Every `pairs_with` names a component that exists in the library. Every non-null `instead` does too,
+      or is an alternative the Figma page names that is not built yet, listed as such in the gap report.
 - [ ] Every `a11y` entry names a source you can open.
 
 ## Report

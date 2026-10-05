@@ -1,0 +1,105 @@
+{
+  "component": "Button",
+  "figma": "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=65-22",
+  "use_when": [
+    "Use Primary Button",
+    "Use it for the one main action in a view or dialog. Keep to one Primary per screen.",
+    "Use Outline Button",
+    "Use it beside a Primary for a secondary action, such as Cancel next to a Primary Save.",
+    "Use Ghost Button",
+    "Use it for a low-emphasis action, such as a toolbar command, a dismissal, or an inline action in a card."
+  ],
+  "dont_use_when": [
+    {
+      "when": "Do not place two Primary buttons side by side.",
+      "instead": null
+    },
+    {
+      "when": "Do not detach an instance to recolor it. Fill, border, and label stay bound to Horizon Tokens.",
+      "instead": null
+    },
+    {
+      "when": "Do not change the height of 40. A row stays aligned whether or not the icons are shown.",
+      "instead": null
+    },
+    {
+      "when": "Do not show icons on both sides unless each one carries its own meaning.",
+      "instead": null
+    },
+    {
+      "when": "Do not use Ghost for a destructive or irreversible action.",
+      "instead": null
+    },
+    {
+      "when": "Do not set the label in capitals, and do not end it with punctuation.",
+      "instead": null
+    }
+  ],
+  "variant_intent": {
+    "Type=Primary": "Use it for the one main action in a view or dialog. Keep to one Primary per screen.",
+    "Type=Outline": "Use it beside a Primary for a secondary action, such as Cancel next to a Primary Save.",
+    "Type=Ghost": "Use it for a low-emphasis action, such as a toolbar command, a dismissal, or an inline action in a card.",
+    "State=Default": "",
+    "State=Hover": "",
+    "State=Disabled": "Implement Disabled in code, not just visually — color alone shouldn't signal state.",
+    "Show Icon Left": "Use the leading icon to clarify the action and the trailing icon for forward movement. Both Show Icon toggles start off.",
+    "Show Icon Right": "Use the leading icon to clarify the action and the trailing icon for forward movement. Both Show Icon toggles start off."
+  },
+  "placement": [
+    "At the end of a form, below the last field and the checkbox: the Figma 'Component Appearance' example puts one Primary 'Create Account' there.",
+    "Beside a Primary, for a secondary action: the page's Outline guidance gives Cancel next to a Primary Save.",
+    "Below the status or the explanation it acts on: 'Try Google again' sits under the Status Banner, and 'Verify email' under the Pin Code Cell row."
+  ],
+  "pairs_with": [
+    "CheckBox",
+    "InputField",
+    "InputFieldPassword",
+    "PinCodeCell",
+    "StatusBanner"
+  ],
+  "required_tokens": [
+    "borderradius-small",
+    "borderwidth-1",
+    "borderwidth-3",
+    "color-bg-base",
+    "color-bg-primary-hovered",
+    "color-bg-primary-idle",
+    "color-bg-primary-light",
+    "color-bg-surfaceprimary",
+    "color-border-brand-bold",
+    "color-border-brand-default",
+    "color-border-disabled",
+    "color-text-brand",
+    "color-text-disabled-on-dark",
+    "color-text-inverse",
+    "family-plain",
+    "gap-component",
+    "line-height-label-large",
+    "padding-button-inline",
+    "size-label-large",
+    "spacing-0",
+    "spacing-2",
+    "spacing-20",
+    "spacing-40",
+    "tracking-label-large",
+    "weight-medium"
+  ],
+  "a11y": [
+    {
+      "fact": "Rendered as a native <button>; htmlType sets its type attribute.",
+      "source": "src/components/button/Button.jsx:63"
+    },
+    {
+      "fact": "State=Disabled sets the real DOM disabled attribute, not only a colour.",
+      "source": "src/components/button/Button.jsx:69"
+    },
+    {
+      "fact": "Implement Disabled in code, not just visually — color alone shouldn't signal state.",
+      "source": "Figma 198:528, Best Practice"
+    },
+    {
+      "fact": "Keyboard focus is not in this set yet. Do not treat hover as a substitute.",
+      "source": "Figma 198:528, Best Practice"
+    }
+  ]
+}
