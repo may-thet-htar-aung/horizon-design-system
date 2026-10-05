@@ -56,9 +56,9 @@
 
 .hz-checkbox {
   /* The four unbound values. See the header. Not tokens — placeholders for tokens. */
-  --hz-checkbox-size-unbound: 16px;
+  --hz-checkbox-size: var(--spacing-16);   /* was raw 16px; token exists (release review R2) */
   --hz-checkbox-radius-unbound: 3px;
-  --hz-checkbox-border-width-unbound: 1px;
+  --hz-checkbox-border-width: var(--borderwidth-1);   /* was raw 1px; token exists (release review R2) */
   --hz-checkbox-mark-size-unbound: 10px;
 
   /* Auto-layout: centre/centre, fixed 16x16, stroke aligned inside. */
@@ -66,8 +66,8 @@
   align-items: center;
   justify-content: center;
   flex: none;
-  width: var(--hz-checkbox-size-unbound);
-  height: var(--hz-checkbox-size-unbound);
+  width: var(--hz-checkbox-size);
+  height: var(--hz-checkbox-size);
   box-sizing: border-box;
   overflow: clip;
 
@@ -76,7 +76,7 @@
   /* State=Default / State=Unchecked stroke — color/border/brand/Light.
      Nodes 251:4 and 251:13 both bind it; the SPEC prose that called it an
      untokenised grey is wrong, and the binding is what the design does. */
-  border: var(--hz-checkbox-border-width-unbound) solid var(--color-border-brand-light);
+  border: var(--hz-checkbox-border-width) solid var(--color-border-brand-light);
 
   /* State=Default / State=Unchecked fill — color/bg/base. */
   background: var(--color-bg-base);

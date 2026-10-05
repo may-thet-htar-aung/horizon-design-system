@@ -212,9 +212,9 @@
 .hz-input-field[data-variant='Primary'] {
   /* Unbound in Figma — the node's literal values, parked, not tokenised. */
   --hz-input-field-primary-width-unbound: 360px;   /* SPEC "width 360"; no 360px token exists */
-  --hz-input-field-primary-height-unbound: 40px;   /* SPEC "Field height 40"; no 40px size token */
+  --hz-input-field-primary-height: var(--spacing-40);   /* was raw 40px; token exists (release review R2) */
   --hz-input-field-primary-gap-unbound: 5px;       /* SPEC "Label-to-field gap stays 5 ... has no token" */
-  --hz-input-field-primary-stroke-unbound: 1px;    /* 1px border; --borderwidth-1 not bound */
+  --hz-input-field-primary-stroke: var(--borderwidth-1);   /* was raw 1px; token exists (release review R2) */
   /* The four --*-error-value-*-unbound properties that used to sit here are gone: 220:36
      now binds Body/Medium, so there is no unbound Error typography left to park. */
 
@@ -280,7 +280,7 @@
   width: 100%;
 
   /* "Don't override the field height. It is fixed at 40 so inputs align in a row." */
-  height: var(--hz-input-field-primary-height-unbound);
+  height: var(--hz-input-field-primary-height);
   padding-inline: var(--spacing-12);                    /* spacing/12 */
   box-sizing: border-box;
 
@@ -289,7 +289,7 @@
 
   /* 220:17 binds a REAL resting border, unlike Mobile's Default which binds none.
      The stroke is "aligned inside" in Figma, which border-box above is what makes true. */
-  border: var(--hz-input-field-primary-stroke-unbound) solid
+  border: var(--hz-input-field-primary-stroke) solid
     var(--color-border-surfaceprimary);                 /* color/border/surfacePrimary */
 }
 
