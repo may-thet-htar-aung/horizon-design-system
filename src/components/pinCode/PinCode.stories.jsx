@@ -26,7 +26,7 @@ export default {
   },
   args: {
     state: 'Default',
-    value: '4',
+    value: '1',
     label: 'Digit of verification code',
   },
   parameters: {
@@ -47,10 +47,10 @@ export const Default = { args: { state: 'Default' } };
 export const Hovered = { args: { state: 'Hovered' } };
 
 /** 260:6563 — the cell holds a digit. Value is shown, stroke brand/bold. */
-export const Typed = { args: { state: 'Typed', value: '4' } };
+export const Typed = { args: { state: 'Typed', value: '1' } };
 
 /** 260:6565 — the code is wrong. Stroke color/border/negative/bold, digit stays visible. */
-export const ErrorState = { name: 'Error', args: { state: 'Error', value: '4' } };
+export const ErrorState = { name: 'Error', args: { state: 'Error', value: '1' } };
 
 /** 260:6567 — the cell cannot be edited. Fill bg/surfacePrimary, stroke border/disabled. */
 export const Disabled = { args: { state: 'Disabled' } };
@@ -69,7 +69,7 @@ function Column() {
       }}
     >
       {PIN_CODE_CELL_STATES.flatMap((state) => [
-        <PinCodeCell key={state} state={state} value="4" label={state} />,
+        <PinCodeCell key={state} state={state} value="1" label={state} />,
         <span
           key={state + '-name'}
           style={{

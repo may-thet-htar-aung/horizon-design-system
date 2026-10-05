@@ -46,7 +46,7 @@ const STATES_SHOWING_VALUE = ['Typed', 'Error'];
  */
 export function PinCodeCell({
   state = 'Default',
-  value = '4',
+  value = '1',
   label = 'Digit of verification code',
   onChange,
   ...rest
