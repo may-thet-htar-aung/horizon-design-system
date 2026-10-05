@@ -97,8 +97,7 @@
  * row." Enforced in CSS.
  */
 
-import './inputField.css';
-import './inputFieldPrimary.css';
+import { useEffect, useId, useState } from 'react';
 
 export const INPUT_FIELD_STATES = [
   'Default',
@@ -130,15 +129,12 @@ const SAMPLE = {
   Primary: { label: 'Label', placeholder: 'Type here', value: 'Horizon Stays' },
 };
 
-let uid = 0;
-
 /**
  * @param {object} props
  * @param {'Mobile'|'Primary'} [props.variant]
  *   Which Figma component set this instance is. 'Mobile' = 227:44, 'Primary' = 220:50.
  *   NOT a Figma property — Figma models the two as separate sets; see the header for
- *   why they are one component here. Defaults to 'Mobile' so every existing call site
- *   renders exactly what it rendered before.
+ *   why they are one component here. Defaults to 'Mobile'.
  * @param {'Default'|'Hovered'|'Typed'|'Error'|'Warning'|'Disabled'} [props.state]
  *   Figma: State
  * @param {string} [props.label]            Figma: Label — text property
@@ -146,16 +142,14 @@ let uid = 0;
  * @param {string} [props.helperText]       Figma: Helper text — text property
  * @param {boolean} [props.showHelperText]  Figma: Show Helper text — boolean property
  * @param {string} [props.value]
- *   NOT a Figma property. The node's documentation is explicit: "The value inside the
- *   field is sample copy on the variant, not a property." It is a real prop here
- *   because a real input needs a real value; it defaults to the sample copy the
- *   matching variant renders.
+ *   NOT a Figma property. The field starts from this value (or the sample copy the
+ *   matching state renders) and follows it when it changes; typing updates it live.
  * @param {string} [props.placeholder]
  *   NOT a Figma property, for the same reason — the node renders it as sample copy.
- * @param {(value: string, event: Event) => void} [props.onChange]
- * @returns {HTMLDivElement}
+ * @param {(value: string, event: import('react').ChangeEvent<HTMLInputElement>) => void} [props.onChange]
+ *   Any other prop (name, autoComplete, required, …) goes to the <input>.
  */
-export function createInputField({
+export function InputField({
   variant = 'Mobile',
   state = 'Default',
   label,
@@ -165,111 +159,87 @@ export function createInputField({
   value,
   placeholder,
   onChange,
-} = {}) {
-  const id = `hz-input-field-${++uid}`;
+  ...inputProps
+}) {
+  const id = useId();
   const helperId = `${id}-helper`;
   const sample = SAMPLE[variant] ?? SAMPLE.Mobile;
-
-  const root = document.createElement('div');
-  root.className = 'hz-input-field';
-  root.dataset.variant = variant;
-  root.dataset.state = state;
-
-  /* -------------------------------------------------- Label row (227:3 … 227:38) */
-  let labelEl;
-  if (showLabel) {
-    const labelRow = document.createElement('div');
-    labelRow.className = 'hz-input-field__label-row';
-
-    labelEl = document.createElement('label');
-    labelEl.className = 'hz-input-field__label';
-    labelEl.htmlFor = id;
-    labelEl.textContent = label ?? sample.label;
-
-    labelRow.append(labelEl);
-    root.append(labelRow);
-  }
-
-  /* -------------------------- Field group — Primary only (220:16 … 220:46)
-     Mobile stacks label / field / helper flat; Primary nests the field and the helper
-     inside a `Field group` frame whose gap is bound to gap/element. Rendered for
-     Primary only, so the Mobile DOM is exactly what it was. */
-  let fieldParent = root;
-  if (variant === 'Primary') {
-    const fieldGroup = document.createElement('div');
-    fieldGroup.className = 'hz-input-field__field-group';
-    root.append(fieldGroup);
-    fieldParent = fieldGroup;
-  }
-
-  /* ------------------------------------------------- Field (227:5 … 227:40 · 220:17 … 220:47) */
-  const field = document.createElement('div');
-  field.className = 'hz-input-field__field';
-
-  const input = document.createElement('input');
-  input.className = 'hz-input-field__input';
-  input.type = 'text';
-  input.id = id;
-  input.placeholder = placeholder ?? sample.placeholder;
 
   // "Don't put Error or Warning on an empty field — both states show a value."
   // Typed, Error and Warning default to the sample copy their variant renders;
   // Default, Hovered and Disabled render empty and show the placeholder.
-  const defaultValue = STATES_SHOWING_VALUE.includes(state) ? sample.value : '';
-  input.value = value ?? defaultValue;
+  const initial = value ?? (STATES_SHOWING_VALUE.includes(state) ? sample.value : '');
+  const [text, setText] = useState(initial);
+  useEffect(() => setText(initial), [initial]);
 
-  // Disabled is a real DOM state, per the node's accessibility note.
-  input.disabled = state === 'Disabled';
+  const labelText = label ?? sample.label;
 
-  // Error is announced, not just coloured — "never rely on colour alone". Warning is
-  // not aria-invalid: the node's docs say the value "can be submitted", so it is a
-  // live-region-free advisory carried by the helper's wording, not a validity failure.
-  if (state === 'Error') {
-    input.setAttribute('aria-invalid', 'true');
-  }
+  const field = (
+    <div className="hz-input-field__field">
+      <input
+        {...inputProps}
+        className="hz-input-field__input"
+        type="text"
+        id={id}
+        placeholder={placeholder ?? sample.placeholder}
+        value={text}
+        // Disabled is a real DOM state, per the node's accessibility note.
+        disabled={state === 'Disabled'}
+        // Error is announced, not just coloured — "never rely on colour alone". Warning
+        // is not aria-invalid: the node's docs say the value "can be submitted".
+        aria-invalid={state === 'Error' ? 'true' : undefined}
+        // When there is no label row there is still a control that needs a name.
+        aria-label={showLabel ? undefined : labelText}
+        // The helper carries the reason, so it must be announced with the control.
+        aria-describedby={showHelperText ? helperId : undefined}
+        onChange={(event) => {
+          setText(event.target.value);
+          if (onChange) onChange(event.target.value, event);
+        }}
+      />
+    </div>
+  );
 
-  // When there is no label row there is still a control that needs a name.
-  if (!showLabel) {
-    input.setAttribute('aria-label', label ?? sample.label);
-  }
+  const helper = showHelperText && (
+    <div className="hz-input-field__helper-row">
+      <p className="hz-input-field__helper" id={helperId}>
+        {helperText}
+      </p>
+    </div>
+  );
 
-  field.append(input);
-  fieldParent.append(field);
-
-  /* --------------------------- Helper row (227:7 … 227:42 · 221:194 … 221:192) */
-  if (showHelperText) {
-    const helperRow = document.createElement('div');
-    helperRow.className = 'hz-input-field__helper-row';
-
-    const helperEl = document.createElement('p');
-    helperEl.className = 'hz-input-field__helper';
-    helperEl.id = helperId;
-    helperEl.textContent = helperText;
-
-    helperRow.append(helperEl);
-    fieldParent.append(helperRow);
-
-    // The helper carries the reason, so it must be announced with the control.
-    input.setAttribute('aria-describedby', helperId);
-  }
-
-  /* ------------------------------------------------------------ behaviour */
-  // Typed is live: entering a value paints the Typed border and swaps the value text
-  // from placeholder grey to full strength; clearing it returns the field to rest.
-  // Error and Warning keep their status border while the value is edited, because the
-  // node's docs tie those states to validation of the value, not to the act of typing.
-  const paintFilled = () => {
-    root.dataset.filled = input.value.length > 0 ? 'true' : 'false';
-  };
-
-  input.addEventListener('input', (event) => {
-    paintFilled();
-    if (onChange) onChange(input.value, event);
-  });
-
-  paintFilled();
-
-  return root;
+  return (
+    <div
+      className="hz-input-field"
+      data-variant={variant}
+      data-state={state}
+      // Typed is live: entering a value paints the Typed border and swaps the value text
+      // from placeholder grey to full strength; clearing it returns the field to rest.
+      // Error and Warning keep their status border while the value is edited.
+      data-filled={text.length > 0 ? 'true' : 'false'}
+    >
+      {showLabel && (
+        <div className="hz-input-field__label-row">
+          <label className="hz-input-field__label" htmlFor={id}>
+            {labelText}
+          </label>
+        </div>
+      )}
+      {variant === 'Primary' ? (
+        // Field group — Primary only (220:16 … 220:46). Mobile stacks label / field /
+        // helper flat; Primary nests the field and the helper inside it.
+        <div className="hz-input-field__field-group">
+          {field}
+          {helper}
+        </div>
+      ) : (
+        <>
+          {field}
+          {helper}
+        </>
+      )}
+    </div>
+  );
 }
 
-export default createInputField;
+export default InputField;

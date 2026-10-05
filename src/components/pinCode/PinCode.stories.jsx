@@ -12,12 +12,13 @@
  * There is no size axis and no focus variant in this component set.
  */
 
-import { createPinCodeCell, PIN_CODE_CELL_STATES } from './pinCode.js';
+import { PinCodeCell, PIN_CODE_CELL_STATES } from './PinCode.jsx';
 
 export default {
   title: 'Components/Pin Code',
   tags: ['autodocs'],
-  render: (args) => createPinCodeCell(args),
+  component: PinCodeCell,
+  render: (args) => <PinCodeCell {...args} />,
   argTypes: {
     state: { control: { type: 'inline-radio' }, options: PIN_CODE_CELL_STATES },
     value: { control: 'text' },
@@ -25,7 +26,7 @@ export default {
   },
   args: {
     state: 'Default',
-    value: '4',
+    value: '1',
     label: 'Digit of verification code',
   },
   parameters: {
@@ -46,38 +47,46 @@ export const Default = { args: { state: 'Default' } };
 export const Hovered = { args: { state: 'Hovered' } };
 
 /** 260:6563 — the cell holds a digit. Value is shown, stroke brand/bold. */
-export const Typed = { args: { state: 'Typed', value: '4' } };
+export const Typed = { args: { state: 'Typed', value: '1' } };
 
 /** 260:6565 — the code is wrong. Stroke color/border/negative/bold, digit stays visible. */
-export const ErrorState = { name: 'Error', args: { state: 'Error', value: '4' } };
+export const ErrorState = { name: 'Error', args: { state: 'Error', value: '1' } };
 
 /** 260:6567 — the cell cannot be edited. Fill bg/surfacePrimary, stroke border/disabled. */
 export const Disabled = { args: { state: 'Disabled' } };
 
 /* ------------------------------------------------------- the matrix, in one */
 
-function column() {
-  const wrap = document.createElement('div');
-  wrap.style.display = 'grid';
-  wrap.style.gridTemplateColumns = 'auto auto';
-  wrap.style.gap = 'var(--gap-component) var(--gap-gutter)';
-  wrap.style.alignItems = 'center';
-  wrap.style.justifyItems = 'start';
-
-  for (const state of PIN_CODE_CELL_STATES) {
-    const name = document.createElement('span');
-    name.textContent = state;
-    name.style.fontFamily = 'var(--family-plain)';
-    name.style.fontSize = 'var(--size-label-large)';
-    name.style.color = 'var(--color-text-primary)';
-    wrap.append(createPinCodeCell({ state, value: '4', label: state }), name);
-  }
-
-  return wrap;
+function Column() {
+  return (
+    <div
+      style={{
+        display: 'grid',
+        gridTemplateColumns: 'auto auto',
+        gap: 'var(--gap-component) var(--gap-gutter)',
+        alignItems: 'center',
+        justifyItems: 'start',
+      }}
+    >
+      {PIN_CODE_CELL_STATES.flatMap((state) => [
+        <PinCodeCell key={state} state={state} value="1" label={state} />,
+        <span
+          key={state + '-name'}
+          style={{
+            fontFamily: 'var(--family-plain)',
+            fontSize: 'var(--size-label-large)',
+            color: 'var(--color-text-primary)',
+          }}
+        >
+          {state}
+        </span>,
+      ])}
+    </div>
+  );
 }
 
 export const AllVariants = {
-  render: () => column(),
+  render: () => <Column />,
   parameters: { controls: { disable: true } },
 };
 
@@ -88,18 +97,13 @@ export const AllVariants = {
    cell; the Disabled cell refuses focus and typing outright. */
 
 export const Interactive = {
-  render: () => {
-    const wrap = document.createElement('div');
-    wrap.style.display = 'flex';
-    wrap.style.gap = 'var(--gap-component)';
-    wrap.style.alignItems = 'center';
-    wrap.append(
-      createPinCodeCell({ state: 'Default', label: 'Digit 1 of 4' }),
-      createPinCodeCell({ state: 'Typed', value: '4', label: 'Digit 2 of 4' }),
-      createPinCodeCell({ state: 'Error', value: '7', label: 'Digit 3 of 4' }),
-      createPinCodeCell({ state: 'Disabled', label: 'Digit 4 of 4' }),
-    );
-    return wrap;
-  },
+  render: () => (
+    <div style={{ display: 'flex', gap: 'var(--gap-component)', alignItems: 'center' }}>
+      <PinCodeCell state="Default" label="Digit 1 of 4" />
+      <PinCodeCell state="Typed" value="4" label="Digit 2 of 4" />
+      <PinCodeCell state="Error" value="7" label="Digit 3 of 4" />
+      <PinCodeCell state="Disabled" label="Digit 4 of 4" />
+    </div>
+  ),
   parameters: { controls: { disable: true } },
 };

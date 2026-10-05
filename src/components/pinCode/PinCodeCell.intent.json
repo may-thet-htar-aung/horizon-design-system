@@ -1,0 +1,86 @@
+{
+  "component": "PinCodeCell",
+  "figma": "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=260-6558",
+  "use_when": [
+    "Use the pin code cell",
+    "Use it for one digit of a code, such as a sign-in or verification code.",
+    "Use Typed once that cell holds a digit. Use Default while it is empty.",
+    "Use Hovered as pointer feedback only. It does not mean the cell holds a digit.",
+    "Use Error when the code is wrong. The border carries the status."
+  ],
+  "dont_use_when": [
+    {
+      "when": "Do not use one cell for a whole code. A code is a row of cells.",
+      "instead": null
+    },
+    {
+      "when": "Do not use it for a name, email, or password.",
+      "instead": null
+    },
+    {
+      "when": "Do not detach the instance to recolor a status border.",
+      "instead": null
+    },
+    {
+      "when": "Do not override the cell size. It is fixed at 52 by 56 so a row of cells aligns.",
+      "instead": null
+    },
+    {
+      "when": "Do not put more than one digit in Value.",
+      "instead": null
+    }
+  ],
+  "variant_intent": {
+    "State=Default": "Use Typed once that cell holds a digit. Use Default while it is empty.",
+    "State=Typed": "Use Typed once that cell holds a digit. Use Default while it is empty.",
+    "State=Hovered": "Use Hovered as pointer feedback only. It does not mean the cell holds a digit.",
+    "State=Error": "Use Error when the code is wrong. The border carries the status.",
+    "State=Disabled": "Implement Disabled in code, not just visually. Color alone is not enough."
+  },
+  "placement": [
+    "In a row, one cell per digit, between the explanation ('Check your inbox') and the Primary 'Verify email' button, in the Figma 'Component Appearance' example."
+  ],
+  "pairs_with": [
+    "Button"
+  ],
+  "required_tokens": [
+    "color-bg-base",
+    "color-bg-surfaceprimary",
+    "color-border-brand-bold",
+    "color-border-disabled",
+    "color-border-negative-bold",
+    "color-border-surfaceprimary",
+    "color-text-primary",
+    "family-brand",
+    "line-height-title-large",
+    "size-title-large",
+    "tracking-title-large",
+    "weight-regular"
+  ],
+  "a11y": [
+    {
+      "fact": "A real text input: the digit is its value, with inputMode numeric, autoComplete one-time-code and maxLength 1.",
+      "source": "src/components/pinCode/PinCode.jsx:65"
+    },
+    {
+      "fact": "The cell has an accessible name from the label prop (aria-label); each cell needs its own, for example \"Digit 1 of 6\".",
+      "source": "src/components/pinCode/PinCode.jsx:69"
+    },
+    {
+      "fact": "State=Error sets aria-invalid.",
+      "source": "src/components/pinCode/PinCode.jsx:74"
+    },
+    {
+      "fact": "State=Disabled sets the real DOM disabled attribute.",
+      "source": "src/components/pinCode/PinCode.jsx:72"
+    },
+    {
+      "fact": "Implement Disabled in code, not just visually. Color alone is not enough.",
+      "source": "Figma 260:6134, Best Practice"
+    },
+    {
+      "fact": "Keyboard focus is not in this set yet. Do not treat hover as a substitute.",
+      "source": "Figma 260:6134, Best Practice"
+    }
+  ]
+}

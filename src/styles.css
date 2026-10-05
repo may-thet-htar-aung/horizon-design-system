@@ -1,0 +1,11 @@
+/* The one stylesheet for the package. Component files import no CSS themselves; every
+   component's stylesheet is listed here instead, so a consumer imports
+   `@scope/horizon-design-system/styles.css` once and gets all of them. */
+
+@import './components/button/Button.css';
+@import './components/checkBox/CheckBox.css';
+@import './components/inputField/InputField.css';
+@import './components/inputField/InputFieldPrimary.css';
+@import './components/inputFieldPassword/InputFieldPassword.css';
+@import './components/pinCode/PinCode.css';
+@import './components/statusBanner/StatusBanner.css';

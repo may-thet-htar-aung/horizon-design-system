@@ -5,3 +5,5 @@ storybook-static/
 
 # Local registry IDs (see .claude/registry.local.json.example)
 .claude/registry.local.json
+
+dist/

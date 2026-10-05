@@ -1,0 +1,85 @@
+{
+  "component": "CheckBox",
+  "figma": "https://www.figma.com/design/EupMGlgXy06FSwOr2WLZWF/Horizon-Component-Library---Htar?node-id=251-19",
+  "use_when": [
+    "Use the check box",
+    "Use it for one independent choice, such as keeping someone signed in.",
+    "Use Checked when the choice is on, and Unchecked when it is off.",
+    "Use Default for the resting empty box, and Hovered only while the pointer is over it."
+  ],
+  "dont_use_when": [
+    {
+      "when": "Do not use it when the choice takes effect immediately. Use a switch.",
+      "instead": "switch"
+    },
+    {
+      "when": "Do not use it for mutually exclusive options. Use a radio.",
+      "instead": "radio"
+    },
+    {
+      "when": "Do not detach the instance to recolor the border or the check.",
+      "instead": null
+    },
+    {
+      "when": "Do not override the box size. It is fixed at 16 so rows of choices align.",
+      "instead": null
+    },
+    {
+      "when": "Do not leave the label off. The box alone does not name the choice.",
+      "instead": null
+    }
+  ],
+  "variant_intent": {
+    "State=Default": "Use Default for the resting empty box, and Hovered only while the pointer is over it.",
+    "State=Hovered": "Use Default for the resting empty box, and Hovered only while the pointer is over it.",
+    "State=Checked": "Use Checked when the choice is on, and Unchecked when it is off.",
+    "State=Unchecked": "Use Checked when the choice is on, and Unchecked when it is off.",
+    "State=Disabled": "Implement Disabled in code, not just visually. Color alone is not enough."
+  },
+  "placement": [
+    "Beside its label, between the last field and the form's Primary action: 'Email me deals and travel tips' sits between the Password field and 'Create Account' in the Figma 'Component Appearance' example.",
+    "The label sits beside the box, in sentence case (Figma Best Practice)."
+  ],
+  "pairs_with": [
+    "Button",
+    "InputField"
+  ],
+  "required_tokens": [
+    "color-bg-base",
+    "color-bg-surfaceprimary",
+    "color-border-brand-bold",
+    "color-border-brand-light",
+    "color-border-disabled",
+    "color-icon-brand"
+  ],
+  "a11y": [
+    {
+      "fact": "Rendered as a native <button> with role=\"checkbox\".",
+      "source": "src/components/checkBox/CheckBox.jsx:75"
+    },
+    {
+      "fact": "aria-checked reflects the current choice.",
+      "source": "src/components/checkBox/CheckBox.jsx:77"
+    },
+    {
+      "fact": "The accessible name comes from the label prop (aria-label); the box alone does not name the choice.",
+      "source": "src/components/checkBox/CheckBox.jsx:76"
+    },
+    {
+      "fact": "State=Disabled sets the real DOM disabled attribute.",
+      "source": "src/components/checkBox/CheckBox.jsx:79"
+    },
+    {
+      "fact": "The check mark is decorative (aria-hidden).",
+      "source": "src/components/checkBox/CheckBox.jsx:34"
+    },
+    {
+      "fact": "Implement Disabled in code, not just visually. Color alone is not enough.",
+      "source": "Figma 260:5512, Best Practice"
+    },
+    {
+      "fact": "Keyboard focus is not in this set yet. Do not treat hover as a substitute.",
+      "source": "Figma 260:5512, Best Practice"
+    }
+  ]
+}
